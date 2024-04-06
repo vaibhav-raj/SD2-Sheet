@@ -153,7 +153,7 @@ Overall, npm simplifies the process of managing dependencies in Node.js projects
 </div>
 
 
-## Q. ***What is the event loop in Node.js and how does it work?**
+## Q. ***What is the event loop in Node.js and how does it work?***
 
 The event loop is a fundamental concept in Node.js that enables it to handle asynchronous operations efficiently. It's the core mechanism that allows Node.js to perform non-blocking I/O operations, making it suitable for building highly scalable and performant applications.
 
@@ -177,7 +177,7 @@ Here's how the event loop works in Node.js:
 
 Overall, the event loop in Node.js is a crucial mechanism that enables it to handle asynchronous operations in a non-blocking manner, allowing for high concurrency and efficient resource utilization.
 
-## Q. ***How do you handle asynchronous operations in Node.js?**
+## Q. ***How do you handle asynchronous operations in Node.js?***
 
 In Node.js, asynchronous operations are handled using callbacks, Promises, or async/await syntax. Here's how each approach works:
 
@@ -236,7 +236,7 @@ All three methods—callbacks, Promises, and async/await—serve the purpose of 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. *** What is Express.js and how does it relate to Node.js?
+## Q. *** What is Express.js and how does it relate to Node.js?***
 
 Express.js is a minimal and flexible web application framework for Node.js. It provides a robust set of features for building web and mobile applications, APIs, and web services. Express.js simplifies the process of creating server-side applications in Node.js by providing a lightweight, unopinionated framework with various middleware that can be easily integrated into applications.
 
@@ -258,7 +258,7 @@ Overall, Express.js complements Node.js by providing a higher-level framework fo
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What is a callback function in Node.js? Can you provide an example of its usage?
+## Q. ***What is a callback function in Node.js? Can you provide an example of its usage?***
 
 In Node.js, a callback function is a function passed as an argument to another function, which will be executed at some point during the execution of the outer function or upon completion of a particular task, typically an asynchronous one. Callbacks are commonly used in Node.js to handle asynchronous operations such as file I/O, network requests, or database queries.
 
@@ -304,7 +304,7 @@ This demonstrates that the callback function passed to `doAsyncTask` is executed
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***Explain the difference between setTimeout() and setInterval() functions in Node.js.
+## Q. ***Explain the difference between setTimeout() and setInterval() functions in Node.js.***
 
 In Node.js, both `setTimeout()` and `setInterval()` are functions used to execute code asynchronously, but they have different purposes and behaviors:
 
@@ -338,7 +338,7 @@ The main difference between `setTimeout()` and `setInterval()` is that `setTimeo
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What is middleware in the context of Express.js?
+## Q. ***What is middleware in the context of Express.js?***
 
 In the context of Express.js, middleware refers to functions that have access to the request object (`req`), the response object (`res`), and the next middleware function in the application's request-response cycle. Middleware functions can perform tasks such as modifying request and response objects, executing additional code, and terminating the request-response cycle.
 
@@ -391,7 +391,7 @@ Middleware functions provide a powerful mechanism for adding modular and reusabl
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***How do you handle errors in a Node.js application?
+## Q. ***How do you handle errors in a Node.js application?***
 
 Handling errors effectively is crucial for building robust Node.js applications. There are several approaches to handle errors in a Node.js application:
 
@@ -457,7 +457,7 @@ Regardless of the approach you choose, it's essential to handle errors gracefull
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***How do you handle errors in a Node.js application?
+## Q. ***How do you handle errors in a Node.js application?***
 
 Handling errors effectively is crucial for building robust Node.js applications. There are several approaches to handle errors in a Node.js application:
 
@@ -523,7 +523,8 @@ Regardless of the approach you choose, it's essential to handle errors gracefull
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***Explain the purpose of package.json in a Node.js project.
+## Q. ***Explain the purpose of package.json in a Node.js project.***
+
 In a Node.js project, the `package.json` file serves as a manifest for the project. It contains metadata about the project, including its name, version, description, entry point, dependencies, and various other configuration options. The `package.json` file plays several important roles in a Node.js project:
 
 1. **Dependency Management**: One of the primary purposes of the `package.json` file is to manage project dependencies. It lists all the dependencies (both runtime and development dependencies) required for the project to run successfully. These dependencies can be packages from the npm registry or local packages. Having dependencies listed in `package.json` makes it easy for developers to install and manage project dependencies using npm or yarn.
@@ -542,7 +543,7 @@ Overall, the `package.json` file is a central and essential component of a Node.
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What are modules in Node.js? How do you create and use them?
+## Q. ***What are modules in Node.js? How do you create and use them?***
 
 In Node.js, modules are reusable blocks of code that encapsulate functionality and can be easily imported and used in other parts of a Node.js application. Modules help organize code, promote code reusability, and improve maintainability. There are two types of modules in Node.js: core modules (built-in modules provided by Node.js) and user-created modules (custom modules created by developers).
 
@@ -633,7 +634,7 @@ Node.js modules play a crucial role in structuring and organizing code in Node.j
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***How do you read and write files asynchronously in Node.js?
+## Q. ***How do you read and write files asynchronously in Node.js?***
 
 In Node.js, you can read and write files asynchronously using the `fs` (File System) module. The `fs` module provides methods for interacting with the file system, including reading and writing files. Here's how you can read and write files asynchronously in Node.js:
 
@@ -685,7 +686,7 @@ Both `readFile()` and `writeFile()` methods perform file operations asynchronous
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What are the differences between let, const, and var in JavaScript?
+## Q. ***What are the differences between let, const, and var in JavaScript?***
 
 `let`, `const`, and `var` are all used for variable declaration in JavaScript, but they have some differences in terms of scope, hoisting, and reassignment.
 
@@ -734,7 +735,7 @@ In general, it's recommended to use `const` by default for variable declarations
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***How do you debug a Node.js application?
+## Q. ***How do you debug a Node.js application?***
 
 Debugging a Node.js application can be done using various tools and techniques. Here are some common methods for debugging Node.js applications:
 
@@ -785,7 +786,8 @@ By using these debugging techniques and tools, you can effectively diagnose and 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***Explain the concept of streams in Node.js.
+## Q. ***Explain the concept of streams in Node.js.***
+
 In Node.js, streams are objects that allow you to read or write data continuously, piece by piece, instead of loading the entire data into memory at once. Streams are a fundamental concept in Node.js for handling large amounts of data efficiently, such as reading from or writing to files, processing HTTP requests or responses, and transferring data over networks.
 
 Streams in Node.js are implemented using EventEmitter, and they are instances of EventEmitter classes. There are four types of streams in Node.js:
@@ -812,7 +814,7 @@ Overall, streams are a powerful and versatile feature in Node.js that enable eff
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What is RESTful API and how would you implement it in Node.js using Express?
+## Q. ***What is RESTful API and how would you implement it in Node.js using Express?***
 
 A RESTful API (Representational State Transfer) is an architectural style for designing networked applications. It is based on a set of principles and constraints that define how resources are identified and addressed, and how they can be manipulated using a uniform and stateless interface. RESTful APIs typically use HTTP methods (such as GET, POST, PUT, DELETE) to perform CRUD (Create, Read, Update, Delete) operations on resources, and they use standard HTTP status codes to indicate the outcome of the operation.
 
@@ -891,7 +893,8 @@ By following these steps, you can implement a basic RESTful API in Node.js using
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***How do you handle form data submission in Node.js?
+## Q. ***How do you handle form data submission in Node.js?***
+
 To handle form data submission in Node.js, especially with Express, you can use middleware such as `body-parser` or `multer` to parse the form data from incoming HTTP requests. Here's a basic example of how to handle form data submission with Express and `body-parser`:
 
 1. Install `body-parser` module:
@@ -965,7 +968,7 @@ This is a basic example of handling form data submission in Node.js with Express
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What is CORS and how do you handle it in a Node.js application?
+## Q. ***What is CORS and how do you handle it in a Node.js application?***
 
 CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to restrict cross-origin HTTP requests initiated from scripts running in the browser. It's a mechanism that allows servers to specify which origins are permitted to access the resources on the server.
 
@@ -1025,7 +1028,7 @@ Handling CORS is crucial when building web applications that interact with APIs 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***Explain the difference between require() and import in Node.js.
+## Q. ***Explain the difference between require() and import in Node.js.***
 
 In Node.js, `require()` and `import` are both used to include external modules or files in a JavaScript file, but they have some differences in terms of syntax, behavior, and compatibility.
 
