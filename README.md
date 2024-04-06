@@ -1,20 +1,25 @@
 | Sl.No|  Questions       |
 |------|------------------|
-| 01. |[What does the runtime environment mean in Node.js?](#q-what-does-the-runtime-environment-mean-in-nodejs)|
-| 02. |[What is Node.js and why is it used?](#q-what-is-nodejs-and-why-is-it-used)|
-| 03. |[What is Node.js Process Model?](#q-what-is-nodejs-process-model)|
-| 04. |[What is Event loop in Node.js? How does it work?](#q-what-is-event-loop-in-nodejs-how-does-it-work)|
-| 05. |[How to create a simple server in Node.js that returns Hello World?](#q-how-to-create-a-simple-server-in-nodejs-that-returns-hello-world)|
-| 06. |[How do Node.js works?](#q-how-do-nodejs-works)|
-| 07. |[What is an error-first callback?](#q-what-is-an-error-first-callback)|
-| 08. |[What is callback hell in Node.js?](#q-what-is-callback-hell-in-nodejs)|
-| 09. |[What are Promises in Node.js?](#q-what-are-promises-in-nodejs)|
-| 10. |[Difference between package.json and package-lock.json](#q-difference-between-packagejson-and-package-lockjson)|
-| 11. |[When should you npm and when yarn?](#q-when-should-you-npm-and-when-yarn)|
-| 12. |[What is a stub?](#q-what-is-a-stub)|
-| 13. |[What is a test pyramid? How can you implement it when talking about HTTP APIs?](#q-what-is-a-test-pyramid-how-can-you-implement-it-when-talking-about-http-apis)|
-| 14. |[How can you secure your HTTP cookies against XSS attacks?](#q-how-can-you-secure-your-http-cookies-against-xss-attacks)|
-| 15. |[How can you make sure your dependencies are safe?](#q-how-can-you-make-sure-your-dependencies-are-safe)|
+| 01. | [What is Node.js and why is it used in web development?](#q-what-is-nodejs-and-why-is-it-used-in-web-development)  
+| 02. | [Explain the concept of non-blocking I/O in Node.js.](#q-explain-the-concept-of-non-blocking-io-in-nodejs)  
+| 03. | [What is npm and how do you use it to manage dependencies in a Node.js project?](#q-what-is-npm-and-how-do-you-use-it-to-manage-dependencies-in-a-nodejs-project)  
+| 04. | [What is the event loop in Node.js and how does it work?](#q-what-is-the-event-loop-in-nodejs-and-how-does-it-work)  
+| 05. | [How do you handle asynchronous operations in Node.js?](#q-how-do-you-handle-asynchronous-operations-in-nodejs)  
+| 06. | [What is Express.js and how does it relate to Node.js?](#q-what-is-expressjs-and-how-does-it-relate-to-nodejs)  
+| 07. | [What is a callback function in Node.js? Can you provide an example of its usage?](#q-what-is-a-callback-function-in-nodejs-can-you-provide-an-example-of-its-usage)  
+| 08. | [Explain the difference between setTimeout() and setInterval() functions in Node.js.](#q-explain-the-difference-between-settimeout-and-setinterval-functions-in-nodejs)  
+| 09. | [What is middleware in the context of Express.js?](#q-what-is-middleware-in-the-context-of-expressjs)  
+| 10. | [How do you handle errors in a Node.js application?](#q-how-do-you-handle-errors-in-a-nodejs-application)  
+| 11. | [Explain the purpose of package.json in a Node.js project.](#q-explain-the-purpose-of-packagejson-in-a-nodejs-project)  
+| 12. | [What are modules in Node.js? How do you create and use them?](#q-what-are-modules-in-nodejs-how-do-you-create-and-use-them)  
+| 13. | [How do you read and write files asynchronously in Node.js?](#q-how-do-you-read-and-write-files-asynchronously-in-nodejs)  
+| 14. | [What are the differences between let, const, and var in JavaScript?](#q-what-are-the-differences-between-let-const-and-var-in-javascript)  
+| 15. | [How do you debug a Node.js application?](#q-how-do-you-debug-a-nodejs-application)  
+| 16. | [Explain the concept of streams in Node.js.](#q-explain-the-concept-of-streams-in-nodejs)  
+| 17. | [What is RESTful API and how would you implement it in Node.js using Express?](#q-what-is-restful-api-and-how-would-you-implement-it-in-nodejs-using-express)  
+| 18. | [How do you handle form data submission in Node.js?](#q-how-do-you-handle-form-data-submission-in-nodejs)  
+| 19. | [What is CORS and how do you handle it in a Node.js application?](#q-what-is-cors-and-how-do-you-handle-it-in-a-nodejs-application)  
+| 20. | [Explain the difference between require() and import in Node.js.](#q-explain-the-difference-between-require-and-import-in-nodejs)  
 
 
 
