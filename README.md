@@ -1067,4 +1067,483 @@ In summary, `require()` is the traditional way of importing modules in Node.js a
     <b><a href="#">↥ back to top</a></b>
 </div>
 
+## Q. ***What is event-driven programming in Node.js? How does it differ from traditional programming?***
+
+Event-driven programming in Node.js is a paradigm where the flow of the program is determined by events such as user actions, system events, or messages from other programs rather than being strictly sequential. In this paradigm, the program listens for events and triggers appropriate callbacks or handlers when those events occur. Node.js is particularly well-suited for event-driven programming because it is built on a non-blocking, asynchronous architecture.
+
+Here's how event-driven programming in Node.js differs from traditional programming paradigms:
+
+1. **Asynchronous I/O**: In traditional programming, I/O operations (such as reading from a file or making a network request) are typically blocking, meaning the program waits for the operation to complete before continuing. In Node.js, I/O operations are non-blocking, allowing the program to continue executing other tasks while waiting for I/O operations to complete. This is achieved through the use of callbacks, Promises, or async/await syntax.
+
+2. **Single-threaded, Event Loop**: Node.js operates on a single-threaded event loop, which means it can handle multiple concurrent operations without spawning additional threads. This is in contrast to traditional multi-threaded programming where each task may run on its own thread. The event loop continuously listens for events and dispatches them to event handlers, allowing Node.js to efficiently handle large numbers of concurrent connections.
+
+3. **Event Emitters**: In Node.js, many objects are event emitters, meaning they can emit named events that cause listeners (callbacks) to be invoked. This enables a reactive style of programming where actions are triggered by events rather than explicitly called by the program.
+
+4. **Callbacks and Asynchronous Control Flow**: In event-driven programming with Node.js, callbacks are commonly used to handle asynchronous operations. Instead of blocking and waiting for an operation to complete, a callback function is passed to an asynchronous function, which is then invoked when the operation completes. This allows the program to continue executing other tasks while waiting for the asynchronous operation to finish.
+
+Overall, event-driven programming in Node.js offers scalability and performance benefits, particularly for applications that require high concurrency and responsiveness, such as web servers and real-time applications. However, it also requires a different mindset and programming style compared to traditional sequential programming paradigms.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are the differences between process.nextTick() and setImmediate()? When would you use each?***
+
+`process.nextTick()` and `setImmediate()` are both functions in Node.js that allow you to schedule asynchronous code execution, but they have different behaviors and use cases:
+
+1. **`process.nextTick()`**:
+   - `process.nextTick()` schedules a callback to be invoked in the next iteration of the event loop, immediately after the current operation completes and before any I/O events are triggered.
+   - The callback passed to `process.nextTick()` is executed before any other I/O events, timers, or `setImmediate()` callbacks.
+   - It is executed in the same phase of the event loop as the calling code.
+   - Use `process.nextTick()` when you want to ensure that a callback is executed asynchronously but as soon as possible, even before any I/O events.
+
+Example:
+```javascript
+function foo() {
+    console.log('foo');
+}
+
+process.nextTick(foo);
+
+console.log('bar');
+```
+Output:
+```
+bar
+foo
+```
+
+2. **`setImmediate()`**:
+   - `setImmediate()` schedules a callback to be invoked in the next iteration of the event loop, immediately after the current operation completes and after any I/O events that are already in the event queue.
+   - It provides a mechanism to execute code asynchronously but without blocking I/O operations.
+   - `setImmediate()` callbacks are executed in a separate phase of the event loop from `process.nextTick()` callbacks and timers.
+   - Use `setImmediate()` when you want to ensure that a callback is executed asynchronously but after I/O events have been processed.
+
+Example:
+```javascript
+function foo() {
+    console.log('foo');
+}
+
+setImmediate(foo);
+
+console.log('bar');
+```
+Output:
+```
+bar
+foo
+```
+
+In summary:
+- Use `process.nextTick()` when you want to execute a callback asynchronously but as soon as possible, even before I/O events.
+- Use `setImmediate()` when you want to execute a callback asynchronously but after I/O events have been processed.
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is callback hell and how do you avoid it in Node.js?***
+
+Callback hell, also known as "Pyramid of Doom," refers to the situation in asynchronous programming where multiple nested callbacks are used to handle asynchronous operations, leading to code that is difficult to read, understand, and maintain. This typically occurs when dealing with asynchronous tasks such as file I/O, network requests, or database operations in Node.js.
+
+Here's an example of callback hell:
+
+```javascript
+asyncOperation1((err, result1) => {
+    if (err) {
+        console.error(err);
+    } else {
+        asyncOperation2(result1, (err, result2) => {
+            if (err) {
+                console.error(err);
+            } else {
+                asyncOperation3(result2, (err, result3) => {
+                    if (err) {
+                        console.error(err);
+                    } else {
+                        // Handle result3
+                    }
+                });
+            }
+        });
+    }
+});
+```
+
+Asynchronous operations are nested inside each other, making the code difficult to follow and manage, especially as more operations are added.
+
+To avoid callback hell and improve code readability in Node.js, you can use various techniques:
+
+1. **Named Functions**: Define named functions for callback operations to make the code more modular and readable. This separates the concerns and reduces nesting.
+
+```javascript
+asyncOperation1((err, result1) => {
+    if (err) {
+        console.error(err);
+    } else {
+        asyncOperation2(result1, handleOperation2);
+    }
+});
+
+function handleOperation2(err, result2) {
+    if (err) {
+        console.error(err);
+    } else {
+        asyncOperation3(result2, handleOperation3);
+    }
+}
+
+function handleOperation3(err, result3) {
+    if (err) {
+        console.error(err);
+    } else {
+        // Handle result3
+    }
+}
+```
+
+2. **Promises**: Use Promises to handle asynchronous operations sequentially or in parallel, and chain them together using `.then()` and `.catch()`.
+
+```javascript
+asyncOperation1()
+    .then(result1 => asyncOperation2(result1))
+    .then(result2 => asyncOperation3(result2))
+    .then(result3 => {
+        // Handle result3
+    })
+    .catch(err => {
+        console.error(err);
+    });
+```
+
+3. **Async/Await**: Use `async` and `await` keywords to write asynchronous code in a synchronous style, making it easier to read and understand.
+
+```javascript
+try {
+    const result1 = await asyncOperation1();
+    const result2 = await asyncOperation2(result1);
+    const result3 = await asyncOperation3(result2);
+    // Handle result3
+} catch (err) {
+    console.error(err);
+}
+```
+
+By using these techniques, you can avoid callback hell and write more maintainable, readable, and scalable asynchronous code in Node.js.
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is the role of EventEmitter in Node.js? Can you provide an example of how to use it?***
+
+The `EventEmitter` class in Node.js is a core module that provides an implementation of the observer pattern. It allows objects (known as "emitters") to emit named events that cause function callbacks (known as "listeners") to be invoked. This enables a reactive style of programming where actions are triggered by events rather than explicitly called by the program.
+
+Here's a brief overview of the roles and features of `EventEmitter`:
+
+1. **Emitting Events**: An emitter object can emit events using the `emit()` method, specifying the event name and optional data to pass to listeners.
+
+2. **Registering Event Listeners**: You can register listeners for specific events using the `on()` method (or `addListener()` method), providing the event name and a callback function to be invoked when the event occurs.
+
+3. **Removing Event Listeners**: You can remove specific listeners for an event using the `removeListener()` method, or remove all listeners for an event using the `removeAllListeners()` method.
+
+4. **Error Handling**: `EventEmitter` provides a special event name, `'error'`, which is triggered when an error occurs during event emission if no listeners are registered for the `'error'` event, the error will be thrown, causing the Node.js process to terminate.
+
+Here's a simple example demonstrating how to use `EventEmitter` in Node.js:
+
+```javascript
+const EventEmitter = require('events');
+
+// Create a new EventEmitter instance
+const myEmitter = new EventEmitter();
+
+// Register a listener for the 'greet' event
+myEmitter.on('greet', (name) => {
+    console.log(`Hello, ${name}!`);
+});
+
+// Emit the 'greet' event with a parameter
+myEmitter.emit('greet', 'John');
+```
+
+In this example:
+
+- We create a new instance of `EventEmitter` called `myEmitter`.
+- We register a listener for the `'greet'` event using the `on()` method. When the `'greet'` event is emitted, the provided callback function will be invoked with the specified `name` parameter.
+- We emit the `'greet'` event with the parameter `'John'`. This triggers the execution of the listener callback function, which logs `'Hello, John!'` to the console.
+
+This is a basic illustration of how `EventEmitter` works in Node.js. It's a powerful tool for building event-driven applications, such as web servers, real-time messaging systems, and more.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are the differences between fork, spawn, and exec in Node.js? When would you use each?***
+
+In Node.js, `fork`, `spawn`, and `exec` are different methods for creating child processes, each with its own purpose and use cases:
+
+1. **`fork`**:
+   - The `fork` method is a specialized form of `spawn` used specifically for creating new Node.js processes. It's commonly used to run separate instances of a Node.js application, each with its own memory space and communication channel via inter-process communication (IPC).
+   - `fork` is ideal for creating multiple instances of a Node.js application, such as in a cluster setup, where each instance can handle incoming requests independently.
+   - Communication between the parent and child processes created by `fork` is simplified using the built-in `send()` and `message` events.
+
+2. **`spawn`**:
+   - The `spawn` method is a general-purpose method for spawning new processes in Node.js. It allows you to execute any command in a new child process.
+   - `spawn` is commonly used for running non-Node.js commands or executables, such as system utilities or shell commands.
+   - Unlike `exec`, `spawn` does not create a shell to execute the command, which makes it more efficient and secure. You can specify the command and its arguments directly as an array.
+   - You can also stream data between the parent and child processes using stdin, stdout, and stderr.
+
+3. **`exec`**:
+   - The `exec` method is another way to spawn new processes in Node.js, specifically designed for running shell commands.
+   - `exec` creates a shell to execute the specified command, allowing you to use shell features such as pipes, redirection, and chaining commands with `&&` or `|`.
+   - It's useful when you need to execute complex shell commands or when you want to take advantage of shell features.
+   - `exec` buffers the command's stdout and stderr output, making it suitable for commands that produce a moderate amount of output. However, this buffering can cause issues with commands that produce a large amount of output.
+
+Here's a summary of when to use each method:
+- **Use `fork`** when you need to create multiple instances of a Node.js application and want to facilitate communication between the parent and child processes using IPC.
+- **Use `spawn`** when you need to execute non-Node.js commands or executables, and you want direct control over input/output streams without involving a shell.
+- **Use `exec`** when you need to execute shell commands and want to take advantage of shell features, but be cautious with commands that produce large output.
+
+Overall, the choice between `fork`, `spawn`, and `exec` depends on your specific requirements, including the type of command you need to execute, the level of control you need over input/output, and the desired communication mechanism between parent and child processes.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are the security best practices to follow when developing a Node.js application?***
+
+Developing a secure Node.js application involves implementing various best practices across different aspects of the application, including code, dependencies, configuration, authentication, and data handling. Here are some security best practices to follow:
+
+1. **Keep Dependencies Updated**: Regularly update dependencies to patch known vulnerabilities. Use tools like `npm audit` to identify and fix vulnerable packages.
+
+2. **Secure Authentication**:
+   - Use strong cryptographic algorithms for password hashing, such as bcrypt or Argon2.
+   - Implement multi-factor authentication (MFA) wherever possible.
+   - Store sensitive data like passwords and API keys securely, preferably using environment variables or a secure secrets management system.
+
+3. **Enable HTTPS**: Always use HTTPS to encrypt data transmitted between the client and server. Obtain and configure SSL/TLS certificates from trusted certificate authorities.
+
+4. **Input Validation and Sanitization**:
+   - Validate and sanitize all user inputs to prevent injection attacks like SQL injection, XSS, and command injection.
+   - Use parameterized queries or ORM libraries to prevent SQL injection attacks in database queries.
+
+5. **Prevent Cross-Site Scripting (XSS)**: Sanitize user-generated content and escape HTML entities to prevent XSS attacks.
+
+6. **Implement CSRF Protection**: Use CSRF tokens and enforce same-origin policy to prevent Cross-Site Request Forgery attacks.
+
+7. **Secure Session Management**:
+   - Use secure, HTTP-only cookies for session management.
+   - Implement session expiration and rotation mechanisms.
+   - Store session data securely, avoiding client-side storage for sensitive information.
+
+8. **Implement Access Controls**: Enforce proper access controls and authorization mechanisms to restrict access to sensitive resources based on user roles and permissions.
+
+9. **Enable Security Headers**: Set security headers like Content Security Policy (CSP), X-Frame-Options, X-XSS-Protection, and X-Content-Type-Options to mitigate various web vulnerabilities.
+
+10. **Secure File Uploads**: Validate file types, size, and content during file uploads to prevent file-based attacks like file inclusion, file overwrite, and executable file uploads.
+
+11. **Avoid Eval and Unsafe Functions**: Avoid using `eval`, `Function()`, `setTimeout()` with string arguments, or any other functions that execute arbitrary code from user input, as they can introduce security vulnerabilities.
+
+12. **Logging and Monitoring**: Implement comprehensive logging and monitoring to detect and respond to security incidents in real-time. Monitor for unusual activities and potential security threats.
+
+13. **Regular Security Audits and Penetration Testing**: Conduct regular security audits and penetration testing to identify vulnerabilities and weaknesses in your application. Address any findings promptly.
+
+14. **Educate Developers and Users**: Educate developers on secure coding practices and conduct security awareness training for users to prevent social engineering attacks and improve overall security posture.
+
+15. **Follow Security Standards and Guidelines**: Adhere to industry-standard security frameworks and guidelines, such as OWASP Top 10, CIS Benchmarks, and Node.js Security Checklist, to ensure comprehensive security coverage.
+
+By following these security best practices, you can significantly reduce the risk of security vulnerabilities and protect your Node.js application from various threats and attacks.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is clustering in Node.js and how does it improve performance?***
+
+Clustering in Node.js refers to the ability of the Node.js runtime to spawn multiple instances of a single Node.js process, known as worker processes, which can share the same port and efficiently handle incoming requests. This is particularly useful for applications that need to scale and handle a large number of concurrent connections, such as web servers.
+
+Here's how clustering works and how it improves performance:
+
+1. **Master-Worker Architecture**: In clustering, there is a master process that manages the worker processes. The master process listens for incoming connections and distributes them among the worker processes in a round-robin fashion. Each worker process operates independently, handling its own set of requests.
+
+2. **Improved Concurrency**: By distributing incoming requests among multiple worker processes, clustering allows Node.js applications to utilize multiple CPU cores efficiently. Each worker process runs on a separate CPU core, enabling parallel processing of requests and better utilization of system resources.
+
+3. **Increased Throughput**: With clustering, a Node.js application can handle a higher volume of concurrent connections compared to a single-threaded or single-process setup. This leads to improved throughput and better response times, especially under heavy load conditions.
+
+4. **High Availability**: Clustering also improves the resilience and availability of Node.js applications. If a worker process crashes due to an error, the master process can restart it automatically, ensuring uninterrupted service for incoming requests.
+
+5. **Horizontal Scaling**: Clustering facilitates horizontal scaling of Node.js applications by adding more instances (worker processes) as needed to handle increasing traffic and workload. This allows applications to scale dynamically based on demand without requiring significant changes to the codebase.
+
+6. **Load Balancing**: Clustering can be combined with load balancing techniques to further distribute incoming traffic across multiple instances of a Node.js application. Load balancers can distribute requests based on various criteria, such as round-robin, least connections, or server health, to ensure optimal performance and resource utilization.
+
+Overall, clustering in Node.js enables applications to achieve higher performance, scalability, and availability by leveraging the capabilities of modern multi-core processors and efficiently distributing incoming requests among multiple worker processes. It's a key feature for building high-performance web servers and other network-intensive applications in Node.js.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is JWT authentication and how would you implement it in a Node.js application?***
+
+JWT (JSON Web Token) authentication is a method of securely transmitting information between parties as a JSON object. It's commonly used for implementing stateless authentication mechanisms in web applications. In JWT authentication, a token is generated by the server upon successful authentication of a user. This token contains encoded information (such as user ID, expiration time, and any other relevant data) and is digitally signed using a secret key known only to the server. The client then includes this token in subsequent requests to access protected resources.
+
+Here's how you can implement JWT authentication in a Node.js application:
+
+1. **Install Dependencies**: First, install the necessary packages using npm or yarn.
+
+```bash
+npm install jsonwebtoken bcrypt
+```
+
+2. **Generate JWT Token**: When a user successfully logs in, generate a JWT token containing relevant user information.
+
+```javascript
+const jwt = require('jsonwebtoken');
+
+// Generate JWT token
+const generateToken = (user) => {
+    const token = jwt.sign({ id: user.id, email: user.email }, 'your_secret_key', { expiresIn: '1h' });
+    return token;
+};
+```
+
+3. **Verify JWT Token**: Create middleware to verify and decode the JWT token included in the request headers.
+
+```javascript
+const verifyToken = (req, res, next) => {
+    const token = req.headers.authorization;
+    if (!token) {
+        return res.status(403).json({ message: 'Token not provided' });
+    }
+
+    jwt.verify(token, 'your_secret_key', (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Failed to authenticate token' });
+        }
+        req.user = decoded;
+        next();
+    });
+};
+```
+
+4. **Protect Routes**: Apply the `verifyToken` middleware to the routes that need authentication.
+
+```javascript
+const express = require('express');
+const app = express();
+
+// Protect route with JWT authentication
+app.get('/protected', verifyToken, (req, res) => {
+    res.json({ message: 'Authenticated route', user: req.user });
+});
+```
+
+5. **Client-side Implementation**: Include the JWT token in the Authorization header for subsequent requests.
+
+```javascript
+const axios = require('axios');
+
+// Example: Making a request with JWT token
+const token = 'Bearer ' + localStorage.getItem('token');
+
+axios.get('/protected', { headers: { Authorization: token } })
+    .then(response => {
+        console.log(response.data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+```
+
+6. **Optional: Hash Passwords**: When storing user passwords, always hash them using a strong hashing algorithm like bcrypt to ensure security.
+
+```javascript
+const bcrypt = require('bcrypt');
+
+// Hash password
+const hashPassword = async (password) => {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+};
+```
+
+This implementation provides a basic example of JWT authentication in a Node.js application. Remember to securely store the secret key used for signing and verifying JWT tokens, and always use HTTPS to protect against token interception. Additionally, consider implementing token expiration and token refresh mechanisms for improved security.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***How do you handle file uploads in Node.js?***
+
+Handling file uploads in Node.js involves receiving files sent from clients via HTTP requests, processing them, and saving them to a storage location. Here's a basic example of how to handle file uploads using Express.js, a popular web framework for Node.js:
+
+1. **Install Dependencies**: First, install the necessary packages using npm or yarn.
+
+```bash
+npm install express multer
+```
+
+2. **Set Up Express Server**: Create an Express server and configure middleware to handle file uploads using Multer, a middleware for handling multipart/form-data.
+
+```javascript
+const express = require('express');
+const multer = require('multer');
+const app = express();
+
+// Set up Multer middleware
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Save uploaded files to the 'uploads' directory
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname); // Generate unique filename
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Define route to handle file upload
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.json({ message: 'File uploaded successfully', filename: req.file.filename });
+});
+
+// Start server
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+```
+
+3. **Client-side Implementation**: Create a form in your HTML file to allow users to select and upload files.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
+```
+
+4. **Handle File Upload**: When the form is submitted, the file will be uploaded to the server. Multer middleware handles the file upload process, including saving the file to the specified destination directory (`uploads/` in this example) with a unique filename.
+
+5. **Process Uploaded Files**: After the file is uploaded, you can process it as needed. In this example, the server responds with a JSON object containing a message indicating that the file was uploaded successfully and the filename.
+
+This is a basic example of handling file uploads in Node.js using Express.js and Multer. Depending on your requirements, you may need to add additional validation, error handling, and security measures, such as file type checking, file size limits, and sanitization to prevent attacks like directory traversal.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
 ## Q. ***
