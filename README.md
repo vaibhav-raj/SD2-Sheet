@@ -1,4 +1,4 @@
-| Sl.No|  Questions       |
+| Sl.No|  NodeJS Questions       |
 |------|------------------|
 | 01. | [What is Node.js and why is it used in web development?](#q-what-is-nodejs-and-why-is-it-used-in-web-development)  
 | 02. | [Explain the concept of non-blocking I/O in Node.js.](#q-explain-the-concept-of-non-blocking-io-in-nodejs)  
