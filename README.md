@@ -32,6 +32,13 @@
 | 30. | [Difference between package.json and package-lock.json](#q-difference-between-packagejson-and-package-lockjson)  
 | 31. | [When should you use npm and when yarn?](#q-when-should-you-use-npm-and-when-yarn)  
 | 32. | [What is REPL? What purpose is it used for?](#q-what-is-repl-what-purpose-it-is-used-for)  
+| 33. | [What is the purpose of the global object in Node.js?](#q-what-is-the-purpose-of-the-global-object-in-nodejs)  
+| 34. | [Explain the concept of child processes in Node.js. How would you create and manage them?](#q-explain-the-concept-of-child-processes-in-nodejs-how-would-you-create-and-manage-them)  
+| 35. | [What are the different HTTP methods in Node.js? How would you handle each of them in an Express.js application?](#q-what-are-the-different-http-methods-in-nodejs-how-would-you-handle-each-of-them-in-an-expressjs-application)  
+| 36. | [What is the role of module.exports and exports in Node.js modules? How do you use them?](#q-what-is-the-role-of-moduleexports-and-exports-in-nodejs-modules-how-do-you-use-them)  
+| 37. | [What are the benefits of using TypeScript with Node.js? How would you set up a Node.js project with TypeScript?](#q-what-are-the-benefits-of-using-typescript-with-nodejs-how-would-you-set-up-a-nodejs-project-with-typescript)  
+| 38. | [What is the purpose of the __dirname and __filename variables in Node.js?](#q-what-is-the-purpose-of-the-dirname-and-filename-variables-in-nodejs)  
+| 39. | [How would you handle environment variables in a Node.js application?](#q-how-would-you-handle-environment-variables-in-a-nodejs-application)   
 
 
 | Sl.No|  MongoDB Questions|
