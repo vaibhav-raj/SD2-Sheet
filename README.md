@@ -20,6 +20,15 @@
 | 18. | [How do you handle form data submission in Node.js?](#q-how-do-you-handle-form-data-submission-in-nodejs)  
 | 19. | [What is CORS and how do you handle it in a Node.js application?](#q-what-is-cors-and-how-do-you-handle-it-in-a-nodejs-application)  
 | 20. | [Explain the difference between require() and import in Node.js.](#q-explain-the-difference-between-require-and-import-in-nodejs)  
+| 21. | [What is event-driven programming in Node.js? How does it differ from traditional programming?](#q-what-is-event-driven-programming-in-nodejs-how-does-it-differ-from-traditional-programming)  
+| 22. | [What are the differences between process.nextTick() and setImmediate()? When would you use each?](#q-what-are-the-differences-between-processnexttick-and-setimmediate-when-would-you-use-each)  
+| 23. | [What is callback hell and how do you avoid it in Node.js?](#q-what-is-callback-hell-and-how-do-you-avoid-it-in-nodejs)  
+| 24. | [What is the role of EventEmitter in Node.js? Can you provide an example of how to use it?](#q-what-is-the-role-of-eventemitter-in-nodejs-can-you-provide-an-example-of-how-to-use-it)  
+| 25. | [What are the differences between fork, spawn, and exec in Node.js? When would you use each?](#q-what-are-the-differences-between-fork-spawn-and-exec-in-nodejs-when-would-you-use-each)  
+| 26. | [What are the security best practices to follow when developing a Node.js application?](#q-what-are-the-security-best-practices-to-follow-when-developing-a-nodejs-application)  
+| 27. | [What is clustering in Node.js and how does it improve performance?](#q-what-is-clustering-in-nodejs-and-how-does-it-improve-performance)  
+| 28. | [What is JWT authentication and how would you implement it in a Node.js application?](#q-what-is-jwt-authentication-and-how-would-you-implement-it-in-a-nodejs-application)  
+| 29. | [How do you handle file uploads in Node.js?](#q-how-do-you-handle-file-uploads-in-nodejs)  
 
 
 
