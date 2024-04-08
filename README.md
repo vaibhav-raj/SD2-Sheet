@@ -2899,4 +2899,7 @@ MongoDB is a versatile and flexible NoSQL database that can be used for various 
 
 These are just a few examples of common use cases for MongoDB. Its flexibility, scalability, and rich feature set make it suitable for a wide range of applications and scenarios, from simple web applications to complex enterprise systems.
 
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
 
