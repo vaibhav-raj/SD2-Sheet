@@ -34,6 +34,39 @@
 | 32. | [What is REPL? What purpose is it used for?](#q-what-is-repl-what-purpose-it-is-used-for)  
 
 
+| Sl.No|  MongoDB Questions|
+|------|------------------|
+| 01. | [What is NoSQL and how does it differ from traditional SQL databases?](#q-what-is-nosql-and-how-does-it-differ-from-traditional-sql-databases)  
+| 02. | [Explain the key features of MongoDB.](#q-explain-the-key-features-of-mongodb)  
+| 03. | [What is a document-oriented database? How does MongoDB store data?](#q-what-is-a-document-oriented-database-how-does-mongodb-store-data)  
+| 04. | [What is BSON in MongoDB and why is it used?](#q-what-is-bson-in-mongodb-and-why-is-it-used)  
+| 05. | [How do you install and set up MongoDB on your local machine?](#q-how-do-you-install-and-set-up-mongodb-on-your-local-machine)  
+| 06. | [What is a collection in MongoDB? How does it differ from a table in a relational database?](#q-what-is-a-collection-in-mongodb-how-does-it-differ-from-a-table-in-a-relational-database)  
+| 07. | [Explain the concept of indexing in MongoDB. How does it improve query performance?](#q-explain-the-concept-of-indexing-in-mongodb-how-does-it-improve-query-performance)  
+| 08. | [What are the different types of indexes supported by MongoDB?](#q-what-are-the-different-types-of-indexes-supported-by-mongodb)  
+| 09. | [How do you perform CRUD operations (Create, Read, Update, Delete) in MongoDB?](#q-how-do-you-perform-crud-operations-create-read-update-delete-in-mongodb)  
+| 10. | [What is aggregation in MongoDB? Provide examples of aggregation queries.](#q-what-is-aggregation-in-mongodb-provide-examples-of-aggregation-queries)  
+| 11. | [Explain the concept of sharding in MongoDB. When would you use it and how do you implement it?](#q-explain-the-concept-of-sharding-in-mongodb-when-would-you-use-it-and-how-do-you-implement-it)  
+| 12. | [What is replication in MongoDB? How does it ensure high availability and fault tolerance?](#q-what-is-replication-in-mongodb-how-does-it-ensure-high-availability-and-fault-tolerance)  
+| 13. | [What are the differences between replica sets and sharding in MongoDB?](#q-what-are-the-differences-between-replica-sets-and-sharding-in-mongodb)  
+| 14. | [How do you handle transactions in MongoDB?](#q-how-do-you-handle-transactions-in-mongodb)  
+| 15. | [What is the role of the `_id` field in MongoDB documents?](#q-what-is-the-role-of-the-_id-field-in-mongodb-documents)  
+| 16. | [Explain the concept of schema design in MongoDB. How does it differ from schema design in relational databases?](#q-explain-the-concept-of-schema-design-in-mongodb-how-does-it-differ-from-schema-design-in-relational-databases)  
+| 17. | [What are the different data types supported by MongoDB?](#q-what-are-the-different-data-types-supported-by-mongodb)  
+| 18. | [How do you perform aggregation in MongoDB? Can you provide examples of aggregation pipelines?](#q-how-do-you-perform-aggregation-in-mongodb-can-you-provide-examples-of-aggregation-pipelines)  
+| 19. | [What is the significance of Write Concern in MongoDB?](#q-what-is-the-significance-of-write-concern-in-mongodb)  
+| 20. | [How do you handle concurrency and locking in MongoDB?](#q-how-do-you-handle-concurrency-and-locking-in-mongodb)  
+| 21. | [What are the security best practices to follow when using MongoDB?](#q-what-are-the-security-best-practices-to-follow-when-using-mongodb)  
+| 22. | [Explain the difference between find() and findOne() methods in MongoDB.](#q-explain-the-difference-between-find-and-findone-methods-in-mongodb)  
+| 23. | [How do you back up and restore data in MongoDB?](#q-how-do-you-back-up-and-restore-data-in-mongodb)  
+| 24. | [What are the advantages and disadvantages of using MongoDB compared to relational databases?](#q-what-are-the-advantages-and-disadvantages-of-using-mongodb-compared-to-relational-databases)  
+| 25. | [How would you optimize MongoDB queries for better performance?](#q-how-would-you-optimize-mongodb-queries-for-better-performance)  
+| 26. | [Explain the concept of geospatial queries in MongoDB.](#q-explain-the-concept-of-geospatial-queries-in-mongodb)  
+| 27. | [What is the Map-Reduce function in MongoDB? How do you use it?](#q-what-is-the-map-reduce-function-in-mongodb-how-do-you-use-it)  
+| 28. | [How do you handle data modeling for nested documents and arrays in MongoDB?](#q-how-do-you-handle-data-modeling-for-nested-documents-and-arrays-in-mongodb)  
+| 29. | [What is the purpose of TTL indexes in MongoDB? How do you create and use them?](#q-what-is-the-purpose-of-ttl-indexes-in-mongodb-how-do-you-create-and-use-them)  
+| 30. | [What are the common use cases for MongoDB?](#q-what-are-the-common-use-cases-for-mongodb)  
+
 
 ## Q. ***What does the runtime environment mean in Node.js?***
 In the context of Node.js, the "runtime environment" refers to the environment where Node.js code is executed. It includes everything needed to run a Node.js application, such as the V8 JavaScript engine, the Node.js runtime, and various libraries and modules.
@@ -1647,11 +1680,353 @@ In this example, the user inputs expressions like addition, variable assignment,
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***What is the purpose of the global object in Node.js?***
+
+The global object in Node.js serves a similar purpose to the global object in browsers (e.g., `window` in browsers). It provides access to global variables and functions that are available throughout the Node.js application, regardless of the scope in which they are defined. The global object in Node.js is simply referred to as `global`.
+
+Here are some key purposes and features of the global object in Node.js:
+
+1. **Global Variables and Functions**: The global object provides access to built-in global variables and functions such as `console`, `process`, `Buffer`, `setTimeout`, `setInterval`, `clearTimeout`, `clearInterval`, etc. These variables and functions are available without the need for require statements and can be accessed from any module within the application.
+
+2. **Global Scope**: Variables and functions defined in the top-level scope (outside of any function) in Node.js modules are implicitly added to the global object. This means that variables and functions defined in one module can be accessed from other modules via the global object.
+
+3. **Global Namespace**: The global object serves as a namespace for variables and functions that need to be shared across different parts of the application. However, care should be taken to avoid polluting the global namespace excessively, as it can lead to naming conflicts and unintended side effects.
+
+4. **Environment Information**: The global object provides access to environment-related information through properties such as `global.process` (equivalent to `process` module) and `global.console` (equivalent to `console` object).
+
+5. **Custom Properties and Functions**: You can also add custom properties and functions to the global object as needed. However, this should be done sparingly and with caution to avoid conflicts with existing properties and functions.
+
+While the global object in Node.js provides convenience for accessing commonly used variables and functions across modules, it's generally considered a best practice to minimize its usage and rely on module exports for encapsulating and sharing functionality between modules. This helps to promote modularity, maintainability, and code readability in Node.js applications.
 
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***Explain the concept of child processes in Node.js. How would you create and manage them?***
+
+In Node.js, child processes are separate instances of the Node.js runtime that can be spawned from the main (parent) Node.js process. Child processes allow Node.js applications to execute CPU-intensive or blocking operations asynchronously, leverage multiple CPU cores efficiently, and interact with other system processes or commands.
+
+Here are the key concepts and methods for creating and managing child processes in Node.js:
+
+1. **Spawning Child Processes**:
+   - Node.js provides the `child_process` module, which includes several methods for spawning child processes, such as `spawn`, `exec`, `execFile`, and `fork`.
+   - The `spawn` method is the most flexible and commonly used method. It launches a new process with the specified command, arguments, and options.
+   - Example:
+     ```javascript
+     const { spawn } = require('child_process');
+     const ls = spawn('ls', ['-lh', '/usr']);
+     ```
+
+2. **Interprocess Communication (IPC)**:
+   - Child processes can communicate with the parent process using IPC channels.
+   - By default, child processes inherit the standard input, output, and error streams of the parent process. However, you can create custom IPC channels using the `child.send()` method and the `message` event.
+   - Example:
+     ```javascript
+     // Parent process
+     const { fork } = require('child_process');
+     const child = fork('child.js');
+     child.send('Hello from parent');
+
+     // Child process (child.js)
+     process.on('message', (msg) => {
+         console.log('Message from parent:', msg);
+     });
+     ```
+
+3. **Handling Child Process Events**:
+   - Child processes emit events that can be handled to monitor their lifecycle and status.
+   - Common events include `exit`, `error`, and `close`.
+   - Example:
+     ```javascript
+     child.on('exit', (code) => {
+         console.log(`Child process exited with code ${code}`);
+     });
+     ```
+
+4. **Managing Child Process Lifecycle**:
+   - You can manage the lifecycle of child processes by monitoring their exit codes, terminating them using `kill()`, or gracefully shutting them down.
+   - Example:
+     ```javascript
+     setTimeout(() => {
+         child.kill('SIGTERM');
+     }, 5000);
+     ```
+
+5. **Error Handling**:
+   - It's important to handle errors when working with child processes to ensure robustness and reliability.
+   - Example:
+     ```javascript
+     child.on('error', (err) => {
+         console.error('Child process error:', err);
+     });
+     ```
+
+By leveraging child processes, Node.js applications can improve performance, concurrency, and resource utilization, especially for tasks like parallel computation, file I/O, or executing external commands. However, it's essential to handle errors, manage resources efficiently, and ensure proper communication and coordination between parent and child processes to build reliable and scalable applications.
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are the different HTTP methods in Node.js? How would you handle each of them in an Express.js application?***
+
+In Node.js, as in web development in general, HTTP methods are used to specify the action the client wants to perform on a resource. The most common HTTP methods are:
+
+1. **GET**: The GET method is used to request data from a specified resource.
+
+2. **POST**: The POST method is used to submit data to be processed to a specified resource.
+
+3. **PUT**: The PUT method is used to update a resource or create a new resource if it does not exist.
+
+4. **DELETE**: The DELETE method is used to delete a specified resource.
+
+5. **PATCH**: The PATCH method is used to apply partial modifications to a resource.
+
+6. **HEAD**: The HEAD method is similar to GET but only returns the headers and not the actual data.
+
+7. **OPTIONS**: The OPTIONS method is used to describe the communication options for the target resource.
+
+In an Express.js application, you can handle each of these HTTP methods using the corresponding methods provided by the Express router. Here's how you can handle each HTTP method in an Express.js application:
+
+```javascript
+const express = require('express');
+const app = express();
+
+// Handle GET requests
+app.get('/', (req, res) => {
+    res.send('GET request received');
+});
+
+// Handle POST requests
+app.post('/', (req, res) => {
+    res.send('POST request received');
+});
+
+// Handle PUT requests
+app.put('/', (req, res) => {
+    res.send('PUT request received');
+});
+
+// Handle DELETE requests
+app.delete('/', (req, res) => {
+    res.send('DELETE request received');
+});
+
+// Handle PATCH requests
+app.patch('/', (req, res) => {
+    res.send('PATCH request received');
+});
+
+// Handle HEAD requests
+app.head('/', (req, res) => {
+    res.send('HEAD request received');
+});
+
+// Handle OPTIONS requests
+app.options('/', (req, res) => {
+    res.send('OPTIONS request received');
+});
+
+// Start the server
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+```
+
+In this example:
+
+- We use methods like `app.get()`, `app.post()`, `app.put()`, `app.delete()`, `app.patch()`, `app.head()`, and `app.options()` to define routes for handling different HTTP methods.
+- Each route handler takes a path and a callback function as arguments. The callback function receives the request (`req`) and response (`res`) objects, allowing you to process the request and send a response.
+- Inside each route handler, we use `res.send()` to send a simple response back to the client indicating that the request was received.
+
+You can define more complex route handlers to perform operations like database queries, data manipulation, authentication, and more based on the HTTP method and request parameters.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is the role of module.exports and exports in Node.js modules? How do you use them?***
+
+In Node.js, `module.exports` and `exports` are both used to define the public interface of a module and export values or functionality from one module to another. They are part of the CommonJS module system, which is the standard module system used in Node.js.
+
+Here's an explanation of each and how to use them:
+
+1. **module.exports**:
+   - `module.exports` is an object that is created for every JavaScript module in Node.js. It is initially set to an empty object `{}`.
+   - You can assign any value (such as an object, function, string, number, etc.) to `module.exports` to export it as the public interface of the module.
+   - When you require the module in another file, the value assigned to `module.exports` will be returned.
+   - Example:
+     ```javascript
+     // greet.js
+     function greet(name) {
+         return `Hello, ${name}!`;
+     }
+
+     module.exports = greet;
+     ```
+
+2. **exports**:
+   - `exports` is a shorthand reference to `module.exports`. Initially, `exports` points to the same empty object `{}` as `module.exports`.
+   - You can directly add properties or methods to `exports` to export them. However, you cannot reassign `exports` to a new value like you can with `module.exports`.
+   - While you can use `exports` for simpler cases, it's recommended to use `module.exports` for more complex exports or when you need to export a single value or function.
+   - Example:
+     ```javascript
+     // greet.js
+     exports.greet = function(name) {
+         return `Hello, ${name}!`;
+     };
+     ```
+
+Here's how you can use these exports in another file:
+
+```javascript
+// main.js
+const greet = require('./greet');
+
+console.log(greet('John')); // Output: Hello, John!
+```
+
+In this example:
+- In `greet.js`, we define a function (`greet`) and export it using `module.exports`.
+- In `main.js`, we require the `greet` module using `require('./greet')`. The value exported by `module.exports` in `greet.js` is returned and assigned to the `greet` variable in `main.js`.
+- We can then use the `greet` function in `main.js` as if it were defined locally.
+  
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are the benefits of using TypeScript with Node.js? How would you set up a Node.js project with TypeScript?***
+
+Using TypeScript with Node.js offers several benefits, including:
+
+1. **Static Typing**: TypeScript adds static typing to JavaScript, allowing you to catch type-related errors during development. This leads to more robust code and reduces the likelihood of runtime errors.
+
+2. **Enhanced IDE Support**: TypeScript provides better IntelliSense and code completion in editors like Visual Studio Code, helping developers write code faster and with fewer errors.
+
+3. **Improved Maintainability**: TypeScript's type system makes code easier to understand and maintain, especially in larger projects with multiple contributors. Types serve as documentation and help developers understand the structure of the codebase.
+
+4. **Modern JavaScript Features**: TypeScript supports modern ECMAScript features, even before they are fully supported in Node.js. This allows you to use features like async/await, destructuring, and arrow functions without worrying about compatibility issues.
+
+5. **Better Tooling and Refactoring Support**: TypeScript's tooling support allows for better code refactoring, navigation, and code analysis, making it easier to work with large codebases and refactor existing code.
+
+To set up a Node.js project with TypeScript, you can follow these steps:
+
+1. **Initialize the project**: Create a new directory for your project and navigate to it in the terminal. Then, run `npm init` to initialize a new Node.js project. You can follow the prompts to set up your `package.json` file.
+
+2. **Install TypeScript**: Install TypeScript as a development dependency using npm.
+
+   ```bash
+   npm install typescript --save-dev
+   ```
+
+3. **Create a tsconfig.json file**: Create a `tsconfig.json` file in the root of your project to configure TypeScript compiler options. You can generate a basic `tsconfig.json` file by running:
+
+   ```bash
+   npx tsc --init
+   ```
+
+   This command generates a `tsconfig.json` file with default settings. You can customize it according to your project requirements.
+
+4. **Write TypeScript code**: Write your Node.js code in TypeScript files (`.ts` extension). You can start by creating an entry file (e.g., `index.ts`) and adding your code.
+
+5. **Compile TypeScript to JavaScript**: Compile your TypeScript code to JavaScript using the TypeScript compiler (`tsc`). You can run the compiler in watch mode to automatically recompile files when they change:
+
+   ```bash
+   npx tsc --watch
+   ```
+
+6. **Run your Node.js application**: After compiling TypeScript files to JavaScript, you can run your Node.js application as usual:
+
+   ```bash
+   node dist/index.js
+   ```
+
+   (Assuming your compiled JavaScript files are in a `dist` directory.)
+
+7. **Add TypeScript-specific packages (optional)**: Depending on your project needs, you may want to install additional packages for TypeScript support in Node.js, such as `@types/node` for type definitions for Node.js modules.
+
+   ```bash
+   npm install @types/node --save-dev
+   ```
+
+By following these steps, you can set up a Node.js project with TypeScript and take advantage of TypeScript's features and benefits for developing Node.js applications.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What is the purpose of the __dirname and __filename variables in Node.js?***
+
+In Node.js, `__dirname` and `__filename` are special variables that provide information about the current directory and the current file's absolute path, respectively.
+
+1. **`__dirname`**:
+   - `__dirname` contains the absolute path of the directory where the currently executing script resides.
+   - It always refers to the directory of the current module, regardless of where it is called from.
+   - `__dirname` does not include the name of the current file; it only represents the directory containing the file.
+   - Example usage:
+     ```javascript
+     console.log(__dirname); // Output: /path/to/current/directory
+     ```
+
+2. **`__filename`**:
+   - `__filename` contains the absolute path of the currently executing script (module file).
+   - It represents the full path, including the filename, of the current module file.
+   - `__filename` is useful for getting information about the location of the current module or for accessing the current module's content programmatically.
+   - Example usage:
+     ```javascript
+     console.log(__filename); // Output: /path/to/current/directory/currentFile.js
+     ```
+
+Both `__dirname` and `__filename` are often used in Node.js applications for tasks such as:
+- Resolving file paths relative to the current module's directory.
+- Loading other modules or files dynamically using their absolute paths.
+- Accessing resources or files located in the same directory as the current module.
+
+These variables provide convenient ways to access file system-related information within Node.js modules, making it easier to work with files and directories in Node.js applications.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***How would you handle environment variables in a Node.js application?***
+
+Handling environment variables in a Node.js application is important for managing sensitive information such as API keys, database credentials, and configuration settings that may vary between different environments (e.g., development, staging, production). Here's how you can handle environment variables in a Node.js application:
+
+1. **Use `process.env`**:
+   - Node.js provides the `process.env` object, which is a property that exposes the system environment variables to the Node.js process.
+   - You can access environment variables using `process.env.VARIABLE_NAME`, where `VARIABLE_NAME` is the name of the environment variable.
+   - Example:
+     ```javascript
+     const apiKey = process.env.API_KEY;
+     ```
+
+2. **Set Environment Variables**:
+   - Environment variables can be set in various ways, depending on the environment and deployment method:
+     - Using a `.env` file: Create a `.env` file in the root of your project and define environment variables in the format `VARIABLE_NAME=value`. Use a package like `dotenv` to load the `.env` file and populate `process.env` automatically.
+     - Using command-line arguments: Pass environment variables directly to the Node.js process using command-line arguments (e.g., `NODE_ENV=production node app.js`).
+     - Using a hosting provider: Many hosting providers allow you to configure environment variables through their dashboard or command-line interface.
+
+3. **Fallback Values**:
+   - Provide fallback values or default configurations for environment variables to ensure that your application behaves correctly even if some variables are not defined.
+   - Example:
+     ```javascript
+     const port = process.env.PORT || 3000;
+     ```
+
+4. **Avoid Hardcoding Sensitive Information**:
+   - Avoid hardcoding sensitive information like API keys and passwords directly into your code. Instead, store them as environment variables and access them using `process.env`.
+   - This helps keep sensitive information out of your codebase and reduces the risk of exposing it accidentally.
+
+5. **Protect Environment Variables**:
+   - Treat environment variables containing sensitive information with care and avoid exposing them unnecessarily.
+   - Use tools like `.gitignore` to exclude `.env` files from version control and configure deployment environments securely.
+
+6. **Configuration Management**:
+   - For more complex applications, consider using a configuration management solution or library (e.g., `config`, `nconf`) to manage environment variables, load configuration files, and provide a structured way to access configuration settings.
+
+By following these practices, you can effectively handle environment variables in your Node.js application, ensuring security, portability, and configurability across different environments.
+
+
+####
