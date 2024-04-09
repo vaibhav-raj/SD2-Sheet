@@ -195,3 +195,24 @@ const promise3 = new Promise((resolve) => setTimeout(resolve, 500, 'slow'));
 const promises = [promise1, promise2, promise3];
 
 Promise.any(promises).then((value) => console.log(value));
+
+
+
+/**
+ * Difference between Promise.all and Promise.allSettled with Examples
+ * 
+ * Promise.all() will reject immediately upon any of the input promises rejecting. 
+ * In comparison, the promise returned by Promise.allSettled() will wait for all input promises 
+ * to complete, regardless of whether  or not one rejects. 
+ * Use allSettled() if you need the final result of every promise in the input iterable.
+ */
+
+Promise.all([Promise.reject(1), Promise.resolve(2)])
+  .catch((err) => {
+    console.log('err', err);
+  });
+Promise.allSettled([Promise.reject(1), Promise.resolve(2)])
+  .then(console.log);
+
+
+
