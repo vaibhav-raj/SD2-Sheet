@@ -81,6 +81,9 @@
 | 29. | [What is the purpose of TTL indexes in MongoDB? How do you create and use them?](#q-what-is-the-purpose-of-ttl-indexes-in-mongodb-how-do-you-create-and-use-them)  
 | 30. | [What are the common use cases for MongoDB?](#q-what-are-the-common-use-cases-for-mongodb)  
 
+## Table of Contents
+
+* *[Redis cache Interview Questions](redis-cache.md)*
 
 ## Q. ***What does the runtime environment mean in Node.js?***
 In the context of Node.js, the "runtime environment" refers to the environment where Node.js code is executed. It includes everything needed to run a Node.js application, such as the V8 JavaScript engine, the Node.js runtime, and various libraries and modules.
