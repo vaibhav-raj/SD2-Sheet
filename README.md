@@ -39,6 +39,13 @@
 | 37. | [What are the benefits of using TypeScript with Node.js? How would you set up a Node.js project with TypeScript?](#q-what-are-the-benefits-of-using-typescript-with-nodejs-how-would-you-set-up-a-nodejs-project-with-typescript)  
 | 38. | [What is the purpose of the __dirname and __filename variables in Node.js?](#q-what-is-the-purpose-of-the-dirname-and-filename-variables-in-nodejs)  
 | 39. | [How would you handle environment variables in a Node.js application?](#q-how-would-you-handle-environment-variables-in-a-nodejs-application)   
+| 40. | [What are buffers and why do we need to use them with Node.js?](#q-what-are-buffers-and-why-do-we-need-to-use-them-with-node-js)  
+| 41. | [What are `express.json()` and `express.urlencoded()` in Express.js?](#q-what-are-expressjson-and-expressurlencoded-in-expressjs)  
+| 42. | [Explain what is wrong with async/await use in a forEach loop?](#q-explain-what-is-wrong-with-asyncawait-use-in-a-foreach-loop)  
+| 43. | [How would you read files in parallel in Node.js? Provide a code example.](#q-how-would-you-read-files-in-parallel-in-node-js-provide-code-example)  
+| 44. | [How would you read files sequentially in Node.js? Provide a code example.](#q-how-would-you-read-files-sequentially-in-node-js-provide-code-example)  
+| 45. | [When is it best to use `module.exports` vs a class or an object literal when defining a Node.js module?](#q-when-is-it-best-to-use-moduleexports-vs-a-class-or-an-object-literal-when-defining-a-nodejs-module)  
+| 46. | [How do I convert an existing callback API to promises?](#q-how-do-i-convert-an-existing-callback-api-to-promises)  
 
 
 | Sl.No|  MongoDB Questions|
