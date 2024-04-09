@@ -2439,15 +2439,9 @@ This approach allows you to convert callback-based APIs to promise-based APIs, p
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
 
+<h1 style="text-align: center;">MongoDB Questions</h1>
 
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-
-<br><br>
 
 ## Q. ***What is NoSQL and how does it differ from traditional SQL databases?***
 
@@ -2558,7 +2552,7 @@ Overall, BSON plays a crucial role in MongoDB's data storage and retrieval proce
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***What is a collection in MongoDB? How does it differ from a table in a relational database?****
+## Q. ***What is a collection in MongoDB? How does it differ from a table in a relational database?***
 
 In MongoDB, a collection is a grouping of MongoDB documents. It is the equivalent of a table in a relational database. However, there are several key differences between a collection in MongoDB and a table in a relational database:
 
