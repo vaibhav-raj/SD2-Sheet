@@ -1,4 +1,10 @@
-//------- Example of callback----
+
+/**
+ * Example of callback
+ * 
+ * A callback function is a function that is passed as an argument to another function, to be “called back” at a later time.
+ * 
+ */
 
 // Simulated asynchronous function with a callback
 function fetchData(callback) {
@@ -17,7 +23,12 @@ function handleData(data) {
 fetchData(handleData);
 
 
-///-----Example of callback hell-------
+/**
+ * Example of callback hell
+ * 
+ * Callback hell occurs when we have multiple nested asynchronous operations, leading to deeply nested callback functions.
+ * 
+ */
 
 // Simulated asynchronous functions with callbacks
 function fetchData(callback) {
@@ -46,8 +57,12 @@ fetchData(function(data1) {
 });
 
 
-
-//---------Refactor the callback hell example using Promises to avoid the nested structure. -----
+/**
+ * We can refactor the callback hell example using Promises to avoid the nested structure. 
+ *
+ * A Promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value. 
+ * A Promise can be in one of three states: Pending: The Promise has been created, but the promise is neither fulfilled nor rejected.
+ */
 
 // Simulated asynchronous functions returning Promises
 function fetchData() {
@@ -81,7 +96,11 @@ fetchData()
   });
 
 
-//---Use the async and await keywords with Promises to write asynchronous code in a synchronous-like manner.
+/**
+ *
+ * Use the async and await keywords with Promises to write asynchronous code in a synchronous-like manner.
+ *
+ */
 
 // Simulated asynchronous functions returning Promises
 function fetchData() {
@@ -122,5 +141,57 @@ fetchDataAndProcess();
 
 
 
+/**
+ *
+ * Promise.all is often used when there are many asynchronous tasks involved that the overall code relies on to work successfully - 
+ * all of the ones we want to do before we continue to execute the code.
+ *
+ */
+
+//Promise.all()
+let promise1 = Promise.resolve("First");
+let promise2 = 42;
+let promise3 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, "Third");
+});
+
+Promise.all([promise1, promise2, promise3]).then((values) => {
+  console.log(values); // Output: ["First", 42, "Third"]
+});
 
 
+/**
+ *
+ * The Promise.race() method returns a Promise that is resolved or rejected, as soon as one of the promises in an iterable, 
+ * such as an array, fulfills or rejects, with the value or reason from that Promise.
+ *
+ */
+
+
+let promise1 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 1000, "First");
+});
+
+let promise2 = new Promise((resolve, reject) => {
+  setTimeout(resolve, 2000, "Second");
+});
+
+Promise.race([promise1, promise2]).then((value) => {
+  console.log(value); // Output: "First"
+});
+
+
+/**
+ *
+ * Promise.any  method is used to return the first promise that fulfills.
+ *
+ */
+
+//Promise.any
+const promise1 = Promise.reject(0);
+const promise2 = new Promise((resolve) => setTimeout(resolve, 100, 'quick'));
+const promise3 = new Promise((resolve) => setTimeout(resolve, 500, 'slow'));
+
+const promises = [promise1, promise2, promise3];
+
+Promise.any(promises).then((value) => console.log(value));
