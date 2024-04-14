@@ -223,8 +223,46 @@ By following these best practices, you can ensure that your GraphQL API is secur
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***What are directives in GraphQL and how do you use them?***
+Directives in GraphQL are used to provide additional instructions to the GraphQL server at runtime. They allow you to modify the behavior of a field, query, or mutation based on certain conditions or requirements. Directives are preceded by the `@` symbol in GraphQL syntax and can be applied to fields, arguments, fragments, or entire operations.
 
+Here's how you use directives in GraphQL:
+
+1. **Built-in directives**:
+   GraphQL comes with several built-in directives that you can use out of the box:
+   - `@include(if: Boolean)`: Conditionally include a field in the response based on the value of a Boolean expression.
+   - `@skip(if: Boolean)`: Conditionally skip a field in the response based on the value of a Boolean expression.
+   - `@deprecated(reason: String)`: Mark a field as deprecated and provide a reason for why it's deprecated.
+
+2. **Custom directives**:
+   You can also define custom directives to implement custom behavior in your GraphQL schema. Custom directives allow you to extend GraphQL's capabilities and provide domain-specific functionality.
+   - To define a custom directive, you specify its name, arguments, and implementation logic in your GraphQL schema.
+   - You can then use the custom directive in your queries, mutations, or types by specifying it with the `@` symbol followed by its name.
+
+3. **Applying directives**:
+   Directives can be applied to fields, arguments, fragments, or entire operations in a GraphQL query or schema.
+   - To apply a directive to a field, you place it directly before the field in the query syntax.
+   - If a directive accepts arguments, you provide the arguments within parentheses after the directive name.
+   - Directives can be chained together and applied to the same field or operation.
+
+Here's an example of using built-in directives in a GraphQL query:
+
+```graphql
+query {
+  getUser(id: "123") {
+    id
+    name
+    email @include(if: $includeEmail)
+    age @skip(if: $skipAge)
+  }
+}
+```
+
+In this example:
+- The `@include` directive is used to conditionally include the `email` field in the response based on the value of the variable `$includeEmail`.
+- The `@skip` directive is used to conditionally skip the `age` field in the response based on the value of the variable `$skipAge`.
+
+Directives provide a powerful mechanism for controlling the behavior of GraphQL queries and mutations dynamically at runtime, allowing for greater flexibility and customization in your API.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
