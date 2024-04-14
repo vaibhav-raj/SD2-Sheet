@@ -343,4 +343,95 @@ Nested queries in GraphQL allow you to express complex data retrieval requiremen
     <b><a href="#">↥ back to top</a></b>
 </div>
 
+## Q. ***What are fragments in GraphQL and how do you use them?***
+
+In GraphQL, fragments are reusable units of query syntax that allow you to define sets of fields that can be included in multiple queries. Fragments help you avoid repetition and keep your queries organized by grouping common fields together.
+
+Here's how you use fragments in GraphQL:
+
+1. **Define a fragment**: Start by defining a fragment using the `fragment` keyword followed by the fragment name and the type you want to apply the fragment to. Inside the fragment, specify the fields you want to include.
+
+   ```graphql
+   fragment UserInfo on User {
+     id
+     name
+     email
+   }
+   ```
+
+   In this example, we define a fragment named `UserInfo` that includes the `id`, `name`, and `email` fields for the `User` type.
+
+2. **Use the fragment in a query**: Once you've defined a fragment, you can use it in your queries by referencing its name preceded by `...`.
+
+   ```graphql
+   query {
+     getUser(id: "123") {
+       ...UserInfo
+     }
+   }
+   ```
+
+   In this query, we're using the `UserInfo` fragment to include the fields `id`, `name`, and `email` for the `getUser` query. The `...` syntax tells GraphQL to include the fields defined in the `UserInfo` fragment at that location in the query.
+
+3. **Applying fragments to multiple fields or types**: You can apply fragments to multiple fields or types in your query by using them at multiple locations.
+
+   ```graphql
+   query {
+     getUser(id: "123") {
+       ...UserInfo
+     }
+     getPost(id: "456") {
+       ...PostInfo
+     }
+   }
+   ```
+
+   In this query, we're using the `UserInfo` fragment for the `getUser` query and a hypothetical `PostInfo` fragment for the `getPost` query.
+
+4. **Inline fragments**: In addition to named fragments, GraphQL also supports inline fragments, which allow you to conditionally include fields based on the type of an object.
+
+   ```graphql
+   query {
+     search(query: "GraphQL") {
+       ... on User {
+         ...UserInfo
+       }
+       ... on Post {
+         id
+         title
+         content
+       }
+     }
+   }
+   ```
+
+   In this query, we're using inline fragments to include the `UserInfo` fragment for results of type `User` and directly include the `id`, `title`, and `content` fields for results of type `Post`.
+
+Fragments in GraphQL provide a powerful mechanism for reusing common sets of fields across multiple queries, making your queries more concise, maintainable, and organized. They help reduce duplication and improve query readability by abstracting away common field selections into reusable units.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
 ## Q. ***
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
