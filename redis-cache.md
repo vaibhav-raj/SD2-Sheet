@@ -1,4 +1,4 @@
-| Sl.No|  Questions       |
+| Sl.No|  Redis Questions       |
 |------|------------------|
 | 01. | [What is Redis and what are its key features?](#q-what-is-redis-and-what-are-its-key-features)  
 | 02. | [Explain the data structures supported by Redis.](#q-explain-the-data-structures-supported-by-redis)  
