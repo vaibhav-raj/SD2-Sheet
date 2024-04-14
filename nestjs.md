@@ -1,4 +1,4 @@
-| Sl.No|  NodeJS Questions|
+| Sl.No|  NestJS Questions|
 |------|------------------|
 | 01. | [What is Nest.js and what are its key features?](#q-what-is-nestjs-and-what-are-its-key-features)  
 | 02. | [Explain the architecture of Nest.js and how it differs from traditional Node.js applications.](#q-explain-the-architecture-of-nestjs-and-how-it-differs-from-traditional-nodejs-applications)  
