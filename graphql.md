@@ -68,6 +68,7 @@ Overall, GraphQL provides a more efficient, flexible, and collaborative approach
 
 ## Q. ***How do you define a schema in GraphQL?***
 
+```graphql
 type Query {
   getUser(id: ID!): User
   getAllUsers: [User]
@@ -82,7 +83,7 @@ type Mutation {
   createPost(title: String!, content: String!, authorId: ID!): Post
   updatePost(id: ID!, title: String, content: String): Post
   deletePost(id: ID!): Post
-}
+}   
 
 type User {
   id: ID!
@@ -98,6 +99,7 @@ type Post {
   content: String!
   author: User!
 }
+```
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
