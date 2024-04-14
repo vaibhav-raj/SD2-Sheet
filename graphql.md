@@ -1,4 +1,4 @@
-| Sl.No|  NodeJS Questions|
+| Sl.No|  GraphQl Questions|
 |------|------------------|
 | 01. | [What is GraphQL and how does it differ from RESTful APIs?](#q-what-is-graphql-and-how-does-it-differ-from-restful-apis)  
 | 02. | [Explain the main features and benefits of using GraphQL.](#q-explain-the-main-features-and-benefits-of-using-graphql)  
