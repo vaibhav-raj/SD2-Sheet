@@ -19,7 +19,8 @@
 | 17. | [What are some common design patterns for organizing GraphQL schemas and resolvers?](#q-what-are-some-common-design-patterns-for-organizing-graphql-schemas-and-resolvers)  
 | 18. | [Explain the concept of subscriptions in GraphQL and how they enable real-time updates.](#q-explain-the-concept-of-subscriptions-in-graphql-and-how-they-enable-real-time-updates)  
 | 19. | [How do you handle file uploads in GraphQL?](#q-how-do-you-handle-file-uploads-in-graphql)  
-| 20. | [What are some tools and libraries available for GraphQL development and testing?](#q-what-are-some-tools-and-libraries-available-for-graphql-development-and-testing)  
+| 20. | [What are some tools and libraries available for GraphQL development and testing?](#q-what-are-some-tools-and-libraries-available-for-graphql-development-and-testing) 
+| 21. | [When should I use REST API and GraphQL API?](#q-when-should-i-use-rest-api-and-graphql-api)  
 
 ## Q. ***What is GraphQL and how does it differ from RESTful APIs?***
 
@@ -833,7 +834,7 @@ These tools and libraries can streamline various aspects of GraphQL development 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***When should i use rest api and graphql api?***
+## Q. ***When should I use REST API and GraphQL API?***
 
 Choosing between REST API and GraphQL API depends on various factors, including the specific requirements of your project, the nature of your data, and the needs of your client applications. Here are some scenarios where you might choose one over the other:
 
