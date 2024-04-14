@@ -103,6 +103,105 @@ type Post {
     <b><a href="#">↥ back to top</a></b>
 </div>
 
+## Q. ***What are resolvers in GraphQL and how do they work?***
+
+Resolvers are functions responsible for fetching the data for a particular field in your GraphQL schema. They act as the glue between your GraphQL schema and your data sources, whether it be a database, a REST API, or any other data provider. Resolvers are a critical part of the GraphQL execution process and are responsible for returning the data requested by the client.
+
+In a GraphQL schema, each field can have its resolver function associated with it. When a query is executed against a GraphQL server, the GraphQL engine traverses the query and invokes the resolver functions for each field in the query. These resolver functions are responsible for fetching the data associated with their respective fields.
+
+Here's how resolvers work in GraphQL:
+
+1. **Field resolution**: When a query is received by the GraphQL server, the GraphQL engine starts resolving each field in the query. It begins by resolving the root fields defined in the query's operation (e.g., Query or Mutation).
+
+2. **Resolver invocation**: For each field in the query, the GraphQL engine invokes the resolver function associated with that field. The resolver function is responsible for fetching the data for that field from the appropriate data source.
+
+3. **Data fetching**: Inside the resolver function, you can fetch data from any data source, such as a database, a REST API, or an in-memory cache. Resolvers are typically asynchronous to handle asynchronous data fetching operations.
+
+4. **Data formatting**: Once the data is fetched, the resolver function formats and returns the data in the expected shape specified by the GraphQL schema. This can include transforming the data, combining multiple data sources, or applying business logic.
+
+5. **Nested field resolution**: If the field being resolved contains nested fields, the resolver function for the parent field may need to invoke additional resolver functions to fetch the data for the nested fields. This process continues recursively until all fields in the query have been resolved.
+
+6. **Data aggregation**: In cases where data needs to be aggregated from multiple sources or transformed in complex ways, resolvers can orchestrate the data-fetching process and combine the results before returning them to the client.
+
+By defining resolver functions for each field in your GraphQL schema, you can control how data is fetched and returned to clients, allowing you to integrate with various data sources and provide a unified API for your application.
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***Explain the difference between queries, mutations, and subscriptions in GraphQL.***
+
+In GraphQL, queries, mutations, and subscriptions are three main types of operations that clients can perform on the API, each serving a different purpose:
+
+1. **Queries**: Queries are used to read or fetch data from the GraphQL server. They analogous the GET requests in RESTful APIs and are used when clients need to retrieve data without modifying anything on the server. Queries are defined using the `query` keyword in the GraphQL syntax.
+
+   Example query:
+   ```graphql
+   query {
+     getUser(id: "123") {
+       id
+       name
+       email
+     }
+   }
+   ```
+
+2. **Mutations**: Mutations are used to modify data on the server. They are analogous to POST, PUT, PATCH, or DELETE requests in RESTful APIs. Mutations allow clients to create, update, or delete data on the server. Mutations are defined using the `mutation` keyword in the GraphQL syntax.
+
+   Example mutation:
+   ```graphql
+   mutation {
+     createUser(name: "John", email: "john@example.com") {
+       id
+       name
+       email
+     }
+   }
+   ```
+
+3. **Subscriptions**: Subscriptions enable real-time communication between the client and the server. They allow clients to subscribe to specific events or data changes on the server and receive updates in real-time. Subscriptions are typically used for implementing features like live notifications, chat applications, or real-time data feeds. Subscriptions are defined using the `subscription` keyword in the GraphQL syntax.
+
+   Example subscription:
+   ```graphql
+   subscription {
+     newPost {
+       id
+       title
+       content
+       author {
+         id
+         name
+       }
+     }
+   }
+   ```
+
+Here's a summary of the differences:
+
+- **Queries**: Used to fetch data from the server. They are read-only operations.
+- **Mutations**: Used to modify data on the server. They involve creating, updating, or deleting data.
+- **Subscriptions**: Used for real-time communication between the client and the server. They enable clients to receive updates when specific events occur.
+
+Together, queries, mutations, and subscriptions cover the spectrum of operations that clients can perform on a GraphQL API, allowing for flexible and efficient client-server communication.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
 ## Q. ***
 
 
