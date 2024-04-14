@@ -268,7 +268,75 @@ Directives provide a powerful mechanism for controlling the behavior of GraphQL 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***How do you perform nested queries in GraphQL?***
+
+In GraphQL, nested queries allow you to fetch related data in a single request by traversing relationships between types in your schema. This enables you to retrieve complex data structures efficiently without needing to make multiple round-trips to the server.
+
+Here's how you perform nested queries in GraphQL:
+
+1. **Define relationships in your schema**: First, ensure that your GraphQL schema defines relationships between types using fields. For example, if you have a `User` type and a `Post` type, you might have a field on `User` that represents their posts.
+
+   ```graphql
+   type User {
+     id: ID!
+     name: String!
+     email: String!
+     posts: [Post!]!
+   }
+
+   type Post {
+     id: ID!
+     title: String!
+     content: String!
+     author: User!
+   }
+   ```
+
+2. **Query nested fields**: Once your schema defines relationships, you can query nested fields in your GraphQL query. When you query a nested field, GraphQL resolves the relationship and fetches the related data.
+
+   ```graphql
+   query {
+     getUser(id: "123") {
+       id
+       name
+       email
+       posts {
+         id
+         title
+         content
+       }
+     }
+   }
+   ```
+
+   In this example, the `getUser` query fetches a user with the specified ID and retrieves their name, email, and all of their posts. The nested `posts` field returns an array of posts associated with the user.
+
+3. **Traverse multiple levels of nesting**: You can traverse multiple levels of nesting in your GraphQL queries to retrieve deeply nested data structures. For example, you could query a user's posts and then for each post, query the comments associated with that post.
+
+   ```graphql
+   query {
+     getUser(id: "123") {
+       id
+       name
+       posts {
+         id
+         title
+         comments {
+           id
+           content
+           user {
+             id
+             name
+           }
+         }
+       }
+     }
+   }
+   ```
+
+   In this query, for each post retrieved, we're also fetching the comments associated with that post, and for each comment, we're retrieving the user who made the comment.
+
+Nested queries in GraphQL allow you to express complex data retrieval requirements in a concise and efficient manner, reducing the need for multiple round-trips to the server and improving the performance of your application.
 
 
 <div align="right">
