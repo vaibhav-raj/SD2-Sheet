@@ -946,7 +946,85 @@ By using DTOs in Nest.js, you can standardize the structure of data transferred 
 
 ## Q. ***Explain the concept of interceptors in Nest.js.***
 
+In Nest.js, interceptors are a powerful feature that allows you to intercept incoming requests and outgoing responses, as well as the execution flow of route handlers (controller methods). Interceptors provide a way to execute common pre-processing or post-processing logic in a modular and reusable manner. They are commonly used for tasks such as logging, error handling, data transformation, caching, and more. Here's an explanation of the concept of interceptors in Nest.js:
 
+1. **Types of Interceptors**:
+   - **Global Interceptors**: Global interceptors are registered at the application level and are executed for every incoming request and outgoing response. They can be used to implement cross-cutting concerns that apply to the entire application.
+   - **Controller-scoped Interceptors**: Controller-scoped interceptors are registered at the controller level and are executed only for requests handled by that controller. They can be used to implement logic specific to a particular controller or route.
+   - **Method-scoped Interceptors**: Method-scoped interceptors are registered at the method level within a controller and are executed only for requests handled by that specific method. They can be used to implement logic specific to a particular route handler.
+
+2. **Creating Interceptors**:
+   - Interceptors are implemented as classes that implement the `NestInterceptor` interface or extend the `Interceptor` abstract class.
+   - Interceptors define a `intercept()` method that accepts an `ExecutionContext` object representing the current execution context and returns either an observable, a promise, or a synchronous value.
+
+   ```typescript
+   // logging.interceptor.ts
+
+   import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+   import { Observable } from 'rxjs';
+   import { tap } from 'rxjs/operators';
+
+   @Injectable()
+   export class LoggingInterceptor implements NestInterceptor {
+     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+       console.log('Before...');
+       const now = Date.now();
+       return next.handle().pipe(
+         tap(() => console.log(`After... ${Date.now() - now}ms`)),
+       );
+     }
+   }
+   ```
+
+3. **Registering Interceptors**:
+   - Interceptors can be registered globally, at the controller level, or at the method level using the appropriate decorators (`@UseInterceptors()`).
+
+   ```typescript
+   // app.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { APP_INTERCEPTOR } from '@nestjs/core';
+   import { LoggingInterceptor } from './logging.interceptor';
+
+   @Module({
+     providers: [
+       {
+         provide: APP_INTERCEPTOR,
+         useClass: LoggingInterceptor,
+       },
+     ],
+   })
+   export class AppModule {}
+   ```
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Get, UseInterceptors } from '@nestjs/common';
+   import { CatsService } from './cats.service';
+   import { LoggingInterceptor } from './logging.interceptor';
+
+   @Controller('cats')
+   @UseInterceptors(LoggingInterceptor)
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @Get()
+     findAll(): string[] {
+       return this.catsService.findAll();
+     }
+   }
+   ```
+
+4. **Order of Execution**:
+   - Interceptors are executed in the order they are registered or applied in the middleware chain.
+   - Global interceptors are executed before controller-scoped interceptors, which are executed before method-scoped interceptors.
+
+5. **Error Handling**:
+   - Interceptors can handle errors and exceptions thrown during request processing by implementing error handling logic in the `intercept()` method.
+   - Use try/catch blocks or error handling operators such as `catchError()` to handle errors gracefully within interceptors.
+
+By using interceptors in Nest.js, you can implement cross-cutting concerns such as logging, error handling, data transformation, and more in a modular and reusable manner. Interceptors provide a flexible mechanism for intercepting and manipulating requests and responses, allowing you to implement common functionality that applies to multiple parts of your application.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
