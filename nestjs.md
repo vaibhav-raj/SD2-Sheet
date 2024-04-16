@@ -62,31 +62,233 @@ Overall, Nest.js offers a modern and opinionated framework for building backend 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***Explain the architecture of Nest.js and how it differs from traditional Node.js applications.***
+The architecture of Nest.js is based on a modular and opinionated approach that promotes code organization, maintainability, and scalability. While Nest.js is built on top of Node.js and leverages its core features, it introduces several abstractions and design patterns that differentiate it from traditional Node.js applications. Here's an overview of the architecture of Nest.js and how it differs from traditional Node.js applications:
+
+1. **Modular architecture**:
+   - Nest.js encourages a modular architecture, where applications are organized into modules containing related functionality. Each module encapsulates a set of components, such as controllers, services, and providers, that work together to implement a specific feature or domain within the application.
+   - Modules can be easily added, removed, and reused, promoting code reusability and maintainability. This modular approach makes it easier to scale and maintain large applications by breaking them down into smaller, manageable pieces.
+
+2. **Dependency Injection (DI)**:
+   - Nest.js uses a dependency injection (DI) system to manage the instantiation and injection of application components. DI allows you to define dependencies between components in a declarative and flexible manner, making your code more modular and testable.
+   - Components such as controllers, services, and middleware can declare their dependencies using decorators, and Nest.js automatically resolves and injects these dependencies at runtime.
+
+3. **Decorators-based programming**:
+   - Nest.js heavily relies on decorators to define and configure application components, such as controllers, services, routes, middleware, and providers. Decorators provide a declarative and expressive way to annotate and configure components, reducing boilerplate code and improving code readability.
+   - Decorators are used to define routes, specify HTTP methods, apply middleware, define injection tokens, and more, making it easier to understand and maintain the structure of your application.
+
+4. **Middleware pipeline**:
+   - Nest.js provides a middleware pipeline that allows you to intercept and process incoming HTTP requests before they reach the route handlers. Middleware functions can be used for tasks such as authentication, logging, error handling, and request processing.
+   - Middleware functions can be applied globally, per module, or per route, giving you fine-grained control over request processing and allowing you to encapsulate cross-cutting concerns in reusable middleware.
+
+5. **Built-in HTTP server**:
+   - Nest.js provides a built-in HTTP server that can be used to serve HTTP requests and responses. It abstracts away the complexities of setting up and configuring an HTTP server, allowing you to focus on building application logic.
+   - The built-in HTTP server is based on Express.js, one of the most popular web frameworks for Node.js, which provides a familiar and flexible environment for building web applications.
+
+6. **TypeScript support**:
+   - Nest.js is written in TypeScript and provides first-class support for TypeScript throughout the framework. TypeScript enables strong typing, better code organization, and improved developer tooling, resulting in more maintainable and scalable applications.
+   - TypeScript allows you to benefit from features such as static type checking, code completion, and automatic type inference, which can help catch errors early and improve code quality.
+
+Overall, the architecture of Nest.js introduces several abstractions and design patterns that promote code organization, modularity, and maintainability. By leveraging features such as dependency injection, decorators-based programming, and middleware pipelines, Nest.js simplifies the process of building robust and scalable server-side applications in Node.js.
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are decorators in Nest.js and how do you use them?***
+
+Decorators in Nest.js are a powerful feature that allows you to enhance and configure classes, methods, properties, and parameters in a declarative and expressive way. Decorators are functions that are prefixed with the `@` symbol and can be attached to classes, methods, properties, or parameters to add metadata or behavior to them. Here's how you can use decorators in Nest.js:
+
+1. **Class decorators**:
+   - Class decorators are functions that are applied to classes and modify their behavior or metadata.
+   - You can use class decorators to define modules, controllers, middleware, providers, and other components in your Nest.js application.
+
+   ```typescript
+   // Example of a class decorator defining a module
+   @Module({
+     imports: [OtherModule],
+     controllers: [AppController],
+     providers: [AppService],
+   })
+   export class AppModule {}
+   ```
+
+2. **Method decorators**:
+   - Method decorators are functions that are applied to methods within a class and modify their behavior or metadata.
+   - You can use method decorators to define route handlers in controllers, middleware functions, and other behaviors associated with methods.
+
+   ```typescript
+   // Example of a method decorator defining a route handler in a controller
+   @Get('/')
+   getHello(): string {
+     return this.appService.getHello();
+   }
+   ```
+
+3. **Property decorators**:
+   - Property decorators are functions that are applied to properties within a class and modify their behavior or metadata.
+   - You can use property decorators to define dependency injections, inject configuration values, or add metadata to properties.
+
+   ```typescript
+   // Example of a property decorator defining a dependency injection
+   @Inject(AppService)
+   private readonly appService: AppService;
+   ```
+
+4. **Parameter decorators**:
+   - Parameter decorators are functions that are applied to parameters within a method or constructor and modify their behavior or metadata.
+   - You can use parameter decorators to define dependency injections, inject request parameters, or add metadata to parameters.
+
+   ```typescript
+   // Example of a parameter decorator defining a dependency injection
+   constructor(@Inject(AppService) private readonly appService: AppService) {}
+   ```
+
+5. **Custom decorators**:
+   - Nest.js allows you to define custom decorators by creating functions that return other decorators or modify the behavior of existing decorators.
+   - Custom decorators can be used to encapsulate common patterns, enforce validation rules, or provide additional functionality in your application.
+
+   ```typescript
+   // Example of a custom decorator enforcing authorization rules
+   export function Authenticated() {
+     return SetMetadata('isAuthenticated', true);
+   }
+
+   @Get('/')
+   @Authenticated()
+   getProtectedResource() {
+     // Only authenticated users can access this resource
+   }
+   ```
+
+Overall, decorators in Nest.js provide a powerful mechanism for adding metadata, behavior, and configuration to classes, methods, properties, and parameters, enabling you to create more expressive and maintainable code in your Nest.js applications.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***Explain the concept of Dependency Injection in Nest.js.***
+
+Dependency Injection (DI) is a design pattern widely used in software development, including in frameworks like Nest.js. In Nest.js, DI is a fundamental concept that helps manage the creation and injection of dependencies between different components of your application. Here's an explanation of Dependency Injection in Nest.js:
+
+1. **What is Dependency Injection?**:
+   - Dependency Injection is a design pattern in which a class or component's dependencies are provided to it from the outside rather than being created or managed internally.
+   - Instead of a class creating its own dependencies directly using `new` or other instantiation mechanisms, dependencies are injected into the class by an external entity, typically a DI container or framework.
+   - Dependency Injection promotes loose coupling between classes and makes components more modular, testable, and maintainable by separating concerns and responsibilities.
+
+2. **How does Dependency Injection work in Nest.js?**:
+   - In Nest.js, Dependency Injection is implemented using TypeScript decorators and a built-in DI container.
+   - Classes in Nest.js can declare dependencies using constructor parameters or property decorators, and the DI container is responsible for resolving and injecting these dependencies when an instance of the class is created.
+   - When Nest.js creates an instance of a class, it inspects the class's constructor parameters and looks up the registered providers in the DI container to resolve and inject the dependencies.
+   - Nest.js provides decorators such as `@Injectable`, `@Inject`, and `@Module` to define and configure components and their dependencies for injection.
+
+3. **Key Concepts**:
+   - **Providers**: Providers are classes or values that can be injected into other components in your application. Providers can be services, repositories, factories, or any other type of dependency.
+   - **Injectables**: Injectable is a special type of provider in Nest.js that is annotated with the `@Injectable` decorator. Injectable classes can be injected into other components using DI.
+   - **Injection Tokens**: Injection tokens are used to identify dependencies and facilitate their resolution by the DI container. You can use tokens to declare and resolve dependencies with the `@Inject` decorator.
+   - **Modules**: Modules are containers for organizing providers and defining the scope of dependency injection in your application. Modules define the context in which dependencies can be injected and facilitate modularization and encapsulation.
+
+4. **Benefits of Dependency Injection in Nest.js**:
+   - Promotes loose coupling between components, making your code more modular, reusable, and maintainable.
+   - Facilitates unit testing by allowing you to easily replace dependencies with mock implementations or stubs.
+   - Enables inversion of control (IoC), allowing you to configure and manage dependencies centrally, which improves flexibility and scalability.
+
+Overall, Dependency Injection is a powerful feature in Nest.js that simplifies the management of dependencies and promotes best practices in software design and architecture. By leveraging Dependency Injection, you can build cleaner, more modular, and testable applications with Nest.js.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***How do you create and use modules in Nest.js?***
+
+In Nest.js, modules are a fundamental building block for organizing and structuring your application. Modules encapsulate related functionality, such as controllers, services, providers, and other components, and define the context in which dependencies can be injected using Dependency Injection (DI). Here's how you create and use modules in Nest.js:
+
+1. **Creating a Module**:
+   - To create a module, you typically create a new TypeScript file and define a class annotated with the `@Module()` decorator.
+   - The `@Module()` decorator takes an object as an argument, which can include properties such as `imports`, `controllers`, `providers`, `exports`, etc.
+
+   ```typescript
+   // app.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { CatsController } from './cats.controller';
+   import { CatsService } from './cats.service';
+
+   @Module({
+     imports: [],
+     controllers: [CatsController],
+     providers: [CatsService],
+   })
+   export class AppModule {}
+   ```
+
+2. **Using Modules**:
+   - Once you have created a module, you can import it into other modules to make its components available for injection or use.
+   - Use the `imports` property of the `@Module()` decorator to import other modules into the current module.
+
+   ```typescript
+   // other.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { AnotherController } from './another.controller';
+   import { AnotherService } from './another.service';
+   import { AppModule } from './app.module'; // Importing AppModule
+
+   @Module({
+     imports: [AppModule], // Importing AppModule
+     controllers: [AnotherController],
+     providers: [AnotherService],
+   })
+   export class OtherModule {}
+   ```
+
+3. **Exporting Components**:
+   - If you want components (e.g., services, providers) from a module to be available for injection in other modules, you can export them using the `exports` property of the `@Module()` decorator.
+   - Exported components can be used by modules that import the module in which they are defined.
+
+   ```typescript
+   // cats.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { CatsController } from './cats.controller';
+   import { CatsService } from './cats.service';
+
+   @Module({
+     controllers: [CatsController],
+     providers: [CatsService],
+     exports: [CatsService], // Exporting CatsService
+   })
+   export class CatsModule {}
+   ```
+
+   ```typescript
+   // other.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { OtherController } from './other.controller';
+   import { CatsModule } from './cats.module'; // Importing CatsModule
+
+   @Module({
+     imports: [CatsModule], // Importing CatsModule
+     controllers: [OtherController],
+   })
+   export class OtherModule {}
+   ```
+
+4. **Root Module**:
+   - The root module of a Nest.js application is typically named `AppModule` and serves as the entry point of the application.
+   - The root module imports other modules and orchestrates the composition of the application.
+
+5. **Dynamic Modules**:
+   - Nest.js also supports dynamic modules, which allow you to configure modules programmatically at runtime.
+   - Dynamic modules are useful for scenarios where the module configuration needs to be determined dynamically based on runtime conditions.
+
+By creating and using modules in Nest.js, you can organize your application into cohesive and reusable units of functionality, promote code modularity and encapsulation, and facilitate the management of dependencies using Dependency Injection. Modules serve as the building blocks of Nest.js applications and play a central role in structuring and organizing your codebase.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
-
-<div align="right">
-    <b><a href="#">↥ back to top</a></b>
-</div>
-
-## Q. ***
+## Q. ***What are providers in Nest.js and what is their role?***
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
