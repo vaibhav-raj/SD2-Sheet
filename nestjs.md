@@ -290,11 +290,62 @@ By creating and using modules in Nest.js, you can organize your application into
 
 ## Q. ***What are providers in Nest.js and what is their role?***
 
+In Nest.js, providers are a core concept used to define and configure dependencies that can be injected into other components of your application using Dependency Injection (DI). Providers can be services, repositories, factories, or any other type of class or value that can be injected into other components. Here's an explanation of providers in Nest.js and their role:
+
+1. **Defining Providers**:
+   - Providers are typically defined as classes annotated with the `@Injectable()` decorator, although they can also be values or factories.
+   - The `@Injectable()` decorator marks a class as a provider and allows it to be injected into other components using DI.
+   - Providers can have constructor parameters that represent their dependencies, which are automatically resolved and injected by the Nest.js DI container.
+
+   ```typescript
+   import { Injectable } from '@nestjs/common';
+
+   @Injectable()
+   export class CatsService {
+     findAll(): string[] {
+       return ['Meow', 'Purr', 'Hiss'];
+     }
+   }
+   ```
+
+2. **Role of Providers**:
+   - **Encapsulate Business Logic**: Providers encapsulate the business logic of your application and define the functionality of specific features or components.
+   - **Manage Data Access**: Providers can interact with databases, external APIs, or other data sources to perform data manipulation, retrieval, or persistence operations.
+   - **Handle Cross-Cutting Concerns**: Providers can handle cross-cutting concerns such as logging, caching, authentication, authorization, validation, error handling, and more.
+   - **Promote Reusability**: Providers promote code reusability by encapsulating common functionality that can be shared and reused across different parts of your application.
+   - **Facilitate Testing**: Providers make your code more testable by allowing you to easily replace dependencies with mock implementations or stubs during unit testing.
+   - **Enable Dependency Injection**: Providers enable Dependency Injection in Nest.js by defining the dependencies that can be injected into other components such as controllers, other services, middleware, and more.
+
+3. **Using Providers**:
+   - Once a provider is defined, it can be injected into other components such as controllers, other services, middleware, and more using DI.
+   - Nest.js automatically resolves and injects the dependencies of a component when an instance of the component is created, based on the constructor parameters of the component.
+
+   ```typescript
+   import { Controller, Get } from '@nestjs/common';
+   import { CatsService } from './cats.service';
+
+   @Controller('cats')
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @Get()
+     findAll(): string[] {
+       return this.catsService.findAll();
+     }
+   }
+   ```
+
+4. **Scope of Providers**:
+   - Providers in Nest.js have different scopes, including singleton, request, module, and transient scopes, which determine how instances of the provider are created and managed by the DI container.
+   - By default, providers in Nest.js are singleton-scoped, meaning that a single instance of the provider is created and shared across the entire application.
+
+Overall, providers play a central role in Nest.js applications by encapsulating functionality, managing dependencies, promoting reusability, and enabling Dependency Injection. By defining and using providers effectively, you can build modular, maintainable, and scalable applications with Nest.js.
+
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***What is middleware in Nest.js and how do you implement it?***
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
