@@ -567,6 +567,146 @@ To implement pipes in Nest.js, you need to create pipe classes that implement th
    ```
 
 By following these steps, you can implement pipes in Nest.js to transform and validate input data in your application's request processing pipeline. Pipes provide a flexible and modular mechanism for preprocessing data, promoting code reusability, and improving error handling in your Nest.js applications.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***What are guards in Nest.js and how do you implement them?***
+
+In Nest.js, guards are a mechanism for protecting routes (controller methods) based on certain conditions. Guards can be used to enforce authentication, authorization, role-based access control, rate limiting, and other security or business rules. Guards run before the execution of route handlers and can either allow the request to proceed or deny it based on the conditions they check. Here's an explanation of guards in Nest.js and how to implement them:
+
+1. **Types of Guards**:
+   - **Authentication Guards**: Authentication guards are used to authenticate incoming requests and determine whether the request is allowed to access the protected resource.
+   - **Authorization Guards**: Authorization guards are used to authorize incoming requests based on the roles, permissions, or other criteria of the authenticated user.
+   - **Execution Guards**: Execution guards are used to intercept and modify the execution flow of route handlers based on certain conditions. They can manipulate the request/response objects or terminate the request processing flow.
+
+2. **Creating a Guard**:
+   - To create a guard, you need to define a class that implements the `CanActivate` interface or extends the `AuthGuard` abstract class.
+   - Implement the `canActivate()` method, which accepts the current execution context (`ExecutionContext`) and returns a boolean indicating whether the request should be allowed or denied.
+
+   ```typescript
+   // auth.guard.ts
+
+   import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+   import { Observable } from 'rxjs';
+
+   @Injectable()
+   export class AuthGuard implements CanActivate {
+     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+       const request = context.switchToHttp().getRequest();
+       // Check if user is authenticated
+       return !!request.user;
+     }
+   }
+   ```
+
+3. **Applying Guards**:
+   - Once you have created your guard class, you can apply it to controllers, methods, or routes using decorators such as `@UseGuards()`.
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Get, UseGuards } from '@nestjs/common';
+   import { CatsService } from './cats.service';
+   import { AuthGuard } from './auth.guard';
+
+   @Controller('cats')
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @Get()
+     @UseGuards(AuthGuard)
+     findAll(): string[] {
+       return this.catsService.findAll();
+     }
+   }
+   ```
+
+4. **Guarding Routes**:
+   - You can apply guards at the controller level, method level, or parameter level, depending on your requirements.
+   - Guards are executed in the order they are applied in the middleware chain.
+
+5. **Handling Unauthorized Access**:
+   - If a guard denies access to a route by returning `false`, Nest.js will automatically throw an `UnauthorizedException`, which can be caught and handled using exception filters or global exception handling mechanisms.
+
+   ```typescript
+   // app.module.ts
+
+   import { UnauthorizedException, ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
+
+   @Catch(UnauthorizedException)
+   export class UnauthorizedExceptionFilter implements ExceptionFilter {
+     catch(exception: UnauthorizedException, host: ArgumentsHost) {
+       const ctx = host.switchToHttp();
+       const response = ctx.getResponse();
+       response.status(HttpStatus.UNAUTHORIZED).json({
+         statusCode: HttpStatus.UNAUTHORIZED,
+         message: 'Unauthorized access',
+       });
+     }
+   }
+   ```
+
+   ```typescript
+   // main.ts
+
+   import { NestFactory } from '@nestjs/core';
+   import { AppModule } from './app.module';
+   import { UnauthorizedExceptionFilter } from './unauthorized-exception.filter';
+
+   async function bootstrap() {
+     const app = await NestFactory.create(AppModule);
+     app.useGlobalFilters(new UnauthorizedExceptionFilter());
+     await app.listen(3000);
+   }
+   bootstrap();
+   ```
+
+By implementing guards in Nest.js, you can protect your application's routes and enforce security policies such as authentication and authorization. Guards provide a flexible and extensible mechanism for controlling access to resources and ensuring the integrity and security of your Nest.js applications.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+## Q. ***
+
+
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
