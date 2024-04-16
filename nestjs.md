@@ -1030,19 +1030,176 @@ By using interceptors in Nest.js, you can implement cross-cutting concerns such 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***What is Swagger and how do you integrate it with Nest.js for API documentation?***
 
+Swagger is an open-source framework that allows developers to design, build, document, and consume RESTful APIs. It provides a user-friendly interface for exploring and testing APIs, as well as generating interactive API documentation based on API specifications written in the OpenAPI Specification (formerly known as Swagger Specification).
 
+To integrate Swagger with Nest.js for API documentation, you can use the `@nestjs/swagger` package, which provides decorators and utilities for automatically generating Swagger documentation from your Nest.js application's controllers, routes, and DTOs. Here's how to integrate Swagger with Nest.js:
+
+1. **Install `@nestjs/swagger`**:
+   First, install the `@nestjs/swagger` package along with the required dependencies:
+
+   ```
+   npm install --save @nestjs/swagger swagger-ui-express
+   ```
+
+2. **Enable Swagger Integration**:
+   In your Nest.js application's root module (e.g., `AppModule`), enable Swagger integration by importing the `SwaggerModule` and `DocumentBuilder` classes from `@nestjs/swagger`:
+
+   ```typescript
+   // app.module.ts
+
+   import { Module } from '@nestjs/common';
+   import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+   import { CatsModule } from './cats/cats.module';
+
+   @Module({
+     imports: [CatsModule],
+   })
+   export class AppModule {
+     configure() {
+       const config = new DocumentBuilder()
+         .setTitle('Cats API')
+         .setDescription('The cats API description')
+         .setVersion('1.0')
+         .build();
+       const document = SwaggerModule.createDocument(app, config);
+       SwaggerModule.setup('api', app, document);
+     }
+   }
+   ```
+
+   Replace `'Cats API'` and `'The cats API description'` with your API's title and description, respectively.
+
+3. **Decorate Controllers and DTOs**:
+   Decorate your Nest.js controllers and DTOs (Data Transfer Objects) with `@ApiTags()` and `@ApiOperation()` decorators to provide additional metadata for Swagger:
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Get } from '@nestjs/common';
+   import { ApiTags, ApiOperation } from '@nestjs/swagger';
+   import { CatsService } from './cats.service';
+   import { Cat } from './interfaces/cat.interface';
+
+   @ApiTags('cats')
+   @Controller('cats')
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @ApiOperation({ summary: 'Get all cats' })
+     @Get()
+     async findAll(): Promise<Cat[]> {
+       return this.catsService.findAll();
+     }
+   }
+   ```
+
+4. **View API Documentation**:
+   Run your Nest.js application and navigate to `/api` (or the path you specified in `SwaggerModule.setup()`) to view the Swagger UI interface and interact with your API documentation.
+
+   ```
+   http://localhost:3000/api
+   ```
+
+   Swagger UI provides a user-friendly interface for exploring and testing your API endpoints, as well as generating interactive API documentation based on the metadata provided by `@nestjs/swagger` decorators.
+
+By following these steps, you can integrate Swagger with Nest.js to automatically generate interactive API documentation for your Nest.js applications. Swagger provides a convenient way to document and explore your API endpoints, making it easier for developers to understand and consume your APIs.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***How do you handle file uploads in Nest.js?***
+Handling file uploads in Nest.js can be done using several approaches, but one common method is to utilize middleware and libraries such as `multer` for processing multipart/form-data requests. Here's a step-by-step guide on how to handle file uploads in Nest.js:
 
+1. **Install `multer`**:
+   First, install the `multer` middleware along with any necessary dependencies:
+
+   ```
+   npm install --save multer @types/multer
+   ```
+
+2. **Create Upload Middleware**:
+   Create a middleware function using `multer` to handle file uploads. This middleware will be responsible for processing incoming multipart/form-data requests and storing the uploaded files.
+
+   ```typescript
+   // upload.middleware.ts
+
+   import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
+   import { diskStorage } from 'multer';
+   import { extname } from 'path';
+
+   @Injectable()
+   export class UploadMiddleware implements NestMiddleware {
+     resolve(): MiddlewareFunction {
+       return (req, res, next) => {
+         multer({
+           storage: diskStorage({
+             destination: './uploads',
+             filename: (req, file, cb) => {
+               const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+               cb(null, `${randomName}${extname(file.originalname)}`);
+             },
+           }),
+         }).single('file')(req, res, next);
+       };
+     }
+   }
+   ```
+
+   This middleware uses `multer` to configure file storage settings, such as the destination directory and filename. Adjust the storage configuration according to your requirements.
+
+3. **Use Middleware in Controller**:
+   Apply the upload middleware to the appropriate route handler or controller method where file uploads are expected.
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Post, UseInterceptors, UploadedFile } from '@nestjs/common';
+   import { FileInterceptor } from '@nestjs/platform-express';
+   import { createWriteStream } from 'fs';
+
+   @Controller('cats')
+   export class CatsController {
+     @Post('upload')
+     @UseInterceptors(FileInterceptor('file'))
+     uploadFile(@UploadedFile() file) {
+       const fileStream = createWriteStream(`./uploads/${file.originalname}`);
+       fileStream.write(file.buffer);
+       fileStream.end();
+       return { filename: file.originalname };
+     }
+   }
+   ```
+
+   In this example, the `FileInterceptor` from `@nestjs/platform-express` is used to intercept file upload requests and handle them using the provided middleware.
+
+4. **Handle Uploaded Files**:
+   Within your controller method, you can access the uploaded file using the `@UploadedFile()` decorator and process it as needed. In this example, the uploaded file is written to the file system using Node.js' `fs` module.
+
+5. **Configure Static File Serving**:
+   If you want to serve uploaded files statically, configure Nest.js to serve static files from the upload directory:
+
+   ```typescript
+   // main.ts
+
+   import { NestFactory } from '@nestjs/core';
+   import { AppModule } from './app.module';
+   import { join } from 'path';
+
+   async function bootstrap() {
+     const app = await NestFactory.create(AppModule);
+     app.useStaticAssets(join(__dirname, '..', 'uploads'));
+     await app.listen(3000);
+   }
+   bootstrap();
+   ```
+
+By following these steps, you can handle file uploads in your Nest.js application using `multer` middleware. This approach allows you to process multipart/form-data requests and store uploaded files on the server.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***Explain the concept of WebSockets in Nest.js. How would you implement real-time communication?***
