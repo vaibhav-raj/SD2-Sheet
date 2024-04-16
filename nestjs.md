@@ -347,6 +347,99 @@ Overall, providers play a central role in Nest.js applications by encapsulating 
 
 ## Q. ***What is middleware in Nest.js and how do you implement it?***
 
+Middleware in Nest.js is a function or a class method that runs before or after the execution of route handlers (controllers' methods). It intercepts incoming HTTP requests and can perform tasks such as request preprocessing, authentication, logging, error handling, and more. Middleware functions have access to the request, response, and next function, allowing them to modify the request or response objects and optionally pass control to the next middleware in the chain.
+
+Here's how you can implement middleware in Nest.js:
+
+1. **Creating Middleware**:
+   - You can create middleware by defining a class with a `use()` method or by defining a function with the signature `(req, res, next) => void`.
+   - If you create a class-based middleware, it should implement the `NestMiddleware` interface and have a `use()` method that accepts the request, response, and next function as parameters.
+
+   ```typescript
+   // middleware/logger.middleware.ts
+
+   import { Injectable, NestMiddleware } from '@nestjs/common';
+   import { Request, Response, NextFunction } from 'express';
+
+   @Injectable()
+   export class LoggerMiddleware implements NestMiddleware {
+     use(req: Request, res: Response, next: NextFunction) {
+       console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+       next();
+     }
+   }
+   ```
+
+2. **Registering Middleware**:
+   - To use middleware in your application, you need to register it with the application module or with specific routes/controllers.
+   - You can register middleware globally, which applies to all routes, or locally, which applies only to specific routes.
+
+   ```typescript
+   // app.module.ts
+
+   import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+   import { LoggerMiddleware } from './middleware/logger.middleware';
+
+   @Module({})
+   export class AppModule implements NestModule {
+     configure(consumer: MiddlewareConsumer) {
+       consumer.apply(LoggerMiddleware).forRoutes('*'); // Apply globally to all routes
+       // consumer.apply(LoggerMiddleware).forRoutes('cats'); // Apply locally to specific routes
+     }
+   }
+   ```
+
+3. **Using Middleware**:
+   - Once registered, middleware functions will be executed in the order they are applied in the middleware chain.
+   - Middleware functions can perform tasks such as logging, authentication, validation, error handling, etc., before or after route handlers are executed.
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Get } from '@nestjs/common';
+   import { CatsService } from './cats.service';
+
+   @Controller('cats')
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @Get()
+     findAll(): string[] {
+       return this.catsService.findAll();
+     }
+   }
+   ```
+
+4. **Error Handling Middleware**:
+   - You can also create error handling middleware to handle errors that occur during request processing.
+   - Error handling middleware functions take an additional `err` parameter and are typically registered as the last middleware in the chain.
+
+   ```typescript
+   @Injectable()
+   export class ErrorMiddleware implements NestMiddleware {
+     use(err: any, req: Request, res: Response, next: NextFunction) {
+       console.error(err);
+       res.status(500).send('Internal Server Error');
+     }
+   }
+   ```
+
+   ```typescript
+   // app.module.ts
+
+   import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+   import { ErrorMiddleware } from './middleware/error.middleware';
+
+   @Module({})
+   export class AppModule implements NestModule {
+     configure(consumer: MiddlewareConsumer) {
+       consumer.apply(ErrorMiddleware).forRoutes('*');
+     }
+   }
+   ```
+
+Middleware in Nest.js provides a flexible mechanism for adding cross-cutting concerns and preprocessing logic to your application's HTTP request processing pipeline. By creating and registering middleware, you can modularize and encapsulate common tasks and improve the maintainability and readability of your code.
+
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
