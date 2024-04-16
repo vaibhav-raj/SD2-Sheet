@@ -842,12 +842,109 @@ By following these steps, you can implement authentication and authorization in 
 
 ## Q. ***What is DTO (Data Transfer Object) in Nest.js and how do you use it?***
 
+In Nest.js, a DTO (Data Transfer Object) is a plain TypeScript class used to define the structure and shape of data that is transferred between different parts of your application, such as between client and server, between layers of your application, or between different modules. DTOs are commonly used to encapsulate data passed in requests or responses, providing a standardized format for communication and decoupling the internal data model from external representations. Here's how DTOs are used in Nest.js:
+
+1. **Defining DTOs**:
+   - DTOs are typically defined as TypeScript classes with properties that represent the fields of the data being transferred.
+   - DTOs may include validation decorators from libraries like `class-validator` to enforce data validation rules.
+
+   ```typescript
+   // create-cat.dto.ts
+
+   import { IsString, IsInt } from 'class-validator';
+
+   export class CreateCatDto {
+     @IsString()
+     readonly name: string;
+
+     @IsInt()
+     readonly age: number;
+
+     @IsString()
+     readonly breed: string;
+   }
+   ```
+
+2. **Using DTOs in Controllers**:
+   - In Nest.js controllers, you can use DTOs to define the structure of data passed in request payloads (e.g., in POST or PUT requests).
+   - Use DTOs as parameters for controller methods to automatically deserialize request bodies into instances of the DTO class.
+
+   ```typescript
+   // cats.controller.ts
+
+   import { Controller, Post, Body } from '@nestjs/common';
+   import { CatsService } from './cats.service';
+   import { CreateCatDto } from './create-cat.dto';
+
+   @Controller('cats')
+   export class CatsController {
+     constructor(private readonly catsService: CatsService) {}
+
+     @Post()
+     async create(@Body() createCatDto: CreateCatDto) {
+       return this.catsService.create(createCatDto);
+     }
+   }
+   ```
+
+3. **Using DTOs in Services**:
+   - In Nest.js services, you can use DTOs to define the structure of data returned from service methods or passed between different parts of your application.
+   - Use DTOs to represent the data being processed or returned by service methods.
+
+   ```typescript
+   // cats.service.ts
+
+   import { Injectable } from '@nestjs/common';
+   import { CreateCatDto } from './create-cat.dto';
+   import { Cat } from './interfaces/cat.interface';
+
+   @Injectable()
+   export class CatsService {
+     private readonly cats: Cat[] = [];
+
+     create(createCatDto: CreateCatDto): Cat {
+       const cat: Cat = {
+         id: this.cats.length + 1,
+         ...createCatDto,
+       };
+       this.cats.push(cat);
+       return cat;
+     }
+
+     findAll(): Cat[] {
+       return this.cats;
+     }
+   }
+   ```
+
+4. **Validation with DTOs**:
+   - You can use DTOs with validation decorators to enforce validation rules on incoming request data.
+   - Nest.js provides integration with libraries like `class-validator` to automatically validate DTOs based on defined validation rules.
+
+   ```typescript
+   // create-cat.dto.ts
+
+   import { IsString, IsInt } from 'class-validator';
+
+   export class CreateCatDto {
+     @IsString()
+     readonly name: string;
+
+     @IsInt()
+     readonly age: number;
+
+     @IsString()
+     readonly breed: string;
+   }
+   ```
+
+By using DTOs in Nest.js, you can standardize the structure of data transferred between different parts of your application, enforce data validation rules, and decouple the internal data model from external representations. This promotes code readability, maintainability, and flexibility in your Nest.js applications.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***
+## Q. ***Explain the concept of interceptors in Nest.js.***
 
 
 
