@@ -124,9 +124,12 @@ Node.js operates on a single-threaded, event-driven model:
 
 ## Q. ***Explain the concept of non-blocking I/O in Node.js.***
 
-Non-blocking I/O in Node.js means that when an I/O operation, like reading from a file or making a network request, is initiated, Node.js doesn't wait for it to finish before moving on to the next task. Instead, it continues executing other operations while the I/O operation is being processed asynchronously in the background. 
+Non-blocking I/O in Node.js means that when an I/O operation, like reading from a file or making a network request, is initiated,
+Node.js doesn't wait for it to finish before moving on to the next task. 
+Instead, it continues executing other operations while the I/O operation is being processed asynchronously in the background. 
 
-This approach allows Node.js to handle multiple I/O tasks concurrently without getting blocked, maximizing efficiency and responsiveness. When the I/O operation completes, Node.js triggers a callback to handle the result, ensuring that the application can continue running smoothly without waiting for slow I/O operations to finish. 
+This approach allows Node.js to handle multiple I/O tasks concurrently without getting blocked, maximizing efficiency and responsiveness. 
+When the I/O operation completes, Node.js triggers a callback to handle the result, ensuring that the application can continue running smoothly without waiting for slow I/O operations to finish. 
 
 In essence, non-blocking I/O enables Node.js to efficiently manage multiple operations simultaneously, making it ideal for handling high-concurrency scenarios, such as web servers serving many clients at once.
 
