@@ -491,7 +491,10 @@ Certainly! Here are the purposes of `package.json` in a Node.js project broken d
 
 ## Q. ***What are modules in Node.js? How do you create and use them?***
 
-In Node.js, modules are reusable blocks of code that encapsulate functionality and can be easily imported and used in other parts of a Node.js application. Modules help organize code, promote code reusability, and improve maintainability. There are two types of modules in Node.js: core modules (built-in modules provided by Node.js) and user-created modules (custom modules created by developers).
+In Node.js, modules are reusable blocks of code that encapsulate functionality and can be easily imported and used in other parts of a Node.js application.<br> Modules help organize code, promote code reusability, and improve maintainability.<br> 
+**Types of Modules**:
+    - **Core Modules**: Built-in modules provided by Node.js, such as `fs`, `http`, and `path`. <br>
+    - **User-created Modules**: Custom modules created by developers to encapsulate specific functionality tailored to their application's needs.
 
 Here's how you can create and use modules in Node.js:
 
