@@ -226,21 +226,3 @@ class Switch {
 }
 ```
 
-### Conclusion:
-Adhering to SOLID principles in Node.js can lead to more maintainable, scalable, and flexible code. By following these principles, developers can build robust applications that are easier to understand and extend. Incorporating SOLID principles into your Node.js development practices will contribute to the long-term success of your projects.
-
----
-
-**References:**
-
-- Robert C. Martin. "Design Principles and Design Patterns." SourceMaking.
-- "SOLID Principles of Object-Oriented Design." GeeksforGeeks.
-- Martin, R. C. (2003). "Agile Software Development: Principles, Patterns, and Practices." Prentice Hall.
-- Freeman, E., Robson, E., Bates, B., & Sierra, K. (2004). "Head First Design Patterns." O'Reilly Media.
-
----
-
-*Written by Kingsley Ibe*
-
-*Follow for more insights on software development*
-
