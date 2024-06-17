@@ -3,7 +3,7 @@
 | 01.   | [Understanding SOLID Principles](#understanding-solid-principles) |
 | 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern) |
 | 03.   | [Behavioral Design Patterns: Observer Design Pattern](#behavioral-design-patterns-observer-design-pattern) |
-
+| 04.   | [Behavioral Design Patterns: State Design Pattern](#behavioral-design-patterns-state-design-pattern) |
 
 <a id="understanding-solid-principles"></a>
 ## Q. ***Understanding SOLID Principles***
@@ -383,27 +383,52 @@ In Node.js, the Observer pattern can be implemented using either native EventEmi
 ```javascript
 const EventEmitter = require('events');
 
-// Define an event emitter
-class Subject extends EventEmitter {
-  // Method to trigger an event and notify observers
-  triggerEvent(data) {
-    this.emit('event', data);
+// Define the WeatherStation class (Subject)
+class WeatherStation extends EventEmitter {
+  constructor() {
+    super();
+    this.weatherData = null;
+  }
+
+  setWeatherData(data) {
+    this.weatherData = data;
+    this.notifyObservers();
+  }
+
+  notifyObservers() {
+    this.emit('weatherUpdate', this.weatherData);
   }
 }
 
-// Observer function
-function observerFunction(data) {
-  console.log('Received data:', data);
+// Define the DisplayDevice class (Observer)
+class DisplayDevice {
+  constructor(name) {
+    this.name = name;
+  }
+
+  update(data) {
+    console.log(`${this.name} received weather update: ${data}`);
+  }
 }
 
-// Create an instance of Subject
-const subject = new Subject();
+// Create an instance of WeatherStation
+const weatherStation = new WeatherStation();
 
-// Add observer (listener) to the 'event'
-subject.on('event', observerFunction);
+// Create instances of DisplayDevice (observers)
+const phoneDisplay = new DisplayDevice('Phone Display');
+const desktopDisplay = new DisplayDevice('Desktop Display');
+const tabletDisplay = new DisplayDevice('Tablet Display');
 
-// Trigger the event
-subject.triggerEvent('Hello, observers!');
+// Subscribe the observers to the weather updates
+weatherStation.on('weatherUpdate', (data) => phoneDisplay.update(data));
+weatherStation.on('weatherUpdate', (data) => desktopDisplay.update(data));
+weatherStation.on('weatherUpdate', (data) => tabletDisplay.update(data));
+
+// Simulate a weather update
+weatherStation.setWeatherData('Sunny, 25°C');
+
+// Simulate another weather update
+weatherStation.setWeatherData('Rainy, 18°C');
 ```
 
 ### When to Use the Observer Pattern
@@ -419,6 +444,243 @@ You should consider using the Observer pattern in Node.js when:
 4. **Dynamic relationships:** You need a way to dynamically subscribe and unsubscribe observers from receiving updates based on certain events or conditions.
 
 In summary, the Observer pattern is useful in Node.js applications where you need to maintain loosely coupled relationships between objects and ensure that changes in one part of the system can trigger updates in other parts without directly coupling them together.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+<a id="behavioral-design-patterns-state-design-pattern"></a>
+## Q. ***Behavioral Design Patterns: State Design Pattern***
+
+The State Design Pattern is a behavioral design pattern that allows an object to change its behavior when its internal state changes. It helps an object to alter its behavior when its internal state transitions, making the object appear to change its class.
+
+This pattern is particularly useful when you have an object that can be in one of several states, and its behavior changes based on the state it is in.
+
+### When to Use the State Design Pattern
+
+1. **Complex State Logic:** When an object has complex state-dependent behavior and you want to organize the code in a way that makes it easy to manage and extend.
+2. **State-Dependent Methods:** When the methods of an object should behave differently depending on the object's state.
+3. **Encapsulation of State:** When you want to encapsulate the state and state-specific behavior within state objects.
+
+### Example: Vending Machine
+
+Let's create a simple vending machine using the State Design Pattern in Node.js. The vending machine will have the following states:
+- NoCoinInsertedState
+- HasCoinState
+- DispenseState
+- SoldOutState
+
+Each state will handle the behavior of the vending machine differently.
+
+#### Step 1: Define the States
+
+```javascript
+// Abstract state class
+class State {
+  insertCoin() {}
+  ejectCoin() {}
+  selectProduct() {}
+  dispense() {}
+}
+
+// NoCoinInsertedState class
+class NoCoinInsertedState extends State {
+  constructor(vendingMachine) {
+    super();
+    this.vendingMachine = vendingMachine;
+  }
+
+  insertCoin() {
+    console.log('Coin inserted');
+    this.vendingMachine.setState(this.vendingMachine.getHasCoinState());
+  }
+
+  ejectCoin() {
+    console.log('No coin to eject');
+  }
+
+  selectProduct() {
+    console.log('Insert coin first');
+  }
+
+  dispense() {
+    console.log('Insert coin first');
+  }
+}
+
+// HasCoinState class
+class HasCoinState extends State {
+  constructor(vendingMachine) {
+    super();
+    this.vendingMachine = vendingMachine;
+  }
+
+  insertCoin() {
+    console.log('Coin already inserted');
+  }
+
+  ejectCoin() {
+    console.log('Coin ejected');
+    this.vendingMachine.setState(this.vendingMachine.getNoCoinInsertedState());
+  }
+
+  selectProduct() {
+    console.log('Product selected');
+    this.vendingMachine.setState(this.vendingMachine.getDispenseState());
+  }
+
+  dispense() {
+    console.log('Select product first');
+  }
+}
+
+// DispenseState class
+class DispenseState extends State {
+  constructor(vendingMachine) {
+    super();
+    this.vendingMachine = vendingMachine;
+  }
+
+  insertCoin() {
+    console.log('Please wait, dispensing product');
+  }
+
+  ejectCoin() {
+    console.log('Cannot eject, already dispensing product');
+  }
+
+  selectProduct() {
+    console.log('Already dispensing product');
+  }
+
+  dispense() {
+    this.vendingMachine.releaseProduct();
+    if (this.vendingMachine.getCount() > 0) {
+      this.vendingMachine.setState(this.vendingMachine.getNoCoinInsertedState());
+    } else {
+      console.log('Out of products');
+      this.vendingMachine.setState(this.vendingMachine.getSoldOutState());
+    }
+  }
+}
+
+// SoldOutState class
+class SoldOutState extends State {
+  constructor(vendingMachine) {
+    super();
+    this.vendingMachine = vendingMachine;
+  }
+
+  insertCoin() {
+    console.log('Out of products');
+  }
+
+  ejectCoin() {
+    console.log('No coin to eject');
+  }
+
+  selectProduct() {
+    console.log('Out of products');
+  }
+
+  dispense() {
+    console.log('Out of products');
+  }
+}
+```
+
+#### Step 2: Define the Vending Machine
+
+```javascript
+class VendingMachine {
+  constructor(productCount) {
+    this.soldOutState = new SoldOutState(this);
+    this.noCoinInsertedState = new NoCoinInsertedState(this);
+    this.hasCoinState = new HasCoinState(this);
+    this.dispenseState = new DispenseState(this);
+    
+    this.count = productCount;
+
+    if (productCount > 0) {
+      this.state = this.noCoinInsertedState;
+    } else {
+      this.state = this.soldOutState;
+    }
+  }
+
+  setState(state) {
+    this.state = state;
+  }
+
+  getState() {
+    return this.state;
+  }
+
+  getSoldOutState() {
+    return this.soldOutState;
+  }
+
+  getNoCoinInsertedState() {
+    return this.noCoinInsertedState;
+  }
+
+  getHasCoinState() {
+    return this.hasCoinState;
+  }
+
+  getDispenseState() {
+    return this.dispenseState;
+  }
+
+  getCount() {
+    return this.count;
+  }
+
+  insertCoin() {
+    this.state.insertCoin();
+  }
+
+  ejectCoin() {
+    this.state.ejectCoin();
+  }
+
+  selectProduct() {
+    this.state.selectProduct();
+  }
+
+  dispense() {
+    this.state.dispense();
+  }
+
+  releaseProduct() {
+    if (this.count > 0) {
+      console.log('Releasing product');
+      this.count -= 1;
+    }
+  }
+}
+
+// Usage
+const vendingMachine = new VendingMachine(5);
+
+vendingMachine.insertCoin();
+vendingMachine.selectProduct();
+vendingMachine.dispense();
+
+vendingMachine.insertCoin();
+vendingMachine.ejectCoin();
+vendingMachine.insertCoin();
+vendingMachine.selectProduct();
+vendingMachine.dispense();
+```
+
+### Explanation
+
+1. **State Classes:** Each state class (`NoCoinInsertedState`, `HasCoinState`, `DispenseState`, and `SoldOutState`) extends the abstract `State` class and overrides its methods to implement state-specific behavior.
+2. **VendingMachine Class:** The `VendingMachine` class maintains a reference to the current state and has methods to set the state, insert coin, eject coin, select product, and dispense. It also handles product count and state transitions.
+3. **State Transitions:** Depending on the current state and the action performed, the state transitions to another state and performs the relevant actions.
+
+This design encapsulates the state-specific behavior within state classes, making it easy to manage and extend.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
