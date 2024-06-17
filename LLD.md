@@ -3,6 +3,7 @@
 | 01.   | [Understanding SOLID Principles](#understanding-solid-principles) |
 | 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern) |
 
+<a id="understanding-solid-principles"></a>
 ## Q. ***Understanding SOLID Principles***
 
 ### Introduction:
