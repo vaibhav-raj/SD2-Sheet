@@ -1,10 +1,9 @@
 | Sl.No | LLD Questions                                      |
 |-------|-----------------------------------------------------|
-| 01.   | [Understanding SOLID Principles in Node.js](#understanding-solid-principles-in-nodejs) |
-| 02.   | [Behavioral Design Patterns: Strategy Design Pattern in Node.js](#behavioral-design-patterns-strategy-design-pattern-in-nodejs) |
+| 01.   | [Understanding SOLID Principles](#understanding-solid-principles-in-nodejs) |
+| 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern-in-nodejs) |
 
-
-## Q. ***Understanding SOLID Principles in Node.js: A Comprehensive Guide with Practical Examples***
+## Q. ***Understanding SOLID Principles in Node.js***
 Behavioral Design Patterns: Strategy Design Pattern in Node.js
 ### Introduction:
 SOLID principles are a set of five design principles in object-oriented programming that aim to make software more understandable, flexible, and maintainable. In the context of Node.js, adhering to SOLID principles becomes crucial to building scalable and maintainable applications. In this article, we will delve into each SOLID principle—Single Responsibility Principle (SRP), Open/Closed Principle (OCP), Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP). We'll provide practical examples in Node.js and discuss how these principles contribute to writing cleaner, more robust code.
