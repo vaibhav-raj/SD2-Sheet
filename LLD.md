@@ -2,6 +2,8 @@
 |-------|-----------------------------------------------------|
 | 01.   | [Understanding SOLID Principles](#understanding-solid-principles) |
 | 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern) |
+| 03.   | [Behavioral Design Patterns: Observer Design Pattern](#behavioral-design-patterns-observer-design-pattern) |
+
 
 <a id="understanding-solid-principles"></a>
 ## Q. ***Understanding SOLID Principles***
@@ -362,6 +364,61 @@ paymentContext.executeStrategy(300); // Processing payment of $300 through Bitco
 ### Drawbacks
 - **Overhead**: Introducing multiple classes or objects can add complexity.
 - **Communication Overhead**: The context must be aware of different strategies, which might lead to additional communication overhead.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+<a id="behavioral-design-patterns-observer-design-pattern"></a>
+## Q. ***Behavioral Design Patterns: Observer Design Pattern***
+
+System design refers to the process of designing the architecture, components, modules, interfaces, and data for a system to meet specified requirements. It involves making decisions about how the system will behave, how its components will interact, and how it will be implemented and deployed.
+
+The Observer Design Pattern is a behavioral design pattern where an object (known as the subject) maintains a list of dependents (observers) that are notified automatically of any state changes, usually by calling one of their methods. This pattern is useful when you need to maintain consistency between related objects without making them tightly coupled.
+
+### Observer Design Pattern in Node.js
+
+In Node.js, the Observer pattern can be implemented using either native EventEmitter or custom event emitters. Here’s a basic example using native EventEmitter:
+
+```javascript
+const EventEmitter = require('events');
+
+// Define an event emitter
+class Subject extends EventEmitter {
+  // Method to trigger an event and notify observers
+  triggerEvent(data) {
+    this.emit('event', data);
+  }
+}
+
+// Observer function
+function observerFunction(data) {
+  console.log('Received data:', data);
+}
+
+// Create an instance of Subject
+const subject = new Subject();
+
+// Add observer (listener) to the 'event'
+subject.on('event', observerFunction);
+
+// Trigger the event
+subject.triggerEvent('Hello, observers!');
+```
+
+### When to Use the Observer Pattern
+
+You should consider using the Observer pattern in Node.js when:
+
+1. **Loose coupling is needed:** You want to ensure that components (observers) are not tightly coupled to the subject. Observers can be added or removed without affecting the subject or other observers.
+   
+2. **One-to-many dependency:** When changes to one object (subject) require changes to other objects (observers) and you don't want to hardwire these relationships.
+   
+3. **Event-driven architecture:** Node.js is inherently event-driven, making it a natural fit for implementing the Observer pattern using events and event emitters.
+
+4. **Dynamic relationships:** You need a way to dynamically subscribe and unsubscribe observers from receiving updates based on certain events or conditions.
+
+In summary, the Observer pattern is useful in Node.js applications where you need to maintain loosely coupled relationships between objects and ensure that changes in one part of the system can trigger updates in other parts without directly coupling them together.
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
