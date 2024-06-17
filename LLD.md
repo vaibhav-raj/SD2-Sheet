@@ -2,7 +2,6 @@
 |-------|----------------|
 | 01.   | [Understanding SOLID Principles in Node.js](#understanding-solid-principles-in-nodejs) |
 
-Make sure the anchor link `#understanding-solid-principles-in-nodejs` matches the actual ID of the section header in your document for proper navigation.
 
 ## Q. ***Understanding SOLID Principles in Node.js: A Comprehensive Guide with Practical Examples***
 
