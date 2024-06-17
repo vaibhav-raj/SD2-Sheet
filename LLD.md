@@ -230,6 +230,7 @@ class Switch {
 </div>
 
 ## Q. ***Behavioral Design Patterns: Strategy Design Pattern***
+<a id="behavioral-design-patterns-strategy-design-pattern"></a>
 
 The Strategy Design Pattern is a behavioral design pattern that allows you to define a family of algorithms, encapsulate each one, and make them interchangeable. In essence, it enables an algorithm to be selected at runtime. This pattern is particularly useful when you have multiple ways to perform an operation and you want to decouple the choice of the algorithm from the client using it.
 
