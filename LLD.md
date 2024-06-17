@@ -1,10 +1,10 @@
 | Sl.No | LLD Questions                                      |
 |-------|-----------------------------------------------------|
-| 01.   | [Understanding SOLID Principles](#understanding-solid-principles-in-nodejs) |
-| 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern-in-nodejs) |
+| 01.   | [Understanding SOLID Principles](#understanding-solid-principles) |
+| 02.   | [Behavioral Design Patterns: Strategy Design Pattern](#behavioral-design-patterns-strategy-design-pattern) |
 
-## Q. ***Understanding SOLID Principles in Node.js***
-Behavioral Design Patterns: Strategy Design Pattern in Node.js
+## Q. ***Understanding SOLID Principles***
+
 ### Introduction:
 SOLID principles are a set of five design principles in object-oriented programming that aim to make software more understandable, flexible, and maintainable. In the context of Node.js, adhering to SOLID principles becomes crucial to building scalable and maintainable applications. In this article, we will delve into each SOLID principle—Single Responsibility Principle (SRP), Open/Closed Principle (OCP), Liskov Substitution Principle (LSP), Interface Segregation Principle (ISP), and Dependency Inversion Principle (DIP). We'll provide practical examples in Node.js and discuss how these principles contribute to writing cleaner, more robust code.
 
@@ -229,7 +229,7 @@ class Switch {
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## Q. ***Behavioral Design Patterns: Strategy Design Pattern in Node.js***
+## Q. ***Behavioral Design Patterns: Strategy Design Pattern***
 
 The Strategy Design Pattern is a behavioral design pattern that allows you to define a family of algorithms, encapsulate each one, and make them interchangeable. In essence, it enables an algorithm to be selected at runtime. This pattern is particularly useful when you have multiple ways to perform an operation and you want to decouple the choice of the algorithm from the client using it.
 
