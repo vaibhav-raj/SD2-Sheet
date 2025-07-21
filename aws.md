@@ -408,6 +408,13 @@ AWS Regions are geographically separated areas where Amazon Web Services (AWS) c
 
 ## ✅ Best Practices
 
+- **Deploy applications across multiple Availability Zones (AZs):**  
+  Ensure high availability, redundancy, and fault tolerance by spreading workloads across multiple AZs within a single Region.
+
+- **Use Elastic Load Balancing (ELB):**  
+  Distribute incoming application traffic automatically across multiple AZs to improve fault tolerance and responsiveness.
+
+
 ### 🔄 Benefits of Using Multiple Availability Zones
 - **Fault Tolerance:** Failover between zones during outages.
 - **Load Distribution:** Balance incoming traffic across AZs.
