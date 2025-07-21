@@ -1,11 +1,12 @@
-| Sl.No|  GraphQl Questions|
-|------|------------------|
-| 01. | [Understanding Traditional Infrastructure Challenges](#1-understanding-traditional-infrastructure-challenges)
-| 02. | [What Are Cloud Services?](#2-introduction-to-cloud-services) |
-| 03. | [Types of Cloud Models](#3-cloud-computing-models) |
-| 04. | [What are resolvers in GraphQL and how do they work?](#q-what-are-resolvers-in-graphql-and-how-do-they-work)  
+| No.  | AWS Questions                                                                 |
+|------|-------------------------------------------------------------------------------|
+| Q1. | [What are the challenges of traditional infrastructure?](#q1-what-are-the-challenges-of-traditional-infrastructure) |
+| Q2. | [What Are Cloud Services?](#q2-what-are-cloud-services)                       |
+| Q3. | [What are the types of cloud models?](#q3-what-are-the-types-of-cloud-models) |
+| Q4. | [What are resolvers in GraphQL and how do they work?](#q4-what-are-resolvers-in-graphql-and-how-do-they-work) |
 
-## 1. Understanding Traditional Infrastructure Challenges
+
+## Q1. What are the challenges of traditional infrastructure?
 
 Traditional computing (on-premise infrastructure) involves maintaining physical servers and data centers. Though widely used in the past, it has several limitations:
 
@@ -108,7 +109,7 @@ Cloud computing delivers computing services (e.g., servers, storage, databases, 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## 2. Introduction to Cloud Services
+## Q2. What Are Cloud Services?
 
 Cloud services offer on-demand access to computing resources such as servers, storage, databases, networking, software, and analytics via the internet. These services eliminate the need to own or maintain physical infrastructure, providing scalability, efficiency, and cost-effectiveness.
 
@@ -200,7 +201,8 @@ Cloud services transform how we deploy, scale, and manage technology. Understand
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-## 3. Cloud Computing Models
+
+## Q3. What are the types of cloud models?
 
 A clear and structured overview of cloud computing deployment and service models, with features, use cases, and comparisons.
 
