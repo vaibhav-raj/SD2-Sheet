@@ -5,15 +5,7 @@
 | 03. | [How do you define a schema in GraphQL?](#q-how-do-you-define-a-schema-in-graphql)  
 | 04. | [What are resolvers in GraphQL and how do they work?](#q-what-are-resolvers-in-graphql-and-how-do-they-work)  
 
-
-
-## Q. ***Traditional Computing vs. Cloud Computing***
-### <a name="q-how-does-cloud-computing-compare-to-traditional-computing"></a>How Does Cloud Computing Compare to Traditional Computing?
-
-
-# Traditional Computing vs. Cloud Computing
-
----
+### Q. <a name="q-how-does-cloud-computing-compare-to-traditional-computing"></a>How Does Cloud Computing Compare to Traditional Computing?
 
 ## 1. Understanding Traditional Infrastructure Challenges
 
