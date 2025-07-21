@@ -4,7 +4,9 @@
 | Q2. | [What Are Cloud Services?](#q2-what-are-cloud-services)                       |
 | Q3. | [What are the types of cloud models?](#q3-what-are-the-types-of-cloud-models) |
 | Q4. | [AWS Regions and Availability Zones?](#q4-aws-regions-and-availability-zones) |
-| Q5. | [AWS Edge Locations & Local Zones?](#-aws-edge-locations--local-zones) |
+| Q5. | [AWS Edge Locations & Local Zones?](#q5-aws-edge-locations--local-zones) |
+| Q6. | [What Is EC2?](#q6-aws-ec2-elastic-compute-cloud) |
+
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -427,7 +429,7 @@ AWS Regions are geographically separated areas where Amazon Web Services (AWS) c
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-# 🌍 AWS Edge Locations & Local Zones
+## Q5. AWS Edge Locations & Local Zones
 
 ## 📦 What Are AWS Edge Locations?
 
@@ -502,15 +504,7 @@ Commonly supported services in AWS Local Zones include:
 | 🏢 **Enterprise Applications**| Extension of on-premises environments using secure, scalable AWS services |
 | 📡 **AR/VR**                | Immersive applications requiring near-instantaneous feedback               |
 
----
 
-## 📚 Additional Resources
-
-- [AWS Edge Locations Overview](https://aws.amazon.com/cloudfront/features/)
-- [AWS Local Zones Documentation](https://docs.aws.amazon.com/local-zones/latest/userguide/)
-- [Local Zones Regions and Services](https://aws.amazon.com/about-aws/global-infrastructure/localzones/)
-
----
 
 ## 📌 Summary
 
@@ -522,7 +516,113 @@ Commonly supported services in AWS Local Zones include:
 | **Services**      | CDN, DNS, VPN                            | Compute, storage, database, containers       |
 | **Best For**      | Static/dynamic content, DNS              | Gaming, media, ML, hybrid IT, low-latency apps|
 
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+
+## Q6. AWS EC2 (Elastic Compute Cloud)
+
+Amazon EC2 (Elastic Compute Cloud) is a foundational service offered by **Amazon Web Services (AWS)** that provides secure, scalable, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers.
+
 ---
+
+## 🌐 What Is EC2?
+
+**Amazon EC2** enables users to launch virtual servers, known as **instances**, in the cloud. These instances can be used just like physical computers but with the flexibility and scalability of cloud infrastructure. You can run applications, host websites, perform analytics, or deploy backend systems without managing physical hardware.
+
+---
+
+## 🚀 Key Features
+
+* **Scalability**: Automatically scale capacity up or down using Auto Scaling and Elastic Load Balancing.
+* **Flexible Instance Types**: Choose from a wide variety of instance types optimized for different workloads (general purpose, compute-optimized, memory-optimized, etc.).
+* **Elastic IP Addresses**: Static IP addresses for dynamic cloud computing.
+* **Custom AMIs**: Create and use custom Amazon Machine Images (AMIs).
+* **Integrated with AWS Ecosystem**: Seamlessly integrates with other AWS services like S3, RDS, VPC, CloudWatch, IAM, and more.
+* **Security**: Secure login with key pairs, security groups for firewall protection, and IAM roles for access control.
+* **Cost-Effective**: Pay-as-you-go pricing and reserved instance options for predictable workloads.
+
+---
+
+## 🧐 Why Use EC2?
+
+* **On-Demand Flexibility**: Instantly provision servers as needed.
+* **Global Infrastructure**: Deploy instances across multiple geographic regions and availability zones.
+* **No Upfront Hardware Cost**: Reduce capital expenses by eliminating the need for physical servers.
+* **High Availability and Reliability**: Deploy in multiple availability zones for failover and disaster recovery.
+* **Dev/Test Environments**: Quickly spin up environments for development, testing, or QA.
+* **Performance Optimization**: Leverage instance types that are optimized for specific workloads like ML, HPC, gaming, etc.
+
+---
+
+## ⚙️ Key Configurations in EC2
+
+1. **Instance Type**: Defines the hardware of the host computer (e.g., t3.micro, m5.large).
+2. **Amazon Machine Image (AMI)**: A template with OS and preconfigured software.
+3. **Key Pair**: SSH key pair used for secure login.
+4. **Security Groups**: Virtual firewall rules for controlling traffic.
+5. **Storage**: EBS volumes (Elastic Block Store) or instance store.
+6. **IAM Role**: Grants permissions to the EC2 instance to interact with AWS services.
+7. **VPC & Subnets**: Defines networking for the instance.
+8. **Elastic IP**: Optional static IP for public access.
+
+---
+
+## 🧱 Steps to Launch an EC2 Instance
+
+1. **Sign in to AWS Console**
+2. Navigate to **EC2 Dashboard**
+3. Click **Launch Instance**
+4. Configure:
+
+   * **Name and Tags**
+   * **AMI (e.g., Amazon Linux, Ubuntu)**
+   * **Instance Type (e.g., t3.micro for free tier)**
+   * **Key Pair (for SSH access)**
+   * **Network settings (VPC, subnet, security group)**
+   * **Storage configuration**
+5. Review and click **Launch**
+6. Connect via SSH using the key pair:
+
+   ```bash
+   ssh -i "your-key.pem" ec2-user@your-instance-public-ip
+   ```
+
+---
+
+## 🧪 Example: Creating a Basic EC2 Instance
+
+```bash
+# 1. Choose an AMI (e.g., Amazon Linux 2)
+# 2. Choose instance type (e.g., t3.micro for Free Tier)
+# 3. Configure key pair: my-key.pem
+
+# SSH into instance
+chmod 400 my-key.pem
+ssh -i "my-key.pem" ec2-user@<PUBLIC-IP-ADDRESS>
+```
+
+---
+
+## 🔧 Use Cases of EC2
+
+* **Web Hosting**: Deploy web servers and host dynamic websites.
+* **Application Servers**: Run backend services, APIs, and microservices.
+* **Development and Testing**: Isolated environments for dev/test cycles.
+* **Machine Learning**: Use GPU-enabled instances for training and inference.
+* **Big Data & Analytics**: Run Hadoop, Spark, and other analytics tools.
+* **Game Servers**: Host multiplayer game servers with low latency.
+* **CI/CD Pipelines**: Integrate with Jenkins, GitLab, etc., for continuous integration and delivery.
+* **Container Hosting**: Run Docker containers or deploy Kubernetes clusters.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+
+
 
 
 
