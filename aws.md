@@ -3,7 +3,7 @@
 | Q1. | [What are the challenges of traditional infrastructure?](#q1-what-are-the-challenges-of-traditional-infrastructure) |
 | Q2. | [What Are Cloud Services?](#q2-what-are-cloud-services)                       |
 | Q3. | [What are the types of cloud models?](#q3-what-are-the-types-of-cloud-models) |
-[What are resolvers in GraphQL and how do they work?](#q4-what-are-resolvers-in-graphql-and-how-do-they-work) |
+| Q4. |  [AWS Regions and Availability Zones](#q3-aws-regions-and-availability-zones) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
