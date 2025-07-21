@@ -1,8 +1,8 @@
 | Sl.No|  GraphQl Questions|
 |------|------------------|
-| 01. | [1. Understanding Traditional Infrastructure Challenges](#1-understanding-traditional-infrastructure-challenges)
-| 02. | [What Are Cloud Services?](#-what-are-cloud-services)
-| 03. | [How do you define a schema in GraphQL?](#q-how-do-you-define-a-schema-in-graphql)  
+| 01. | [Understanding Traditional Infrastructure Challenges](#1-understanding-traditional-infrastructure-challenges)
+| 02. | [What Are Cloud Services?](#2-introduction-to-cloud-services) |
+| 03. | [Types of Cloud Models](#3-cloud-computing-models) |
 | 04. | [What are resolvers in GraphQL and how do they work?](#q-what-are-resolvers-in-graphql-and-how-do-they-work)  
 
 ## 1. Understanding Traditional Infrastructure Challenges
@@ -108,8 +108,7 @@ Cloud computing delivers computing services (e.g., servers, storage, databases, 
     <b><a href="#">↥ back to top</a></b>
 </div>
 
-
-# ☁️ Introduction to Cloud Services
+## 2. Introduction to Cloud Services
 
 Cloud services offer on-demand access to computing resources such as servers, storage, databases, networking, software, and analytics via the internet. These services eliminate the need to own or maintain physical infrastructure, providing scalability, efficiency, and cost-effectiveness.
 
@@ -200,3 +199,141 @@ Cloud services transform how we deploy, scale, and manage technology. Understand
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
+
+## 3. Cloud Computing Models
+
+A clear and structured overview of cloud computing deployment and service models, with features, use cases, and comparisons.
+
+---
+
+## 📦 Deployment Models
+
+### 🔹 Public Cloud
+
+* **Description**: Operated by third-party providers over the internet.
+* **Examples**: AWS, Azure, GCP
+* **Key Features**:
+
+  * Low cost, scalable, no infrastructure to manage
+  * Multi-tenant environment
+* **Use Case**: Hosting web apps with low initial investment
+
+---
+
+### 🔹 Private Cloud
+
+* **Description**: Used exclusively by a single organization, either on-premises or hosted.
+* **Examples**: VMware, Azure Stack
+* **Key Features**:
+
+  * High control, customization, and security
+  * Suitable for strict compliance environments
+* **Use Case**: Banks or government entities needing full data control
+
+---
+
+### 🔹 Hybrid Cloud
+
+* **Description**: Combines public and private environments.
+* **Examples**: AWS Outposts, Azure Arc
+* **Key Features**:
+
+  * Flexibility in workload management
+  * Optimized cost and performance
+* **Use Case**: Businesses needing data privacy and burst scalability
+
+---
+
+### 🔹 Community Cloud
+
+* **Description**: Shared between organizations with common needs (e.g., compliance, research).
+* **Examples**: Government, Education sector collaborations
+* **Key Features**:
+
+  * Cost and resource sharing
+  * Industry-focused infrastructure
+* **Use Case**: Universities collaborating on a joint research project
+
+---
+
+## 🧰 Service Models
+
+### ⚙️ Infrastructure as a Service (IaaS)
+
+* **Examples**: AWS EC2, Azure VMs, GCP Compute Engine
+* **You Manage**: OS, applications, data
+* **Provider Manages**: Servers, storage, networking
+* **Use Case**: Custom app development and testing
+
+---
+
+### 🛠️ Platform as a Service (PaaS)
+
+* **Examples**: Heroku, Google App Engine, Azure App Services
+* **You Manage**: Code, data
+* **Provider Manages**: Infrastructure, OS, runtime
+* **Use Case**: Rapid application development
+
+---
+
+### 💼 Software as a Service (SaaS)
+
+* **Examples**: Google Workspace, Salesforce, Microsoft 365
+* **You Manage**: Usage only
+* **Provider Manages**: Everything else
+* **Use Case**: CRM, document editing, collaboration tools
+
+---
+
+### 🧠 Function as a Service (FaaS) / Serverless
+
+* **Examples**: AWS Lambda, Azure Functions, GCP Cloud Functions
+* **You Manage**: Functions/code only
+* **Provider Manages**: All infrastructure
+* **Use Case**: Event-driven microservices (e.g., auto image resizing)
+
+---
+
+## ⚖️ Deployment Model Comparison
+
+| Feature         | Public Cloud   | Private Cloud      | Hybrid Cloud      | Community Cloud  |
+| --------------- | -------------- | ------------------ | ----------------- | ---------------- |
+| **Ownership**   | Third-party    | Organization-owned | Mixed             | Shared           |
+| **Cost**        | Low            | High               | Medium            | Shared           |
+| **Security**    | Moderate       | High               | High              | High             |
+| **Scalability** | High           | Limited            | High              | Moderate         |
+| **Best For**    | Startups, SMEs | Regulated sectors  | Large enterprises | Specific sectors |
+
+---
+
+## ⚙️ Service Model Comparison
+
+| Model | Managed by Provider               | Managed by User | Best For                             |
+| ----- | --------------------------------- | --------------- | ------------------------------------ |
+| IaaS  | Hardware, Network, Virtualization | OS, Apps, Data  | Flexible dev environments            |
+| PaaS  | Runtime, Middleware               | Code, Data      | Fast web/app development             |
+| SaaS  | Everything                        | Usage only      | End users (email, CRM, office tools) |
+| FaaS  | All infra, scaling, runtime       | Function logic  | Lightweight, event-based execution   |
+
+---
+
+## ✅ Choosing the Right Model
+
+Consider the following when selecting your cloud model:
+
+* **Security & Compliance**
+* **Cost & Budget**
+* **Development Speed**
+* **IT Skill Level**
+* **Scalability Needs**
+* **Customization Requirements**
+
+
+> ⚡ *Pro Tip:* Most modern organizations use a combination of models — for example, SaaS for productivity, IaaS for infrastructure, and hybrid clouds for flexibility.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+
+
