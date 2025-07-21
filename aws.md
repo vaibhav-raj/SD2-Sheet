@@ -3,7 +3,7 @@
 | Q1. | [What are the challenges of traditional infrastructure?](#q1-what-are-the-challenges-of-traditional-infrastructure) |
 | Q2. | [What Are Cloud Services?](#q2-what-are-cloud-services)                       |
 | Q3. | [What are the types of cloud models?](#q3-what-are-the-types-of-cloud-models) |
-| Q4. | [What are resolvers in GraphQL and how do they work?](#q4-what-are-resolvers-in-graphql-and-how-do-they-work) |
+[What are resolvers in GraphQL and how do they work?](#q4-what-are-resolvers-in-graphql-and-how-do-they-work) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -336,6 +336,87 @@ Consider the following when selecting your cloud model:
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
+
+
+## Q3. AWS Regions and Availability Zones
+
+## 📌 Key Points
+- AWS infrastructure is designed for high availability, fault tolerance, and scalability.
+- AWS services are deployed across **multiple Regions** and **Availability Zones (AZs)**.
+- This global infrastructure enables low-latency access and compliance with local regulations.
+
+## 🌍 Example
+- **Region:** `Asia Pacific (Mumbai)`  
+- **Code:** `ap-south-1`  
+- **Availability Zones:** `ap-south-1a`, `ap-south-1b`, `ap-south-1c`
+
+---
+
+## 🌐 Why AWS Uses Global Regions
+- **Latency Optimization:** Locating infrastructure near users improves speed.
+- **Compliance Requirements:** Meet data residency and regulatory needs.
+- **Disaster Recovery:** Isolate infrastructure for risk mitigation.
+- **Scalability:** Serve a growing global customer base efficiently.
+
+---
+
+## 🏢 Understanding AWS Availability Zones
+
+### 🔍 What Are Availability Zones?
+- **AZs** are isolated locations within an AWS Region.
+- Each AZ has its own power, cooling, and networking.
+- They are connected through **low-latency, high-throughput, and redundant** networking.
+
+### 🧾 Key Characteristics:
+- Physically separated but geographically close.
+- Redundant power and network infrastructure.
+- Independent failure domains.
+- Connected via private fiber-optic links.
+
+---
+
+### 🤔 Why Does AWS Use Availability Zones?
+- **Fault Isolation:** Prevent a failure in one AZ from affecting others.
+- **High Availability:** Distribute workloads across AZs for resilience.
+- **Disaster Recovery:** Design robust systems with AZ redundancy.
+- **Scalable Architectures:** Deploy scalable apps across multiple zones.
+
+---
+
+### 🏗️ How Are Availability Zones Structured?
+- Each **Region** has **2 to 6+ AZs**.
+- AZs are housed in **distinct data centers**, each with:
+  - Independent power supply.
+  - Dedicated cooling systems.
+  - Physical security measures.
+- AZs are **connected using high-speed private networking** for real-time data replication.
+
+---
+
+### 📍 Example: Mumbai Region
+- **Region Name:** Asia Pacific (Mumbai)
+- **Region Code:** `ap-south-1`
+- **Availability Zones:**  
+  - `ap-south-1a`  
+  - `ap-south-1b`  
+  - `ap-south-1c`
+- Mumbai Region provides low-latency services to Indian subcontinent customers.
+
+---
+
+## ✅ Best Practices
+
+### 🔄 Benefits of Using Multiple Availability Zones
+- **Fault Tolerance:** Failover between zones during outages.
+- **Load Distribution:** Balance incoming traffic across AZs.
+- **Improved SLA:** Higher uptime guarantees.
+- **Resilient Design:** Architect services for automatic failover and recovery.
+- **Seamless Updates:** Perform maintenance in one AZ while keeping services running in others.
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
 
 
 
