@@ -3,7 +3,7 @@
 | Q1. | [What are the challenges of traditional infrastructure?](#q1-what-are-the-challenges-of-traditional-infrastructure) |
 | Q2. | [What Are Cloud Services?](#q2-what-are-cloud-services)                       |
 | Q3. | [What are the types of cloud models?](#q3-what-are-the-types-of-cloud-models) |
-| Q4. |  [AWS Regions and Availability Zones](#q3-aws-regions-and-availability-zones) |
+| Q4. |  [AWS Regions and Availability Zones?](#q4-aws-regions-and-availability-zones) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -338,7 +338,9 @@ Consider the following when selecting your cloud model:
 </div>
 
 
-## Q3. AWS Regions and Availability Zones
+## Q4. AWS Regions and Availability Zones
+
+AWS Regions are geographically separated areas where Amazon Web Services (AWS) clusters its data centers. Each Region is designed to be isolated from others to ensure fault tolerance, compliance, and low-latency performance.
 
 ## 📌 Key Points
 - AWS infrastructure is designed for high availability, fault tolerance, and scalability.
