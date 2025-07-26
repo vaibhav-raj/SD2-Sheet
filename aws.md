@@ -7,7 +7,7 @@
 | Q5. | [AWS Edge Locations & Local Zones?](#q5-aws-edge-locations--local-zones) |
 | Q6. | [What Is EC2?](#q6-aws-ec2-elastic-compute-cloud) |
 | Q7. | [Accessing AWS EC2 Instances](#q7-accessing-aws-ec2-instances) |
-
+| Q8. | [What is a Security Group?](#q8-what-is-a-security-group) |
 
 
 
@@ -747,6 +747,91 @@ ip a                  # Verify IP addresses
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
+
+## Q8. What is a Security Group?
+
+A **Security Group (SG)** in AWS acts as a **virtual firewall** for your **EC2 instances** to control **inbound and outbound traffic**.
+
+✅ Key Points:
+- Operates **at the instance level**, not the subnet level.
+- **Stateful** – if inbound traffic is allowed, the outbound response is automatically allowed.
+- Each instance can be associated with **multiple security groups**.
+- **Default behavior:**
+  - Inbound traffic → **DENIED** (unless allowed).
+  - Outbound traffic → **ALLOWED** (unless denied).
+
+---
+
+## 🔐 Inbound and Outbound Rules
+
+### 🔹 Inbound Rules
+Define traffic **allowed to reach the instance**.
+
+Examples:
+- Allow SSH (port 22) from a specific IP.
+- Allow HTTP (port 80) from anywhere (`0.0.0.0/0`).
+- Allow database access (port 3306) only from another security group.
+
+### 🔹 Outbound Rules
+Define traffic **allowed to leave the instance**.
+
+Examples:
+- Allow all outbound traffic (default).
+- Restrict instances to communicate only with specific IPs or ports.
+
+---
+
+## ⚙️ Configuring Security Groups on EC2 Console
+
+### ✅ Steps:
+1. Go to **AWS Management Console → EC2 → Security Groups**.
+2. Click **Create Security Group**.
+3. Provide **Name**, **Description**, and **VPC**.
+4. **Add Inbound Rules**:
+   - Select **Type** (SSH, HTTP, Custom TCP, etc.).
+   - Set **Port Range**.
+   - Define **Source** (IP, CIDR, or another SG).
+5. **Add Outbound Rules** (optional).
+6. Attach the SG to an EC2 instance at launch or modify later.
+
+---
+
+## 📌 What is the Source?
+
+The **Source** defines **who can send traffic** to your instance (for inbound rules).
+
+It can be:
+- **IP Address** → e.g. `203.0.113.25/32` (single IP)
+- **CIDR Range** → e.g. `203.0.113.0/24` (range of IPs)
+- **Another Security Group** → useful for allowing traffic only from specific instances.
+
+---
+
+## 🔗 Can We Connect Multiple Security Groups to a Single Instance?
+
+✅ **Yes!**  
+- An EC2 instance can have **multiple security groups attached**.  
+- **All rules are combined (union)** to determine access.  
+
+Example use case:
+- One SG for **SSH**, another for **Web traffic**, another for **Database access**.
+
+---
+
+## 📜 Example Security Group Setup
+
+| Rule Type | Protocol | Port Range | Source                     | Description                  |
+|-----------|-----------|------------|----------------------------|------------------------------|
+| Inbound   | TCP       | 22         | 203.0.113.10/32           | Allow SSH from office IP     |
+| Inbound   | TCP       | 80         | 0.0.0.0/0                 | Allow HTTP from anywhere     |
+| Inbound   | TCP       | 3306       | sg-0abcd1234efgh5678      | Allow DB access from App SG  |
+| Outbound  | All       | All        | 0.0.0.0/0                 | Allow all outbound traffic   |
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
+
 
 
 
