@@ -14,6 +14,8 @@
 | Q10. | [AWS EC2 Pricing Models & Instance Types](#q10-aws-ec2-pricing-models--instance-types) |
 | Q11. | [What is Instance Metadata?](#q11-what-is-instance-metadata) |
 | Q12. | [What is an Elastic IP?](#q12-what-is-an-elastic-ip) |
+| Q13. | [Amazon Elastic Block Store (EBS) & Instance Storage](#q13-amazon-elastic-block-store-ebs--instance-storage) |
+
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1224,8 +1226,81 @@ For scalable solutions, prefer Route 53 (DNS) or Load Balancers instead of relyi
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
+## Q13. Amazon Elastic Block Store (EBS) & Instance Storage
+
+This repository provides a comprehensive overview of **Amazon Elastic Block Store (EBS)**, its **volume types**, **Instance Store**, and the **key differences** between them.
+
+---
+
+## 📌 What is Amazon Elastic Block Store (EBS)?
+Amazon Elastic Block Store (EBS) is a **durable, high-performance block storage service** for Amazon EC2 instances.  
+It provides **persistent storage** that can be **attached, detached, and reattached** to instances.
+
+### 🔹 Key Features
+- ✅ Persistent storage (data remains after instance stop/terminate)  
+- ✅ Highly available and replicated within an Availability Zone (AZ)  
+- ✅ Scalable in size and performance  
+- ✅ Supports encryption and snapshots  
+- ✅ Suitable for boot volumes, databases, and critical workloads  
+
+---
+
+## 📌 Types of Amazon EBS Volumes
+
+| Volume Type | Description | Use Case | Performance |
+|------------|-------------|----------|-------------|
+| **gp3 (General Purpose SSD)** | Latest generation SSD with flexible IOPS/throughput | Boot volumes, dev/test apps | 3,000 IOPS baseline, up to 16,000 IOPS |
+| **gp2 (General Purpose SSD)** | Older SSD type, IOPS tied to size | Same as gp3 | 3 IOPS per GB, up to 16,000 IOPS |
+| **io2 / io1 (Provisioned IOPS SSD)** | High-performance SSD | Databases, enterprise apps | Up to 256,000 IOPS |
+| **st1 (Throughput HDD)** | Low-cost, throughput-optimized HDD | Big data, data warehouse | Up to 500 MB/s throughput |
+| **sc1 (Cold HDD)** | Lowest-cost HDD for infrequent access | Archive storage | Up to 250 MB/s throughput |
+
+---
+
+## 📌 Instance Storage (Ephemeral Storage)
+
+**Instance Store** is **temporary block-level storage** that is **physically attached to the host server**.
+
+### 🔹 Key Characteristics
+- ❌ **Ephemeral:** Data is lost when instance stops or terminates  
+- ⚡ Very high performance (low latency)  
+- 💰 Cost included with certain instance types  
+- 📦 Cannot be detached or re-attached  
+
+### 🔹 Use Cases
+- Temporary data processing  
+- Caching and buffers  
+- Scratch space  
+
+---
+
+## 📌 Differences Between EBS and Instance Store
+
+| Feature | **EBS (Elastic Block Store)** | **Instance Store** |
+|---------|------------------------------|--------------------|
+| **Persistence** | ✅ Data persists after instance termination | ❌ Data lost when instance stops |
+| **Durability** | ✅ Replicated within AZ | ❌ No replication |
+| **Attach/Detach** | ✅ Volumes can be attached/detached | ❌ Fixed to one instance |
+| **Backup** | ✅ Snapshots supported | ❌ No backup support |
+| **Cost** | 💰 Charged separately | ✔ Included in instance cost |
+| **Performance** | Configurable IOPS/throughput | Very high (local disk) |
+
+---
+
+## 📌 When to Use?
+
+✅ **Use Amazon EBS when:**  
+- You need **persistent storage**  
+- You want **snapshots, backups, or replication**  
+- You need **flexibility to detach/attach volumes**
+
+✅ **Use Instance Store when:**  
+- You need **temporary, high-speed storage**  
+- Data can be **easily regenerated**  
+- You want **cost-effective local storage**
 
 
-
-
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
 
