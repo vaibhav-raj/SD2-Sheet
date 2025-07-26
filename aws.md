@@ -1057,16 +1057,82 @@ Metadata can be accessed **only from inside the instance**, using tools like `cu
 
 ### Example (AWS EC2):
 
-```
-# 1. Get a session token
+## 🔹 1. Get a Session Token
+```bash
 TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
   -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+````
 
-# 2. Use the token to query metadata
+## 🔹 2. List All Metadata Categories
+
+```bash
 curl -H "X-aws-ec2-metadata-token: $TOKEN" \
   http://169.254.169.254/latest/meta-data/
 ```
 
+## 🔹 3. Get Specific Metadata
+
+### ✅ Instance ID
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/instance-id
+```
+
+### ✅ Private IP
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/local-ipv4
+```
+
+### ✅ Public IP
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/public-ipv4
+```
+
+### ✅ AMI ID
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/ami-id
+```
+
+### ✅ IAM Role Name
+
+```bash
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/iam/security-credentials/
+```
+
+---
+
+## 🔹 4. Script to Print Key Details
+
+```bash
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+for path in instance-id ami-id local-ipv4 public-ipv4 security-groups; do
+  echo "$path: $(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+    http://169.254.169.254/latest/meta-data/$path)"
+done
+```
+
+📌 **Output Example:**
+
+```
+instance-id: i-0abcd1234efgh5678
+ami-id: ami-0abcd1234efgh5678
+local-ipv4: 172.31.15.104
+public-ipv4: 3.91.23.45
+security-groups: my-sg-name
+```
+
+```
+```
 
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
