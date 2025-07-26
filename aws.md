@@ -6,6 +6,8 @@
 | Q4. | [AWS Regions and Availability Zones?](#q4-aws-regions-and-availability-zones) |
 | Q5. | [AWS Edge Locations & Local Zones?](#q5-aws-edge-locations--local-zones) |
 | Q6. | [What Is EC2?](#q6-aws-ec2-elastic-compute-cloud) |
+| Q7. | [Accessing AWS EC2 Instances](#q7-accessing-aws-ec2-instances) |
+
 
 
 
@@ -622,9 +624,129 @@ ssh -i "my-key.pem" ec2-user@<PUBLIC-IP-ADDRESS>
 </div>
 
 
+## Q7. Accessing AWS EC2 Instances
+
+## 📌 Prerequisites
+
+* An active **AWS account**
+* A **running EC2 instance** with a valid key pair (`.pem` file)
+* **SSH access** or **EC2 Instance Connect**
+* Basic knowledge of Linux commands
+
+---
+
+## 🔑 Accessing EC2 from Linux (SSH)
+
+1. **Set correct permissions for your key file:**
+
+   ```bash
+   chmod 400 my-key.pem
+   ```
+
+2. **Connect to your instance:**
+
+   ```bash
+   ssh -i my-key.pem ec2-user@<Public-IP-or-DNS>
+   ```
+
+   * For Ubuntu instances:
+
+     ```bash
+     ssh -i my-key.pem ubuntu@<Public-IP-or-DNS>
+     ```
+
+## 🌐 Browser-Based Access
+
+Alternatively, you can connect via the **AWS Management Console → EC2 → Connect → EC2 Instance Connect** (no need to manage SSH keys).
+
+---
+
+## 🖥️ Useful Linux Commands Used
+
+### 🔍 Check System Information
+
+```bash
+cat /etc/os-release   # Shows OS details
+lscpu                 # Displays CPU details
+df -h                 # Shows disk space usage
+ip a                  # Displays network interface details
+```
+
+---
+
+## 🛠️ Nginx Installation & Configuration
+
+### 1️⃣ Switch to Root User
+
+```bash
+sudo -i
+clear
+```
+
+### 2️⃣ Update Packages
+
+```bash
+apt-get update
+```
+
+### 3️⃣ Install Nginx
+
+```bash
+apt-get install nginx -y
+```
+
+### 4️⃣ Verify Nginx Configuration
+
+```bash
+nginx -t
+```
+
+### 5️⃣ Check Nginx Status
+
+```bash
+service nginx status
+```
+
+### 6️⃣ Test Nginx Locally
+
+```bash
+curl localhost
+cat index.nginx-debian.html
+```
+
+### 7️⃣ Create a Custom HTML Page
+
+```bash
+echo "Welcome to AWS Learning" > index.html
+curl localhost
+```
+
+---
+
+## ✅ Verifying Instance Configuration
+
+### Network and System Checks
+
+```bash
+cat /etc/os-release   # Verify OS
+lscpu                 # Check CPU details
+df -h                 # Check disk usage
+ip a                  # Verify IP addresses
+```
+
+---
+
+## ⚖️ Avoiding Overloaded Availability Zones
+
+* Use **multiple AZs** for better availability.
+* Distribute instances across regions if required.
+* Use **Auto Scaling Groups** to manage traffic.
 
 
 
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
 
 
 
