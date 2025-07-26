@@ -115,7 +115,7 @@ Cloud computing delivers computing services (e.g., servers, storage, databases, 
 
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
 
 ## Q2. What Are Cloud Services?
@@ -207,7 +207,7 @@ Cloud services allow users to rent IT resources online instead of building and m
 Cloud services transform how we deploy, scale, and manage technology. Understanding the differences between **IaaS**, **PaaS**, and **SaaS** enables you to choose the right model for your needs—enhancing agility, reducing costs, and supporting innovation.
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
 
 
@@ -343,8 +343,9 @@ Consider the following when selecting your cloud model:
 > ⚡ *Pro Tip:* Most modern organizations use a combination of models — for example, SaaS for productivity, IaaS for infrastructure, and hybrid clouds for flexibility.
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 
 ## Q4. AWS Regions and Availability Zones
@@ -432,8 +433,9 @@ AWS Regions are geographically separated areas where Amazon Web Services (AWS) c
 - **Seamless Updates:** Perform maintenance in one AZ while keeping services running in others.
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 ## Q5. AWS Edge Locations & Local Zones
 
@@ -524,8 +526,9 @@ Commonly supported services in AWS Local Zones include:
 
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 
 ## Q6. AWS EC2 (Elastic Compute Cloud)
@@ -624,8 +627,9 @@ ssh -i "my-key.pem" ec2-user@<PUBLIC-IP-ADDRESS>
 * **Container Hosting**: Run Docker containers or deploy Kubernetes clusters.
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 
 ## Q7. Accessing AWS EC2 Instances
@@ -749,8 +753,9 @@ ip a                  # Verify IP addresses
 
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 ## Q8. What is a Security Group?
 
@@ -832,7 +837,7 @@ Example use case:
 | Outbound  | All       | All        | 0.0.0.0/0                 | Allow all outbound traffic   |
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
 
 
@@ -925,8 +930,9 @@ Example: **m6i.large**
 ---
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 
 ## Q10. AWS EC2 Pricing Models & Instance Types
@@ -1013,8 +1019,9 @@ Example: **m6i.large**
 
 
 <div align="right">
-    <b><a href="#">↥ back to top</a></b>
+    <b><a href="#readme">↥ back to top</a></b>
 </div>
+
 
 ## Q11. What is Instance Metadata?
 
