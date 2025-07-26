@@ -10,8 +10,7 @@
 | Q8. | [What is a Security Group?](#q8-what-is-a-security-group) |
 | Q9. | [AWS Instance Types – Choosing the Right Instance Type](#q9-aws-instance-types--choosing-the-right-instance-type) |
 | Q10. | [AWS EC2 Pricing Models & Instance Types](#q10-aws-ec2-pricing-models--instance-types) |
-
-
+| Q11. | [What is Instance Metadata?](#q11-what-is-instance-metadata) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1014,6 +1013,65 @@ Example: **m6i.large**
 <div align="right">
     <b><a href="#">↥ back to top</a></b>
 </div>
+
+## Q11. What is Instance Metadata?
+
+Instance metadata is **a special service provided by cloud platforms (AWS, Azure, GCP, etc.)** that allows an instance (like a virtual machine or container) to query information about itself.
+
+This information is **retrieved through a metadata service endpoint**, typically available at a fixed IP address (e.g., `169.254.169.254` on AWS).
+
+Metadata is **dynamic**, meaning that some values may change during the lifecycle of the instance (e.g., temporary credentials, dynamic IP assignments).
+
+---
+
+## 📂 What You Can Find in Instance Metadata?
+
+The exact details vary by cloud provider, but typical metadata includes:
+
+### 🔹 Basic Instance Information
+- Instance ID  
+- Instance type (e.g., `t2.micro`)  
+- Hostname  
+- Availability zone / region  
+
+### 🔹 Networking Information
+- Public and private IP addresses  
+- MAC addresses  
+- Network interface details  
+
+### 🔹 Identity and Security
+- IAM role attached to the instance (AWS)  
+- Temporary security credentials (access keys, tokens)  
+- SSH public keys  
+
+### 🔹 Storage and Configuration
+- Block device mapping  
+- Boot time and launch index  
+- User-data (custom startup scripts provided at instance launch)  
+
+---
+
+## 💻 Accessing Instance Metadata with cURL
+
+Metadata can be accessed **only from inside the instance**, using tools like `curl`.
+
+### Example (AWS EC2):
+
+```
+# 1. Get a session token
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+# 2. Use the token to query metadata
+curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/
+```
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
+
 
 
 
