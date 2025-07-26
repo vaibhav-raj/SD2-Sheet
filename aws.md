@@ -13,6 +13,7 @@
 | Q9. | [AWS Instance Types – Choosing the Right Instance Type](#q9-aws-instance-types--choosing-the-right-instance-type) |
 | Q10. | [AWS EC2 Pricing Models & Instance Types](#q10-aws-ec2-pricing-models--instance-types) |
 | Q11. | [What is Instance Metadata?](#q11-what-is-instance-metadata) |
+| Q12. | [What is an Elastic IP?](#q12-what-is-an-elastic-ip) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1142,6 +1143,79 @@ security-groups: my-sg-name
 
 ```
 ```
+
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
+
+
+## Q12. What is an Elastic IP?
+
+An **Elastic IP (EIP)** is a **static IPv4 address** in AWS that you can allocate to your account and associate with an **EC2 instance**, **Network Interface (ENI)**, or **NAT Gateway**.  
+Unlike the default public IP, which changes if you stop/start an EC2 instance, an Elastic IP stays **persistent** until you release it.
+
+---
+
+## ✅ Key Features
+- 🔒 **Static & Persistent** – The IP remains the same even after instance restarts.  
+- 📦 **Account-level Allocation** – You own it in your AWS account until you release it.  
+- 🔄 **Flexible Reassociation** – Can be moved between instances in the same region.  
+- ⚡ **High Availability** – Supports failover by remapping to standby instances.  
+
+---
+
+## 📌 Why Use an Elastic IP?
+### 🔹 Problem with Default Public IP
+- When you **stop/start** an EC2 instance, its public IPv4 address changes.  
+- This breaks **DNS records, API endpoints, or firewall rules**.
+
+### 🔹 Solution
+✅ Use an Elastic IP to have a **fixed IP address** that remains the same, ensuring reliable connectivity.
+
+---
+
+## 💡 Common Use Cases
+
+| Use Case | Description |
+|----------|-------------|
+| 🌍 **Static IP for Web Apps** | Hosting websites or APIs that need a fixed IP. |
+| 🛡️ **SSH & Firewall Rules** | Admins can whitelist a single static IP. |
+| 🔄 **Failover & HA** | Quickly remap the EIP to a standby instance during failures. |
+| 🔗 **Third-party Whitelisting** | For services that require your IP to be whitelisted. |
+| 🌐 **DNS Mapping** | Point domain A-records to a static EIP. |
+
+---
+
+## ⚠️ Things to Know
+- 💰 You **pay for an EIP** if it is **allocated but not associated** with a running instance.  
+- 📈 Default quota is **5 EIPs per AWS region**.  
+- 🌍 **IPv6 doesn’t support EIPs** (IPv6 uses static addressing).  
+
+---
+
+## 🏆 Best Practices
+✅ Use Elastic IPs **only when required** (prefer Load Balancers when possible).  
+✅ **Release unused EIPs** to avoid charges.  
+✅ Use **Route 53 domain names** instead of hardcoding IPs.  
+✅ For better fault tolerance, **associate EIP with ENI**, not directly with EC2.  
+
+##  📷 How It Works
+
++-------------------+       +---------------------+
+|   Internet User   | <---> | Elastic IP (Static) |
++-------------------+       +---------------------+
+                                    |
+                                    v
+                         +---------------------+
+                         |   EC2 Instance      |
+                         | (Public/Private IP) |
+                         +---------------------+
+
+
+## ✅ Key Takeaway
+Elastic IPs are best when you need a static public IPv4 address for EC2 instances.
+For scalable solutions, prefer Route 53 (DNS) or Load Balancers instead of relying solely on EIPs.
+
 
 <div align="right">
     <b><a href="#readme">↥ back to top</a></b>
