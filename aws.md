@@ -1199,8 +1199,9 @@ Unlike the default public IP, which changes if you stop/start an EC2 instance, a
 ✅ Use **Route 53 domain names** instead of hardcoding IPs.  
 ✅ For better fault tolerance, **associate EIP with ENI**, not directly with EC2.  
 
-##  📷 How It Works
+## 📷 How It Works
 
+```
 +-------------------+       +---------------------+
 |   Internet User   | <---> | Elastic IP (Static) |
 +-------------------+       +---------------------+
@@ -1210,6 +1211,8 @@ Unlike the default public IP, which changes if you stop/start an EC2 instance, a
                          |   EC2 Instance      |
                          | (Public/Private IP) |
                          +---------------------+
+```
+
 
 
 ## ✅ Key Takeaway
