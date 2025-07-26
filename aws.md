@@ -9,6 +9,7 @@
 | Q7. | [Accessing AWS EC2 Instances](#q7-accessing-aws-ec2-instances) |
 | Q8. | [What is a Security Group?](#q8-what-is-a-security-group) |
 | Q9. | [AWS Instance Types – Choosing the Right Instance Type](#q9-aws-instance-types--choosing-the-right-instance-type) |
+| Q10. | [AWS EC2 Pricing Models & Instance Types](#q10-aws-ec2-pricing-models--instance-types) |
 
 
 
@@ -927,7 +928,92 @@ Example: **m6i.large**
 </div>
 
 
+## Q10. AWS EC2 Pricing Models & Instance Types
 
+## 📌 EC2 Pricing Models
+
+### 1️⃣ On-Demand Instances
+- **Pay-per-use** with no long-term commitment.
+- **Best for:** Short-term, unpredictable workloads.
+- **Pros:** Full flexibility, no upfront cost.
+- **Cons:** Most expensive option.
+
+---
+
+### 2️⃣ Reserved Instances (RIs)
+- **Commit to 1 or 3 years** for up to **72% savings**.
+- **Types:**  
+  - **Standard RIs** – Maximum savings, less flexible.  
+  - **Convertible RIs** – Flexible across instance families/OS.  
+- **Best for:** Steady-state workloads.
+
+---
+
+### 3️⃣ Spot Instances
+- **Use spare AWS capacity** at up to **90% discount**.
+- **Best for:** Fault-tolerant workloads (batch jobs, big data, ML).  
+- **Note:** Can be interrupted with a 2-min warning.
+
+---
+
+### 4️⃣ Savings Plans
+- **Commit to a consistent spend ($/hour)** for 1 or 3 years.  
+- **Types:**  
+  - **Compute Savings Plan** – Most flexible.  
+  - **EC2 Instance Savings Plan** – Lower cost, less flexible.  
+- **Best for:** Predictable usage needing flexibility.
+
+---
+
+### 5️⃣ Dedicated Hosts / Dedicated Instances
+- **Physical servers dedicated to you.**  
+- **Best for:** Compliance or BYOL (Bring Your Own License).  
+- **Cons:** Higher cost.
+
+---
+
+### 6️⃣ Capacity Reservations
+- **Reserve capacity** in a specific AZ **without long-term commitment**.  
+- Useful for **mission-critical apps** that must always have capacity.
+
+---
+
+## 📌 AWS Instance Families
+
+| Instance Family | Use Case |
+|-----------------|-----------|
+| **General Purpose (t, m)** | Balanced CPU, memory, networking |
+| **Compute Optimized (c)** | High-performance compute workloads |
+| **Memory Optimized (r, x, z)** | In-memory DBs, analytics |
+| **Storage Optimized (i, d, h)** | High I/O, NoSQL, data warehousing |
+| **Accelerated Computing (p, g, f, trn)** | ML/AI, GPU, HPC |
+| **Mac Instances (mac1, mac2)** | macOS workloads, iOS app builds |
+| **High Memory (u)** | SAP HANA, large in-memory apps |
+
+---
+
+## 📊 Pricing Model Comparison
+
+| Model               | Commitment | Savings | Best For |
+|---------------------|-----------|---------|----------|
+| On-Demand           | None      | ❌      | Short-term, dev/test |
+| Reserved Instances  | 1–3 yrs   | ✅✅✅   | Steady-state workloads |
+| Spot                | None      | ✅✅✅✅ | Fault-tolerant jobs |
+| Savings Plans       | 1–3 yrs   | ✅✅✅   | Predictable usage |
+| Dedicated Hosts     | 1–3 yrs   | ✅      | Compliance/licensing |
+
+---
+
+## ✅ Cost Optimization Tips
+✅ Use **AWS Cost Explorer** & **Trusted Advisor** to analyze spending.  
+✅ Combine **Savings Plans + Spot Instances** for best savings.  
+✅ Use **Auto Scaling** to manage fluctuating workloads.  
+✅ Use **AWS Compute Optimizer** to right-size instances.  
+
+
+<div align="right">
+    <b><a href="#">↥ back to top</a></b>
+</div>
 
 
 
