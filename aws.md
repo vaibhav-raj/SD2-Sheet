@@ -1300,7 +1300,7 @@ It provides **persistent storage** that can be **attached, detached, and reattac
 </div>
 
 
-## Q13. EBS Volume Setup and Safe Detachment
+## Q14. EBS Volume Setup and Safe Detachment
 
 ## 1. Create an EBS Volume
 1. Open **EC2 Dashboard → Elastic Block Store → Volumes**.
