@@ -1411,12 +1411,26 @@ sudo umount /data
 
 ## 6. Key Points on Detaching
 
-* Always **unmount** before detaching.
-* Instance & volume must be in the **same AZ**.
-* Detached volume retains data until deleted.
-* Note the **device name** for future use.
+### Detaching and Data Preservation
+- Detaching an EBS volume is required before attaching it elsewhere or deleting it.
+- Detaching **does not erase data** — data remains intact until explicitly deleted.
 
----
+### Explicit Detachment and Instance Termination
+- You can detach a volume manually or as part of **instance termination**.
+- If detaching while the instance is running, **unmount the volume first** to avoid corruption.
+
+### Special Consideration for Root Devices
+- If the EBS volume is the **root device**, the instance must be **stopped** before detaching.
+
+### Reattaching Volumes
+- Detached volumes can be reattached to the same or another instance.
+- The mount point might change after reattachment.
+- If detachment occurred during ongoing writes, **data synchronization** may be needed.
+
+### Storage Charges and Deletion
+- Detached volumes still incur **storage costs** beyond the AWS Free Tier.
+- Delete unused volumes to stop charges.
+
 
 ## 7. Delete an EBS Volume
 
