@@ -1451,3 +1451,106 @@ sudo umount /data
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
+
+**Linux EBS Volume attach/use example** 
+
+### 1. List Available Block Devices
+```bash
+lsblk
+````
+
+---
+
+### 2. Format the Attached Volume (Only if New / Empty)
+
+```bash
+sudo mkfs -t ext4 /dev/xvdf
+```
+
+⚠️ **Warning:** Formatting an existing volume will erase all data.
+
+---
+
+### 3. Create a Mount Directory
+
+```bash
+sudo mkdir /test
+```
+
+---
+
+### 4. Switch to Root (Optional)
+
+```bash
+sudo su
+cd /
+ls
+```
+
+---
+
+### 5. Mount the Volume
+
+```bash
+mount /dev/xvdf /test/
+```
+
+---
+
+### 6. Verify the Mount Point
+
+```bash
+mountpoint /test
+```
+
+---
+
+### 7. Create Files in the Mounted Volume
+
+```bash
+cd /test/
+touch 1 2 3 4 5
+echo "wlcm to vaibhav world" > demo.txt
+ls
+```
+
+---
+
+### 8. Unmount the Volume
+
+```bash
+cd ..
+umount /test/
+```
+
+---
+
+### 9. Important: Reattaching a Volume to Another Instance
+
+If you attach this volume to another EC2 instance:
+
+* **Do NOT format it** if you want to preserve data.
+* First, check whether it already contains a file system and data:
+
+```bash
+sudo file -s /dev/xvdf
+```
+
+Example output:
+
+```
+/dev/xvdf: Linux rev 1.0 ext4 filesystem data, UUID=38a06702-8aa9-4974-86fe-aa4aac482f5b (extents) (64bit) (large files) (huge files)
+```
+
+---
+
+### 10. Mount on the New Instance
+
+```bash
+sudo mkdir /data
+sudo mount /dev/xvdf /data
+```
+
+Now you can access the existing files.
+
+```
