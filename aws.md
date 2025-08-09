@@ -1554,7 +1554,7 @@ Now you can access the existing files.
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
-## Q14. EBS Volume Modification and File System Extension
+## Q15. EBS Volume Modification and File System Extension
 
 Amazon EBS volumes can be modified to increase capacity, change volume type, or improve performance without detaching them from a running instance. However, certain rules and limitations apply, especially around resizing.
 
