@@ -16,6 +16,7 @@
 | Q12. | [What is an Elastic IP?](#q12-what-is-an-elastic-ip) |
 | Q13. | [Amazon Elastic Block Store (EBS) & Instance Storage](#q13-amazon-elastic-block-store-ebs--instance-storage) |
 | Q14. | [EBS Volume Setup and Safe Detachment](#q14-ebs-volume-setup-and-safe-detachment) |
+| Q15. | [EBS Volume Modification and File System Extension](#q15-ebs-volume-modification-and-file-system-extension) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1447,12 +1448,8 @@ sudo umount /data
 * **Cost:** You pay for the allocated size, not used space.
 
 
-<div align="right">
-    <b><a href="#readme">↥ back to top</a></b>
-</div>
 
-
-**Linux EBS Volume attach/use example** 
+## Linux EBS Volume attach/use example** 
 
 ### 1. List Available Block Devices
 ```bash
@@ -1553,4 +1550,163 @@ sudo mount /dev/xvdf /data
 
 Now you can access the existing files.
 
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
+
+## Q14. EBS Volume Modification and File System Extension
+
+Amazon EBS volumes can be modified to increase capacity, change volume type, or improve performance without detaching them from a running instance. However, certain rules and limitations apply, especially around resizing.
+
+---
+
+## **1. Modifying EBS Volume on AWS**
+
+You can change:
+
+* **Size** (increase only — no decrease supported)
+* **Volume Type** (e.g., gp2 → gp3, gp3 → io1, etc.)
+* **IOPS / Throughput** (for supported volume types)
+
+### **Steps to Modify via Console**
+
+1. Open **EC2 Dashboard → Volumes**.
+2. Select the EBS volume you want to modify.
+3. Click **Actions → Modify Volume**.
+4. Update:
+
+   * **Size** (GiB)
+   * **Volume Type**
+   * **IOPS** or **Throughput** if applicable
+5. Click **Modify** → **Yes** to confirm.
+
+**CLI Example:**
+
+```bash
+aws ec2 modify-volume --volume-id vol-xxxxxxxx --size 50
 ```
+
+**Check modification status:**
+
+```bash
+aws ec2 describe-volumes-modifications --volume-id vol-xxxxxxxx
+```
+
+---
+
+## **2. Why Can't You Decrease the Size of an EBS Volume?**
+
+* EBS volumes are **block storage**; reducing size risks cutting off blocks that contain data.
+* AWS does **not** allow shrinking a volume directly to prevent **data loss** and corruption.
+* If you need a smaller volume:
+
+  1. Create a **snapshot** of the current volume.
+  2. Create a **new smaller volume** from the snapshot.
+  3. Attach the new volume and migrate data.
+
+---
+
+## **3. Extending a Linux File System After Resizing an EBS Volume**
+
+After increasing the size in AWS, you must **extend the partition and file system** inside your Linux instance.
+
+### **Steps for `ext4` File System**
+
+1. **Check new size:**
+
+```bash
+lsblk
+```
+
+2. **Grow partition** (if needed):
+   If using a partitioned disk:
+
+```bash
+sudo growpart /dev/xvda 1
+```
+
+*(Replace `/dev/xvda 1` with your device and partition number)*
+
+3. **Resize the file system:**
+
+```bash
+sudo resize2fs /dev/xvda1
+```
+
+4. **Verify:**
+
+```bash
+df -h
+```
+
+---
+
+## **4. Resize EBS Root Volume**
+
+Root volumes can be resized **while the instance is running**.
+
+**Example: Increase Root Volume to 50 GiB**
+
+```bash
+aws ec2 modify-volume --volume-id vol-xxxxxxxx --size 50
+```
+
+**Then, inside the instance:**
+
+```bash
+lsblk
+sudo growpart /dev/xvda 1
+sudo resize2fs /dev/xvda1
+```
+
+**Check final size:**
+
+```bash
+df -h
+```
+
+---
+
+## **5. Example: Full Workflow**
+
+**Scenario:** Increase `/dev/xvdf` data volume from 10 GiB → 20 GiB.
+
+1. Modify volume in AWS Console or CLI:
+
+```bash
+aws ec2 modify-volume --volume-id vol-xxxxxxxx --size 20
+```
+
+2. Inside instance:
+
+```bash
+lsblk
+sudo growpart /dev/xvdf 1   # If partitioned
+sudo resize2fs /dev/xvdf    # If no partitions
+```
+
+3. Verify:
+
+```bash
+df -h
+```
+
+---
+
+## **6. Key Points**
+
+* You **cannot** decrease EBS volume size directly.
+* Always **take a snapshot** before modifying volumes.
+* Resizing is **non-disruptive** for most Linux file systems.
+* Volume performance may temporarily drop while modification completes.
+* For XFS file systems, use:
+
+```bash
+sudo xfs_growfs /
+```
+
+(instead of `resize2fs`).
+
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
