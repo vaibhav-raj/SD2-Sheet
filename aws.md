@@ -15,7 +15,7 @@
 | Q11. | [What is Instance Metadata?](#q11-what-is-instance-metadata) |
 | Q12. | [What is an Elastic IP?](#q12-what-is-an-elastic-ip) |
 | Q13. | [Amazon Elastic Block Store (EBS) & Instance Storage](#q13-amazon-elastic-block-store-ebs--instance-storage) |
-
+| Q14. | [EBS Volume Setup and Safe Detachment](#q14-ebs-volume-setup-and-safe-detachment) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1293,6 +1293,144 @@ It provides **persistent storage** that can be **attached, detached, and reattac
 - You need **temporary, high-speed storage**  
 - Data can be **easily regenerated**  
 - You want **cost-effective local storage**
+
+
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
+
+
+## Q13. EBS Volume Setup and Safe Detachment
+
+## 1. Create an EBS Volume
+1. Open **EC2 Dashboard → Elastic Block Store → Volumes**.
+2. Click **Create Volume**.
+3. Choose:
+   - **Volume Type** (gp3, gp2, io1, etc.)
+   - **Size** (GiB)
+   - **Availability Zone** (must match your EC2 instance)
+4. (Optional) Add tags.
+5. Click **Create Volume**.
+
+---
+
+## 2. Attach EBS Volume to EC2 Instance
+1. Select the EBS Volume in the console.
+2. Click **Actions → Attach Volume**.
+3. Select the **EC2 Instance** (same AZ).
+4. Specify **Device Name** (e.g., `/dev/sdf`).
+5. Click **Attach Volume**.
+
+---
+
+## 3. Enable EBS Volume for Linux
+
+### a. Connect to Instance
+```bash
+ssh -i your-key.pem ec2-user@<public-ip>
+````
+
+### b. Check Device Name and File System
+
+```bash
+lsblk
+sudo file -s /dev/xvdf
+```
+
+### c. Create File System (if needed)
+
+```bash
+sudo mkfs -t ext4 /dev/xvdf
+```
+
+### d. Create Mount Point
+
+```bash
+sudo mkdir /data
+```
+
+### e. Mount the Volume
+
+```bash
+sudo mount /dev/xvdf /data
+```
+
+**Persist After Reboot:**
+
+```bash
+sudo blkid
+sudo nano /etc/fstab
+# Add:
+UUID=<your-uuid> /data ext4 defaults,nofail 0 2
+```
+
+---
+
+## 4. Enable EBS Volume for Windows
+
+### GUI Method
+
+1. Connect via **RDP**.
+2. Open **Disk Management** (`diskmgmt.msc`).
+3. Bring disk **Online**.
+4. **Initialize Disk** (MBR or GPT).
+5. Create **New Simple Volume**, assign drive letter, and format as NTFS.
+
+### PowerShell Method
+
+```select disk 1
+attributes disk clear readonly
+online disk noerr
+convert mbr
+create partition primary
+format quick fs=ntfs label="volume_label"
+assign letter="drive_letter"
+```
+
+---
+
+## 5. Unmount & Detach Volume (Linux)
+
+### Unmount
+
+```bash
+sudo umount /data
+```
+
+### Detach via Console
+
+* Select volume → **Actions → Detach Volume**
+
+### Detach via CLI
+
+```bash
+[ec2-user ~]$ sudo umount -d /dev/sdh
+```
+
+---
+
+## 6. Key Points on Detaching
+
+* Always **unmount** before detaching.
+* Instance & volume must be in the **same AZ**.
+* Detached volume retains data until deleted.
+* Note the **device name** for future use.
+
+---
+
+## 7. Delete an EBS Volume
+
+1. Ensure volume state is `available`.
+2. In console: **Actions → Delete Volume**.
+3. Confirm deletion (**data will be lost**).
+
+---
+
+## ⚠️ Important Notes
+
+* **Data Loss Warning:** Formatting or deleting a volume permanently removes its data.
+* **Performance Tip:** For high IOPS workloads, choose provisioned IOPS (io1/io2).
+* **Cost:** You pay for the allocated size, not used space.
 
 
 <div align="right">
