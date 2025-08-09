@@ -1228,11 +1228,6 @@ For scalable solutions, prefer Route 53 (DNS) or Load Balancers instead of relyi
 
 ## Q13. Amazon Elastic Block Store (EBS) & Instance Storage
 
-This repository provides a comprehensive overview of **Amazon Elastic Block Store (EBS)**, its **volume types**, **Instance Store**, and the **key differences** between them.
-
----
-
-## 📌 What is Amazon Elastic Block Store (EBS)?
 Amazon Elastic Block Store (EBS) is a **durable, high-performance block storage service** for Amazon EC2 instances.  
 It provides **persistent storage** that can be **attached, detached, and reattached** to instances.
 
