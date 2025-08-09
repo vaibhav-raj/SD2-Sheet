@@ -18,6 +18,7 @@
 | Q14. | [EBS Volume Setup and Safe Detachment](#q14-ebs-volume-setup-and-safe-detachment) |
 | Q15. | [EBS Volume Modification and File System Extension](#q15-ebs-volume-modification-and-file-system-extension) |
 | Q16. | [How can I attach one Amazon EBS volume to multiple EC2 instances?](#q16-how-can-i-attach-one-amazon-ebs-volume-to-multiple-ec2-instances) |
+| Q17. | [Amazon EBS Volume Types](#q17-amazon-ebs-volume-types) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1777,8 +1778,6 @@ df -h
 't2.micro' does not support multi-attach enabled volumes.
 ```
 
-
-
 <div align="right">
     <b><a href="#readme">↥ back to top</a></b>
 </div>
@@ -1896,5 +1895,101 @@ aws ec2 modify-instance-attribute \
 * Plan IOPS/throughput carefully — Multi-Attach does **not** increase total limits.
 * Monitor performance in **CloudWatch**.
 * Test thoroughly before production deployment.
+
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
+
+
+
+## Q17. Amazon EBS Volume Types 
+
+Amazon Elastic Block Store (EBS) is a scalable, high-performance block storage service for use with Amazon EC2 instances. It offers persistent storage that remains available independently of the life of an EC2 instance.
+EBS volumes come in several types, each optimized for different performance, cost, and workload requirements. These types fall into two main categories:
+
+* **SSD-backed volumes** – Optimized for transactional workloads with high IOPS (input/output operations per second) requirements.
+* **HDD-backed volumes** – Optimized for large, sequential workloads where throughput is more critical than IOPS.
+
+---
+
+## **1. General Purpose SSD (gp2 and gp3) Volumes: Overview and Use Cases**
+
+### **Overview**
+
+* **General Purpose SSD (gp2)**: The older version, offering a balance between price and performance, with baseline performance tied to volume size.
+* **General Purpose SSD (gp3)**: The newer generation, providing predictable performance, independent of volume size, and lower costs compared to gp2.
+* Performance:
+
+  * **gp3**: Baseline 3,000 IOPS and 125 MB/s throughput, scalable up to 16,000 IOPS and 1,000 MB/s.
+  * **gp2**: Baseline of 3 IOPS per GiB, with the ability to burst up to 3,000 IOPS for smaller volumes.
+
+### **Use Cases**
+
+* Boot volumes for EC2 instances.
+* Small to medium-size databases.
+* Virtual desktops.
+* Development and test environments.
+* Low-latency interactive applications.
+
+---
+
+## **2. Provisioned IOPS SSD (io1 and io2) Volumes: Overview and Use Cases**
+
+### **Overview**
+
+* Designed for **critical, I/O-intensive workloads** that require sustained high performance.
+* **io1**: Older generation; **io2**: Improved durability (99.999%) and better performance characteristics.
+* Performance:
+
+  * Can provision up to 64,000 IOPS per volume (for certain EC2 types).
+  * High throughput (up to 1,000 MB/s).
+* Supports **EBS Multi-Attach** to connect multiple EC2 instances to the same volume (io1/io2 only).
+
+### **Use Cases**
+
+* Large relational and NoSQL databases (e.g., Oracle, SQL Server, MongoDB, Cassandra).
+* Business-critical applications with high transaction rates.
+* Applications requiring predictable, ultra-low latency.
+
+---
+
+## **3. Throughput Optimized HDD (st1) and Cold HDD (sc1) Volumes: Overview and Use Cases**
+
+### **Overview**
+
+* **HDD-backed volumes** optimized for large, sequential workloads, offering lower cost per GiB compared to SSDs.
+* **Throughput Optimized HDD (st1)**:
+
+  * Designed for frequently accessed, throughput-intensive workloads.
+  * Baseline throughput: 40 MB/s per TiB; burst up to 250 MB/s.
+* **Cold HDD (sc1)**:
+
+  * Lowest-cost EBS volume type.
+  * Designed for infrequently accessed data.
+  * Baseline throughput: 12 MB/s per TiB; burst up to 80 MB/s.
+
+### **Use Cases**
+
+* **st1**:
+
+  * Big data analytics.
+  * Data warehouses.
+  * Log processing.
+* **sc1**:
+
+  * Archival storage.
+  * Infrequently accessed data that still needs to be online.
+  * Large, sequential cold datasets.
+
+---
+
+## **Conclusion**
+
+Choosing the right Amazon EBS volume type depends on your workload’s performance requirements and cost considerations:
+
+* **General Purpose SSD (gp3/gp2)** – Balanced performance and cost for most everyday workloads.
+* **Provisioned IOPS SSD (io1/io2)** – High performance for mission-critical, latency-sensitive workloads.
+* **Throughput Optimized HDD (st1)** – Cost-effective for high-throughput, sequential data workloads.
+* **Cold HDD (sc1)** – Cheapest option for infrequently accessed data that still needs persistence.
 
 
