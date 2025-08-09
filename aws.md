@@ -17,6 +17,7 @@
 | Q13. | [Amazon Elastic Block Store (EBS) & Instance Storage](#q13-amazon-elastic-block-store-ebs--instance-storage) |
 | Q14. | [EBS Volume Setup and Safe Detachment](#q14-ebs-volume-setup-and-safe-detachment) |
 | Q15. | [EBS Volume Modification and File System Extension](#q15-ebs-volume-modification-and-file-system-extension) |
+| Q16. | [How can I attach one Amazon EBS volume to multiple EC2 instances?](#q16-how-can-i-attach-one-amazon-ebs-volume-to-multiple-ec2-instances) |
 
 
 ## Q1. What are the challenges of traditional infrastructure?
@@ -1781,3 +1782,119 @@ df -h
 <div align="right">
     <b><a href="#readme">↥ back to top</a></b>
 </div>
+
+## Q16. How can I attach one Amazon EBS volume to multiple EC2 instances?
+
+Amazon EBS **Multi-Attach** allows a single `io1` or `io2` volume to be attached to multiple Amazon EC2 instances **within the same Availability Zone**. Each instance can read and write to the volume simultaneously, making it suitable for clustered applications and shared file systems.
+
+---
+
+## 📌 Overview
+
+- **Supported Volume Types:** `io1`, `io2`
+- **Max Instances:** 16 (same AZ)
+- **Use Cases:** Clustered applications, shared file systems (GFS2, OCFS2)
+- **Not For:** Non-clustered file systems (ext4, NTFS, XFS without cluster-awareness)
+- **Performance:** Shared IOPS & throughput across all attached instances
+
+---
+
+## ⚠️ Considerations & Limitations
+
+### Supported Scenarios
+- Cluster-aware or distributed applications handling concurrent writes.
+- Shared file systems with proper locking mechanisms.
+
+### Unsupported Scenarios
+- General-purpose file systems without cluster coordination (risk of corruption).
+
+### Limitations
+- Only block-level access is shared — no file-level locking by EBS.
+- Not supported for boot volumes.
+- Cannot attach across different AZs.
+- Requires instance types that support Multi-Attach.
+- Snapshots work as usual but are not instantaneous.
+
+---
+
+## 🚀 Performance Notes
+- **IOPS & throughput are shared** across all attached instances.
+- Volume performance is capped at **EBS limits**, not per-instance.
+- Use **Provisioned IOPS (io2)** for predictable, high performance.
+- Expect slightly higher latency than single-attach volumes.
+
+---
+
+## 🛠 Working with Multi-Attach
+
+### 1. Enable Multi-Attach During Volume Creation
+```bash
+aws ec2 create-volume \
+    --availability-zone us-east-1a \
+    --size 100 \
+    --volume-type io2 \
+    --iops 1000 \
+    --multi-attach-enabled
+````
+
+---
+
+### 2. Enable Multi-Attach for Existing io2 Volume
+
+> Only `io2` supports enabling Multi-Attach after creation.
+
+```bash
+aws ec2 modify-volume \
+    --volume-id vol-0123456789abcdef0 \
+    --multi-attach-enabled
+```
+
+---
+
+### 3. Disable Multi-Attach
+
+```bash
+aws ec2 modify-volume \
+    --volume-id vol-0123456789abcdef0 \
+    --no-multi-attach-enabled
+```
+
+> Must detach from all instances first.
+
+---
+
+### 4. Attach Volume to Multiple Instances
+
+```bash
+aws ec2 attach-volume \
+    --volume-id vol-0123456789abcdef0 \
+    --instance-id i-0123456789abcdef0 \
+    --device /dev/sdf
+
+aws ec2 attach-volume \
+    --volume-id vol-0123456789abcdef0 \
+    --instance-id i-0abcdef1234567890 \
+    --device /dev/sdf
+```
+
+---
+
+### 5. Delete on Termination
+
+```bash
+aws ec2 modify-instance-attribute \
+    --instance-id i-0123456789abcdef0 \
+    --block-device-mappings \
+    "[{\"DeviceName\":\"/dev/sdf\",\"Ebs\":{\"DeleteOnTermination\":true}}]"
+```
+
+---
+
+## ✅ Best Practices
+
+* Use a **cluster-aware file system** (GFS2, OCFS2) or app-level write coordination.
+* Plan IOPS/throughput carefully — Multi-Attach does **not** increase total limits.
+* Monitor performance in **CloudWatch**.
+* Test thoroughly before production deployment.
+
+
