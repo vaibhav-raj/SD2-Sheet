@@ -1707,6 +1707,77 @@ sudo xfs_growfs /
 
 (instead of `resize2fs`).
 
+
+## Notes on Expanding EBS Volumes and Root Volume Resizing
+
+### 1. Expanding an EBS Volume
+- **EBS size can only be increased, not decreased.**
+- After resizing in AWS, the Linux file system **does not** expand automatically.
+- You must manually extend the file system.
+
+**Check current block devices and file systems:**
+```bash
+lsblk
+df -h
+````
+
+**Resize the file system (ext4 example):**
+
+```bash
+sudo resize2fs /dev/xvdf
+```
+
+---
+
+### 2. Resizing the Root Volume
+
+1. Check device and usage:
+
+```bash
+lsblk
+df -h
+sudo file -s /dev/xvda1
+```
+
+2. If you run `resize2fs` and see:
+
+```
+The filesystem is already XXX blocks long. Nothing to do!
+```
+
+…it means you must first grow the partition.
+
+3. Grow the partition:
+
+```bash
+sudo growpart /dev/xvda 1
+```
+
+4. Then resize the file system:
+
+```bash
+sudo resize2fs /dev/xvda1
+```
+
+5. Verify:
+
+```bash
+df -h
+```
+
+---
+
+### 3. Multi-Attach Volumes
+
+* **Multi-Attach** is supported only on certain instance types and volume types (e.g., io1/io2 in specific families).
+* Example restriction:
+
+```
+'t2.micro' does not support multi-attach enabled volumes.
+```
+
+
+
 <div align="right">
     <b><a href="#readme">↥ back to top</a></b>
 </div>
