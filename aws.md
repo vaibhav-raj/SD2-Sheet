@@ -2850,15 +2850,11 @@ You are responsible for:
 * You cannot **directly access** EBS snapshots from Amazon S3.
 * **Fast Snapshot Restore (FSR)** is charged per snapshot per AZ and provides immediate performance.
 
-
-
 <div align="right">
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
 ## Q19. Creating the First Snapshot
-
-### **1. Creating the First Snapshot**
 
 An **EBS snapshot** is a **point-in-time, incremental backup** of an EBS volume stored in Amazon S3 (managed by AWS, not directly accessible like standard S3 objects).
 
