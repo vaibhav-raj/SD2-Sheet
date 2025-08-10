@@ -21,6 +21,7 @@
 | Q17. | [Amazon EBS Volume Types](#q17-amazon-ebs-volume-types) |
 | Q18. | [Amazon EBS Snapshots](#q18-amazon-ebs-snapshots) |
 | Q19. | [Creating the First Snapshot](#q19-creating-the-first-snapshot) |
+| Q20. | [EBS Snapshot Copy & Management](#q20-ebs-snapshot-copy--management) |
 
 ## Q1. What are the challenges of traditional infrastructure?
 
@@ -2995,4 +2996,163 @@ These tend to appear in **CCP** and **SAA-C03** questions:
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
-## Q20. Creating the First Snapshot
+## Q20. EBS Snapshot Copy & Management
+
+## **1. Copying Snapshots from One Region to Another (Cross-Region Copy)**
+
+### **What It Is**
+
+* AWS **EBS snapshots** are stored in Amazon S3 (managed internally by AWS).
+* A **snapshot** is always created in the same region as the EBS volume by default.
+* You can **copy** a snapshot to a **different region** for:
+
+  * Disaster recovery
+  * Migration
+  * Geographical compliance requirements
+  * Latency optimization
+
+### **How It Works**
+
+* Copying creates a **new snapshot** in the **destination region**.
+* The copy is **asynchronous** — you can track status in the console or via CLI/API.
+
+### **Steps (Console)**
+
+1. Open **EC2 Console → Snapshots**.
+2. Select snapshot → **Actions → Copy Snapshot**.
+3. Choose **destination region** and settings (encryption, tags).
+4. Start copy — AWS handles replication.
+
+### **CLI Example**
+
+```bash
+aws ec2 copy-snapshot \
+    --source-region us-east-1 \
+    --source-snapshot-id snap-1234567890abcdef0 \
+    --region us-west-2 \
+    --description "Copy from us-east-1 to us-west-2"
+```
+
+**Exam Tip (SAA-C03)** – Cross-region copy is a **manual process**; snapshots aren’t replicated automatically across regions.
+
+---
+
+## **2. Cross-Account Snapshot Copy**
+
+### **Why**
+
+* Share data between AWS accounts without giving full access to volumes.
+* Used in **multi-account architectures** or **partner collaborations**.
+
+### **How to Share**
+
+1. **Make snapshot public or share with specific AWS account IDs**.
+2. **If encrypted**:
+
+   * You must also share the **KMS key** with the other account.
+3. Recipient copies the shared snapshot into their own account.
+
+**Exam Note**:
+
+* Unencrypted snapshots can be shared publicly or with specific accounts.
+* **Encrypted snapshots** can only be shared with specific accounts (never public).
+
+---
+
+## **3. AWS EBS Encryption Basics**
+
+### **Default Behavior**
+
+* **If encryption is enabled by default** (account setting), all new snapshots and volumes are encrypted.
+* Uses AWS KMS for encryption keys.
+
+### **Key Points**
+
+* **Encryption applies to data at rest, in transit between EC2 and EBS, and snapshot copies**.
+* When copying:
+
+  * You can **encrypt an unencrypted snapshot** during the copy.
+  * You can **change the encryption key** (switch KMS keys) during the copy.
+* **Cross-region** or **cross-account** encrypted snapshot copies require KMS key access in the destination.
+
+**CLI Encryption Example**
+
+```bash
+aws ec2 copy-snapshot \
+    --source-region us-east-1 \
+    --source-snapshot-id snap-1234567890abcdef0 \
+    --region us-west-2 \
+    --encrypted \
+    --kms-key-id arn:aws:kms:us-west-2:123456789012:key/abcd1234-a123-456a-a12b-a123b4cd56ef
+```
+
+**Exam Tip (CCP + SAA)** – Encryption cannot be removed from a snapshot; once encrypted, it stays encrypted.
+
+---
+
+## **4. Amazon EC2 Snapshot Deletion**
+
+### **How It Works**
+
+* Snapshots are **incremental** — each snapshot only stores the data that changed since the last snapshot.
+* **Deleting** a snapshot:
+
+  * Does **not** affect other snapshots in the chain.
+  * AWS retains only the data needed for other snapshots.
+* If you delete the **first snapshot**, AWS merges data so later snapshots remain usable.
+
+**CLI Example**
+
+```bash
+aws ec2 delete-snapshot --snapshot-id snap-1234567890abcdef0
+```
+
+**Cost Implication** – Snapshots are billed for stored data, not snapshot count. Deleting unused snapshots saves money.
+
+---
+
+## **5. Fast Snapshot Restore (FSR)**
+
+### **What It Is**
+
+* Normally, volumes restored from snapshots are **lazy-loaded** (data blocks fetched on first access → slower initial performance).
+* FSR enables **full initialization** in advance, so new volumes from the snapshot are **immediately fast**.
+
+### **Key Points**
+
+* You **enable FSR per snapshot, per Availability Zone**.
+* Extra cost is charged **per snapshot per AZ per hour**.
+* **Use cases**:
+
+  * Critical workloads needing immediate performance.
+  * Large data stores where lazy loading would cause latency issues.
+
+**CLI Example**
+
+```bash
+aws ec2 enable-fast-snapshot-restores \
+    --availability-zones us-east-1a \
+    --source-snapshot-ids snap-1234567890abcdef0
+```
+
+**Exam Tip** – FSR is about **reducing initialization latency**, not about encryption or cross-region transfers.
+
+---
+
+## **6. Exam-Relevant Gotchas & Best Practices**
+
+* **Cross-region copy** is **always manual** unless you use AWS Backup or custom automation.
+* **Encryption**:
+
+  * You can encrypt during copy even if original is unencrypted.
+  * Sharing encrypted snapshots requires sharing the KMS CMK.
+* **Sharing Snapshots**:
+
+  * Public sharing is possible only for **unencrypted** snapshots.
+  * Encrypted snapshots **must** be shared privately with specific AWS accounts.
+* **Deleting snapshots** doesn’t delete data still referenced by other snapshots.
+* **FSR costs** can add up; disable it when no longer needed.
+
+---
+
+
