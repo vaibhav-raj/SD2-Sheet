@@ -19,7 +19,7 @@
 | Q15. | [EBS Volume Modification and File System Extension](#q15-ebs-volume-modification-and-file-system-extension) |
 | Q16. | [How can I attach one Amazon EBS volume to multiple EC2 instances?](#q16-how-can-i-attach-one-amazon-ebs-volume-to-multiple-ec2-instances) |
 | Q17. | [Amazon EBS Volume Types](#q17-amazon-ebs-volume-types) |
-
+| Q18. | [Amazon EBS Snapshots](#q18-amazon-ebs-snapshots) |
 
 ## Q1. What are the challenges of traditional infrastructure?
 
@@ -1900,8 +1900,6 @@ aws ec2 modify-instance-attribute \
     <b><a href="#readme">↥ back to top</a></b>
 </div>
 
-
-
 ## Q17. Amazon EBS Volume Types 
 
 Amazon Elastic Block Store (EBS) is a scalable, high-performance block storage service for use with Amazon EC2 instances. It offers persistent storage that remains available independently of the life of an EC2 instance.
@@ -1991,5 +1989,133 @@ Choosing the right Amazon EBS volume type depends on your workload’s performan
 * **Provisioned IOPS SSD (io1/io2)** – High performance for mission-critical, latency-sensitive workloads.
 * **Throughput Optimized HDD (st1)** – Cost-effective for high-throughput, sequential data workloads.
 * **Cold HDD (sc1)** – Cheapest option for infrequently accessed data that still needs persistence.
+
+
+
+<div align="right">
+    <b><a href="#readme">↥ back to top</a></b>
+</div>
+
+## Q18. Amazon EBS Snapshots
+
+Amazon Elastic Block Store (EBS) snapshots are **point-in-time backups** of Amazon EBS volumes. They are stored in Amazon S3 (managed internally by AWS, not directly accessible like normal S3 objects) and allow you to preserve the data on an EBS volume for recovery, migration, or duplication. Snapshots help you maintain business continuity, meet compliance needs, and reduce data loss risk.
+
+---
+
+## **Features of Amazon EBS Snapshots**
+
+* **Point-in-time backup:** Captures the exact state of a volume at a given moment.
+* **Incremental storage:** Only changes since the last snapshot are stored.
+* **Cross-region & cross-account copying:** Enables disaster recovery and sharing.
+* **Encryption support:** Inherits encryption from source volume or allows re-encryption.
+* **Automated snapshots:** Integrated with AWS Backup or Data Lifecycle Manager (DLM).
+* **Multi-volume support:** Can capture consistent snapshots across multiple volumes attached to an instance.
+
+---
+
+## **Understanding Incremental Backups**
+
+* **First snapshot:** Stores all data blocks from the volume.
+* **Subsequent snapshots:** Store only blocks changed since the last snapshot.
+* **Efficiency:** Reduces cost and time for backup.
+* **Restoration:** AWS reconstructs the volume from the complete data set by combining all incremental snapshots.
+
+---
+
+## **User Responsibility**
+
+AWS maintains the underlying storage for snapshots, but you are responsible for:
+
+* Scheduling and managing snapshots.
+* Ensuring snapshots are taken before critical changes or maintenance.
+* Implementing a retention policy to avoid unnecessary costs.
+* Managing encryption keys (if using AWS KMS).
+
+---
+
+## **Snapshot Management**
+
+### **Storage in Amazon S3**
+
+* Snapshots are stored in Amazon S3, but not as standard S3 objects.
+* Fully managed by AWS — you can’t see them in your S3 buckets.
+
+### **Snapshot Restoration**
+
+* You can create a new EBS volume from a snapshot.
+* Volumes can be restored in the same or different Availability Zone.
+* Fast snapshot restore (FSR) is available for low-latency access immediately after creation.
+
+### **Deletion Clarification**
+
+* Deleting a snapshot removes only the unique data blocks not referenced by other snapshots.
+* If data blocks are shared across multiple snapshots, they remain until all referencing snapshots are deleted.
+
+---
+
+## **Snapshot Events and Multi-Volume Snapshots**
+
+### **CloudWatch Events Integration**
+
+* Events can be triggered for snapshot operations such as creation, completion, or failure.
+* Useful for automation and monitoring.
+
+### **Multi-Volume Snapshots**
+
+* Capture a crash-consistent state across multiple EBS volumes attached to an instance.
+* Ideal for applications with data spread across several volumes (e.g., databases).
+
+---
+
+## **Snapshot Pricing**
+
+### **Incremental Storage Charges**
+
+* Billed for the amount of data stored (unique blocks only).
+* No charge for the copy process itself, but you pay for the storage of the copy.
+
+### **Billing Considerations**
+
+* Charges vary by region.
+* Restoring from a snapshot doesn’t incur snapshot costs but the new volume has standard EBS storage costs.
+* Cross-region copies incur transfer costs.
+
+---
+
+## **Easily Copy Amazon EBS Snapshots**
+
+### **Copy Snapshots Anywhere**
+
+* You can copy snapshots to the same region, another region, or another account.
+* Cross-region copies aid disaster recovery.
+
+### **Copying Multi-Volume Snapshots**
+
+* Maintains consistency across all volumes when copied.
+
+---
+
+## **Sharing Snapshots**
+
+* Snapshots can be shared with specific AWS accounts or made public (for AMIs or datasets).
+* Encrypted snapshots can only be shared if the encryption key is also shared.
+
+---
+
+## **Use Cases**
+
+* **Disaster recovery:** Restore systems quickly after data loss.
+* **Migration:** Move workloads between regions/accounts.
+* **Testing:** Create test environments from production data.
+* **Compliance:** Maintain backups for regulatory requirements.
+
+---
+
+## **Encryption and Security**
+
+* Snapshots of encrypted volumes are automatically encrypted.
+* Copies of encrypted snapshots remain encrypted.
+* AWS KMS manages encryption keys, and you can re-encrypt snapshots with a different key.
+* Data in transit and at rest is encrypted.
 
 
