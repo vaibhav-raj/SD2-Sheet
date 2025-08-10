@@ -20,7 +20,7 @@
 | Q16. | [How can I attach one Amazon EBS volume to multiple EC2 instances?](#q16-how-can-i-attach-one-amazon-ebs-volume-to-multiple-ec2-instances) |
 | Q17. | [Amazon EBS Volume Types](#q17-amazon-ebs-volume-types) |
 | Q18. | [Amazon EBS Snapshots](#q18-amazon-ebs-snapshots) |
-| Q19. | [Creating the First Snapshot](#q19-create-the-first-snapshot) |
+| Q19. | [Creating the First Snapshot](#q19-creating-the-first-snapshot) |
 
 ## Q1. What are the challenges of traditional infrastructure?
 
