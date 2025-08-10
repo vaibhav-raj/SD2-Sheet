@@ -1560,8 +1560,9 @@ sudo mount /dev/xvdf /data
 * **Root Volume Auto-Delete**: Controlled by the `DeleteOnTermination` flag.
 * **Performance Scaling**: You can change volume type and size on the fly.
 
+---
  **clear breakdown** of what terms like **IOPS** and **throughput** actually mean, especially in the EBS context
-
+ 
 ---
 
 ## **1. IOPS (Input/Output Operations Per Second)**
