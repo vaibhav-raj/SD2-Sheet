@@ -158,3 +158,272 @@ console.log(counter()); // 2
    **A:** Yes, if closures are holding references to large objects or DOM elements longer than needed, they can prevent garbage collection, leading to memory leaks. Proper cleanup is important.
 
 ---
+
+## Q4. `this binding / call / apply / bind / arrow functions`.
+
+In JavaScript, `this` refers to the context in which a function is called. Its value changes depending on how the function is invoked.
+
+* **Default or global context:** In a normal function call, `this` points to the global object (`window` in browsers) or `undefined` in strict mode.
+```javascript
+function show() {
+  console.log(this);
+}
+show(); // window (or undefined in strict mode)
+```
+
+* **Object method (implicit binding):** If a function is called as a method of an object, `this` refers to that object.
+```javascript
+const person = {
+  name: "Vaibhav",
+  greet() {
+    console.log(this.name);
+  }
+};
+person.greet(); // Vaibhav
+```
+* **Explicit binding:** We can explicitly set `this` using `call`, `apply`, or `bind`.
+
+  * `call` calls the function immediately with a specified `this` and arguments listed individually.
+  * `apply` is similar, but takes arguments as an array.
+  * `bind` returns a new function with `this` permanently set, which can be called later.
+```javascript
+  function greet(greeting) {
+  console.log(greeting + ", " + this.name);
+}
+const person = { name: "Vaibhav" };
+greet.call(person, "Hello"); // Hello, Vaibhav
+```
+```javascript
+greet.apply(person, ["Hi"]); // Hi, Vaibhav
+```
+```javascript
+const greetPerson = greet.bind(person);
+greetPerson("Hey"); // Hey, Vaibhav
+```
+* **Arrow functions:** They don’t have their own `this`. Instead, they inherit `this` from the surrounding lexical scope, which is why binding them with `call`, `apply`, or `bind` doesn’t work.
+```javascript
+const obj = {
+  name: "Vaibhav",
+  greet: () => console.log(this.name)
+};
+obj.greet(); // undefined (this is not obj)
+greetPerson("Hey"); // Hey, Vaibhav
+```
+
+**Common follow-ups:**
+
+* `bind` is useful for callbacks or event handlers because it keeps `this` fixed.
+* Arrow functions are great for preserving context inside nested functions.
+* In classes, normal methods’ `this` refers to the instance, but you might need `bind` if you pass the method as a standalone function.
+
+---
+
+## Q5. `Prototype Chain & Inheritance`.
+
+> In JavaScript, **objects have a hidden link to another object called their prototype**, which allows them to inherit properties and methods. This concept is called **prototypal inheritance**.
+
+> Every JavaScript object has an internal property `[[Prototype]]` (accessible via `__proto__` in older syntax or `Object.getPrototypeOf(obj)`), which points to its parent object. When we try to access a property on an object, JavaScript first looks at the object itself. If it doesn’t find it, it follows the **prototype chain** upwards until it either finds the property or reaches `null`.
+>
+> For example:
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function() {
+  return `Hello, ${this.name}`;
+};
+
+const john = new Person('John');
+console.log(john.greet()); // "Hello, John"
+```
+
+> Here, `john` does not have a `greet` method directly, but JavaScript finds it on `Person.prototype` via the prototype chain.
+
+**Key Points:**
+
+1. **Prototype chain** is the mechanism behind property lookup in objects.
+2. **Inheritance** in JS is prototype-based, not class-based (though ES6 `class` syntax is syntactic sugar over prototypes).
+3. Every function in JS has a `prototype` property used when creating new objects with `new`.
+4. The chain always ends with `Object.prototype`, whose `[[Prototype]]` is `null`.
+
+---
+
+### **Possible Cross-Questions & Answers:**
+
+**1. Q:** What’s the difference between `__proto__` and `prototype`?
+
+* `prototype` exists on **functions** and is used when creating new objects via `new`.
+* `__proto__` exists on **all objects** and points to the object’s prototype.
+* Example:
+
+```javascript
+function Person(){}
+console.log(Person.prototype); // the prototype object
+const p = new Person();
+console.log(p.__proto__ === Person.prototype); // true
+```
+
+**2. Q:** What is the difference between classical inheritance and prototypal inheritance?
+
+* Classical inheritance (e.g., Java, C++) uses **classes** and **instances**, usually a static hierarchy.
+* JS uses **prototypes**, where objects directly inherit from other objects dynamically.
+* ES6 classes are syntactic sugar over prototypal inheritance.
+
+**3. Q:** Can we modify an object’s prototype after creation?
+
+Yes, using `Object.setPrototypeOf(obj, newProto)` or by changing the constructor’s prototype. But modifying the prototype chain dynamically can lead to performance issues, so it’s not recommended in production code.
+
+**4. Q:** What is `Object.create()`?
+It creates a new object with the specified prototype:
+
+```javascript
+const parent = { greet() { return "Hello"; } };
+const child = Object.create(parent);
+console.log(child.greet()); // "Hello"
+```
+
+## Q6. `ES6 Classes vs Prototypes → Syntactic sugar explained`.
+
+In JavaScript, **ES6 classes are essentially syntactic sugar over the existing prototype-based inheritance system**.
+Before ES6, we used **constructor functions** and **prototypes** to create and inherit objects. 
+ES6 introduced the `class` keyword, which provides a **cleaner and more readable syntax** for doing the same thing.
+
+Under the hood, **classes still use prototypes** — meaning when you create methods inside a class, they’re actually added to the class’s prototype, not copied to each instance.
+
+So, **functionally there’s no difference**; it’s mainly about **syntax, readability, and maintainability**.
+
+Here’s a quick example:
+
+```js
+// Before ES6 (Prototypes)
+function Person(name) {
+  this.name = name;
+}
+Person.prototype.greet = function() {
+  console.log(`Hello, I'm ${this.name}`);
+};
+
+// ES6 Classes
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+  greet() {
+    console.log(`Hello, I'm ${this.name}`);
+  }
+}
+```
+
+Both approaches do the same thing — `greet` is stored on the prototype and shared among instances.
+
+---
+
+### 🧠 **Extra Points (Good to Mention)**
+
+* **Class syntax is not hoisted**, unlike function declarations. You must define a class before using it.
+* **Classes use strict mode** by default.
+* **Static methods** and **getters/setters** are easier to define with classes.
+* **Subclassing** (via `extends` and `super`) is much simpler and cleaner in ES6 classes.
+
+---
+
+### 💬 **Possible Cross-Questions & Answers**
+
+**Q1.** *So, if they’re the same under the hood, why use classes at all?*
+**A:** Because classes make code more **readable and organized**, especially in larger codebases. They also make inheritance (`extends`, `super`) much cleaner and easier to follow than manually linking prototypes.
+
+---
+
+**Q2.** *Are ES6 classes hoisted like functions?*
+**A:** No, they’re not hoisted. You must **declare a class before using it**, otherwise you’ll get a `ReferenceError`.
+
+---
+
+**Q3.** *Can we use arrow functions inside classes?*
+**A:** Yes, but they’re usually used for **binding `this`** inside class methods (like in React components). Arrow functions become **instance properties**, not prototype methods.
+
+---
+
+**Q4.** *What happens if you call a class without `new`?*
+**A:** It throws an error. Unlike constructor functions, **ES6 classes cannot be called without `new`** — this enforces correct usage.
+
+---
+
+**Q5.** *Can you extend built-in objects with ES6 classes?*
+**A:** Yes. For example, you can do `class MyArray extends Array {}` — which was tricky to do using prototypes before ES6.
+
+---
+
+## Q7. `Destructuring, Rest, Spread → Clean, modern data handling`.
+
+> “Destructuring, Rest, and Spread are modern JavaScript features that make data handling cleaner and more readable.
+
+**Destructuring** allows us to extract values from arrays or objects and assign them to variables in a single line, instead of accessing each property individually.
+Example:
+
+```js
+const user = { name: 'Vaibhav', age: 25 };
+const { name, age } = user;
+```
+
+Now, `name` and `age` are directly available as variables.
+
+**Rest** collects the remaining elements into an array or object. It’s used when we want to group multiple values together.
+Example:
+
+```js
+const [first, ...rest] = [1, 2, 3, 4];
+console.log(rest); // [2, 3, 4]
+```
+
+**Spread**, on the other hand, does the opposite — it expands elements of an array or object. It’s often used for copying, merging, or passing multiple arguments.
+Example:
+
+```js
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4];
+```
+
+This creates a new array `[1, 2, 3, 4]` without mutating the original one.
+
+Together, these features help us write **cleaner, shorter, and more maintainable code.**”
+
+---
+
+### 💬 Possible Cross-Questions & Answers
+
+**Q1. What’s the difference between Rest and Spread?**
+
+> Rest *collects* multiple elements into one (used on the left-hand side of assignment).
+> Spread *expands* elements out (used on the right-hand side, like in arrays or function calls).
+
+---
+
+**Q2. Can you use destructuring with default values?**
+
+> Yes, destructuring supports defaults.
+> Example:
+>
+> ```js
+> const { name = 'Guest' } = {};
+> console.log(name); // Guest
+> ```
+
+---
+
+**Q3. What happens if you destructure a property that doesn’t exist?**
+
+> It will return `undefined` unless you assign a default value.
+
+---
+
+**Q4. Can we use rest with objects?**
+
+> Absolutely.
+>
+> ```js
+> const { id, ...details } = { id: 1, name: 'Vaibhav', age: 25 };
+> console.log(details); // { name: 'Vaibhav', age: 25 }
+> ```
