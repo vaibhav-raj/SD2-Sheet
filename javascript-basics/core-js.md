@@ -427,3 +427,127 @@ Together, these features help us write **cleaner, shorter, and more maintainable
 > const { id, ...details } = { id: 1, name: 'Vaibhav', age: 25 };
 > console.log(details); // { name: 'Vaibhav', age: 25 }
 > ```
+
+
+## Q8. `Array Methods: map, filter, reduce, find, some, every`.
+**1. `map()`**
+
+* **Definition:** The `map()` method creates a **new array** by applying a callback function to **each element** of the original array.
+* **Key point:** It doesn’t modify the original array.
+* **Example:**
+
+  ```js
+  const nums = [1, 2, 3];
+  const doubled = nums.map(n => n * 2); // [2, 4, 6]
+  ```
+
+---
+
+**2. `filter()`**
+
+* **Definition:** The `filter()` method returns a **new array** containing **only the elements** that satisfy the given condition (return `true` in the callback).
+* **Example:**
+
+  ```js
+  const nums = [1, 2, 3, 4];
+  const even = nums.filter(n => n % 2 === 0); // [2, 4]
+  ```
+
+---
+
+**3. `reduce()`**
+
+* **Definition:** The `reduce()` method executes a callback function on each element, resulting in **a single output value** (like sum, average, etc.).
+* **Example:**
+
+  ```js
+  const nums = [1, 2, 3, 4];
+  const sum = nums.reduce((acc, curr) => acc + curr, 0); // 10
+  ```
+
+---
+
+**4. `find()`**
+
+* **Definition:** The `find()` method returns the **first element** in the array that satisfies the condition.
+* **If no element matches, it returns `undefined`.**
+* **Example:**
+
+  ```js
+  const nums = [3, 6, 9];
+  const found = nums.find(n => n > 5); // 6
+  ```
+
+---
+
+**5. `some()`**
+
+* **Definition:** The `some()` method checks if **at least one element** passes the condition and returns a **boolean**.
+* **Example:**
+
+  ```js
+  const nums = [1, 2, 3];
+  const hasEven = nums.some(n => n % 2 === 0); // true
+  ```
+
+---
+
+**6. `every()`**
+
+* **Definition:** The `every()` method checks if **all elements** pass the condition and returns a **boolean**.
+* **Example:**
+
+  ```js
+  const nums = [2, 4, 6];
+  const allEven = nums.every(n => n % 2 === 0); // true
+  ```
+
+---
+
+### 💬 Possible Cross-Questions & Ideal Answers
+
+**Q1. What’s the difference between `map()` and `forEach()`?**
+
+➡️ `map()` returns a **new array** with transformed values, whereas `forEach()` just **iterates** over elements and **returns undefined**.
+Use `map()` when you need a transformed array, and `forEach()` for side effects (like logging or updating).
+
+---
+
+**Q2. Can `reduce()` be used to implement `map()` or `filter()`?**
+
+➡️ Yes. Since `reduce()` is the most versatile, you can manually accumulate results to mimic both `map()` and `filter()`.
+For example:
+
+```js
+const doubled = arr.reduce((acc, curr) => {
+  acc.push(curr * 2);
+  return acc;
+}, []);
+```
+
+---
+
+**Q3. What happens if `filter()` returns an empty array?**
+
+➡️ It simply means **no elements matched the condition**, so it returns `[]`. No error is thrown.
+
+---
+
+**Q4. What’s the main difference between `find()` and `filter()`?**
+
+➡️ `find()` returns **the first matching element**, while `filter()` returns **all matching elements** as an array.
+
+---
+
+**Q5. What are `some()` and `every()` mainly used for?**
+➡️ They are primarily used for **validation checks**.
+
+* `some()` → Check if **at least one** condition passes (e.g., any user is active).
+* `every()` → Check if **all** conditions pass (e.g., all users are verified).
+
+---
+
+**Q6. Are these methods mutable? Do they change the original array?**
+➡️ No, all these methods are **immutable** — they **do not modify** the original array. They return a **new array or value** instead.
+
+---
