@@ -1,4 +1,4 @@
-## Q. `var`, `let`, `const` → Scope, Block vs Function Level
+## Q1. `var`, `let`, `const` → Scope, Block vs Function Level
 
 In JavaScript, the main differences between `var`, `let`, and `const` are in **scope**, **hoisting**, and **mutability**.
 
@@ -85,7 +85,7 @@ let b = 10;
 
 ---
 
-## Q. `Hoisting`, `Temporal Dead Zone`, How JS “moves” declarations
+## Q2. `Hoisting`, `Temporal Dead Zone`, How JS “moves” declarations
 ---
 
 **Answer:**
@@ -115,3 +115,46 @@ Function declarations are fully hoisted, so you can call them before they appear
 
 ---
 
+## Q3. `Closures`, `Lexical Environment`, `Functions remembering outer scope
+
+**Answer**
+A closure is basically a function that remembers the variables from the scope where it was created, even if that outer function has finished has finished executing. This happens because of JavaScript’s lexical environment—every function keeps a reference to the variables around it when it’s defined.
+In other words, closures ‘remember’ the environment in which they were created.
+
+
+**Example (to explain clearly):**
+
+```javascript
+function outer() {
+    let count = 0;
+    return function inner() {
+        count++;
+        return count;
+    }
+}
+
+const counter = outer();
+console.log(counter()); // 1
+console.log(counter()); // 2
+```
+
+* Here, `inner` is a closure.
+* Even after `outer()` has executed, `inner` still remembers `count` from its outer scope.
+
+---
+
+**Possible cross-questions & answers:**
+
+1. **Q: Why are closures useful?**
+   **A:** Closures are useful for **data encapsulation**, **stateful functions**, **memoization**, and creating **private variables**. They allow functions to maintain state across multiple calls without exposing variables to the global scope.
+
+2. **Q: What is the difference between closures and global variables?**
+   **A:** Closures provide **private scope**, whereas global variables are accessible anywhere, increasing the risk of conflicts. Closures help maintain **clean, modular, and secure code**.
+
+3. **Q: Does a closure keep a copy of outer variables or a reference?**
+   **A:** It keeps a **reference** to the outer variables, not a copy. That’s why if the outer variable changes, the closure sees the updated value.
+
+4. **Q: Can closures cause memory leaks?**
+   **A:** Yes, if closures are holding references to large objects or DOM elements longer than needed, they can prevent garbage collection, leading to memory leaks. Proper cleanup is important.
+
+---
