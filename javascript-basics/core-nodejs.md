@@ -289,22 +289,26 @@ Overall, Buffers make it possible to interact with data in a way that’s close 
 ### **Possible Cross-Questions:**
 
 **1. Why do we need Buffers in Node.js?**
+
 Because JavaScript (in browsers) doesn’t support handling raw binary data. Node.js uses Buffers to process data that doesn’t come in text form — for example, image files, audio, video, or network packets. Buffers provide a way to work with binary streams efficiently.
 
 ---
 
 **2. What’s the difference between Buffer and Stream?**
+
 A **Buffer** is a **container** that holds raw data temporarily — it’s like a chunk of memory.
 A **Stream**, on the other hand, is a **continuous flow** of data that may use buffers internally. You can think of streams as pipes through which data flows, and buffers as the buckets that hold pieces of that data as it passes through.
 
 ---
 
 **3. Are Buffers mutable or immutable?**
+
 Buffers are **mutable**, meaning you can change the contents after creation. This is different from strings in JavaScript, which are immutable.
 
 ---
 
 **4. How do you convert a Buffer to a string or vice versa?**
+
 You can use:
 
 ```js
@@ -317,6 +321,7 @@ You can also specify encoding like `'utf8'`, `'base64'`, or `'hex'`.
 ---
 
 **5. How does Node.js allocate memory for Buffers?**
+
 Node.js uses an internal memory pool (outside of the V8 heap) for Buffers. This allows Node to handle large binary data efficiently without putting pressure on the garbage collector.
 
 ---
