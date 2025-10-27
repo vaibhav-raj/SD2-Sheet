@@ -1,6 +1,5 @@
 ## Q1. How do you read and write files in Node.js?
 
-
 In Node.js, file reading and writing are handled using the **`fs` (File System)** module, which comes built-in.
 There are two main ways to handle files: **synchronous** and **asynchronous**.
 
@@ -109,12 +108,109 @@ readStream.on('end', () => console.log('File copied successfully!'));
 
 ---
 
-### ✅ **Summary (For Interview Wrap-Up)**
+## Q2. How do you watch file changes in Node.js?
 
-> “In Node.js, we use the `fs` module to interact with the file system.
-> We can read and write files both synchronously and asynchronously, but asynchronous methods are preferred for non-blocking performance.
-> For modern code, `fs.promises` and streams are the most efficient ways to handle file operations.”
+In Node.js, we can watch file changes using two main methods:
+
+1. **`fs.watch()`**
+2. **`fs.watchFile()`** — both come from the built-in `fs` (file system) module.
+
+The most commonly used one is **`fs.watch()`**, as it provides an event-driven API that listens for changes like file modifications, renames, or deletions.
+
+Here’s an example:
+
+```js
+const fs = require('fs');
+
+fs.watch('example.txt', (eventType, filename) => {
+  if (filename) {
+    console.log(`${filename} file has changed due to a ${eventType} event.`);
+  } else {
+    console.log('Filename not provided');
+  }
+});
+```
+
+This will log whenever `example.txt` is modified, renamed, or deleted.
 
 ---
 
-Would you like me to format it as a **spoken-style answer** (like you’re actually saying it in an interview)?
+### ⚙️ **Alternative Method: `fs.watchFile()`**
+
+`fs.watchFile()` uses polling under the hood — meaning it checks the file status at regular intervals.
+
+Example:
+
+```js
+const fs = require('fs');
+
+fs.watchFile('example.txt', (curr, prev) => {
+  console.log('File modified');
+  console.log('Previous modification time:', prev.mtime);
+  console.log('Current modification time:', curr.mtime);
+});
+```
+
+---
+
+### 💡 **When to Use Which**
+
+* **`fs.watch()`** → Event-based, more efficient, but may behave inconsistently across platforms.
+* **`fs.watchFile()`** → Polling-based, more consistent but uses more system resources.
+
+---
+
+### 🧠 **Possible Cross-Questions**
+
+**1️⃣ Q: What are the limitations of `fs.watch()`?**
+**A:**
+
+* Behavior can differ between operating systems.
+* Sometimes, it might not detect all changes or emit duplicate events.
+* Not suitable for deeply nested directory watching by itself.
+
+---
+
+**2️⃣ Q: How do you watch directories recursively?**
+**A:**
+Starting from **Node.js v10.10.0**, `fs.watch()` supports a `{ recursive: true }` option (on macOS and Windows):
+
+```js
+fs.watch('myFolder', { recursive: true }, (eventType, filename) => {
+  console.log(`Change detected in ${filename}`);
+});
+```
+
+For Linux or more complex setups, developers often use external libraries like **`chokidar`**, which handles recursive watching reliably across platforms.
+
+---
+
+**3️⃣ Q: Why would you use `chokidar` instead of `fs.watch()`?**
+**A:**
+`chokidar` is a popular third-party library built on top of `fs.watch` and `fs.watchFile`.
+It provides:
+
+* Cross-platform consistency
+* Recursive directory watching
+* Debouncing/throttling for frequent changes
+* Better event handling (add, change, unlink, etc.)
+
+Example:
+
+```js
+const chokidar = require('chokidar');
+
+const watcher = chokidar.watch('example.txt', { persistent: true });
+
+watcher.on('change', path => console.log(`${path} has been changed`));
+```
+
+---
+
+### ✅ **In Short (Perfect Interview Summary)**
+
+> In Node.js, we can watch file changes using the built-in `fs.watch()` or `fs.watchFile()` methods.
+> `fs.watch()` is event-driven and efficient, while `fs.watchFile()` uses polling and is more consistent across platforms.
+> For production-level use or recursive watching, it’s better to use libraries like `chokidar` for reliability and additional features.
+
+---
