@@ -155,4 +155,173 @@ This whole approach helps Node.js handle thousands of concurrent connections eff
 ---
 
 
+## Q5. `What is the difference between process.nextTick() and setImmediate()?`
+
+“In Node.js, both `process.nextTick()` and `setImmediate()` are used to schedule asynchronous callbacks, but they run at different times in the event loop.
+
+`process.nextTick()` runs **right after the current operation finishes**, before the event loop continues. `setImmediate()`, on the other hand, runs **on the next iteration of the event loop**, specifically after the I/O phase.
+
+So in short, `process.nextTick()` executes **sooner**, and `setImmediate()` executes **later**.
+
+For example, if you run both in the same script, the `nextTick` callback will always run first.
+
+You’d use `process.nextTick()` for quick, immediate actions — like continuing logic after a function — and `setImmediate()` for tasks you want to run once I/O is done.
+
+One thing to watch out for: if you keep calling `process.nextTick()` recursively, it can block the event loop and delay other operations, so it’s best used carefully.”
+
+---
+
+**If they ask follow-ups:**
+
+**Q:** “So is `setImmediate()` the same as `setTimeout(fn, 0)`?”
+**A:** “They’re similar, but not identical. `setImmediate()` runs after the I/O events in the current loop, while `setTimeout(fn, 0)` runs in the next timers phase. Timing-wise, `setImmediate()` is usually more predictable, especially in I/O-heavy code.”
+
+**Q:** “Which one should I use generally?”
+**A:** “Usually `setImmediate()`. It keeps the event loop running smoothly and avoids blocking I/O. I’d only use `process.nextTick()` if something needs to happen *immediately* before moving on.”
+
+---
+
+## Q6. `What are streams in Node.js? Types of streams?`
+
+In Node.js, **streams** are objects that let you **read data or write data continuously** instead of loading the entire data into memory at once. They are especially useful when working with **large files, network operations, or real-time data**, as they handle data in **chunks**, improving **performance and memory efficiency**.
+
+Streams are built on **EventEmitter**, so they emit events like `data`, `end`, `error`, and `finish` to manage the flow of data.
+
+---
+
+### ⚙️ **Types of Streams in Node.js:**
+
+There are **four main types of streams:**
+
+1. **Readable Streams:**
+
+   * Used to **read** data.
+   * Example: `fs.createReadStream()` for reading files.
+   * Emits events like `data`, `end`, and `error`.
+
+2. **Writable Streams:**
+
+   * Used to **write** data.
+   * Example: `fs.createWriteStream()` for writing to files.
+   * Emits events like `drain`, `finish`, and `error`.
+
+3. **Duplex Streams:**
+
+   * Can be **both readable and writable**.
+   * Example: network sockets (`net.Socket`).
+
+4. **Transform Streams:**
+
+   * A special type of duplex stream that can **modify or transform data** as it is written and read.
+   * Example: `zlib.createGzip()` for compression or `crypto` streams for encryption.
+
+---
+
+### 💬 **Example:**
+
+```js
+const fs = require('fs');
+
+const readable = fs.createReadStream('input.txt');
+const writable = fs.createWriteStream('output.txt');
+
+readable.pipe(writable);
+```
+
+Here, data flows **from the readable stream to the writable stream** efficiently without loading the entire file into memory.
+
+---
+
+### 🧠 **Possible Cross-Questions & Answers:**
+
+**Q1.** What are the main advantages of using streams?
+**A:** Streams improve **performance and memory efficiency**. They let you process data **piece by piece**, which is ideal for large files, video streaming, or network communication.
+
+---
+
+**Q2.** What’s the difference between `pipe()` and `pipeline()`?
+**A:**
+
+* `pipe()` connects streams directly but lacks proper error handling.
+* `pipeline()` (from `stream` module) is a safer alternative that **handles errors automatically** and is **recommended in production**.
+
+Example:
+
+```js
+const { pipeline } = require('stream');
+pipeline(readable, writable, (err) => {
+  if (err) console.error('Pipeline failed.', err);
+  else console.log('Pipeline succeeded.');
+});
+```
+
+---
+
+**Q3.** Can you explain backpressure in streams?
+**A:** Backpressure occurs when the **writable stream cannot process data as fast as the readable stream provides it**.
+Node.js automatically handles it by **pausing and resuming** the flow, ensuring data isn’t lost or overloaded.
+
+---
+
+**Q4.** Are streams synchronous or asynchronous?
+**A:** Streams are **asynchronous** and **non-blocking**, which makes them efficient for handling I/O operations in Node.js.
+
+---
+
+## Q7. `What are buffers in Node.js?`
+
+In Node.js, **Buffers** are temporary memory containers used to handle **binary data** directly. They’re particularly useful when working with streams or files — for example, reading or writing to files, handling TCP streams, or processing raw binary data from a network.
+
+Since JavaScript traditionally handles only strings and doesn’t support binary data well, Node.js introduced the `Buffer` class to efficiently manage raw binary data outside the V8 heap.
+
+You can create a buffer using:
+
+```js
+const buf = Buffer.from('Hello');
+```
+
+Here, `'Hello'` is stored as a sequence of bytes. Buffers can also be initialized with a specific size or with raw data.
+
+Overall, Buffers make it possible to interact with data in a way that’s close to the system level, which is essential for high-performance I/O operations in Node.js.
+
+---
+
+### **Possible Cross-Questions:**
+
+**1. Why do we need Buffers in Node.js?**
+Because JavaScript (in browsers) doesn’t support handling raw binary data. Node.js uses Buffers to process data that doesn’t come in text form — for example, image files, audio, video, or network packets. Buffers provide a way to work with binary streams efficiently.
+
+---
+
+**2. What’s the difference between Buffer and Stream?**
+A **Buffer** is a **container** that holds raw data temporarily — it’s like a chunk of memory.
+A **Stream**, on the other hand, is a **continuous flow** of data that may use buffers internally. You can think of streams as pipes through which data flows, and buffers as the buckets that hold pieces of that data as it passes through.
+
+---
+
+**3. Are Buffers mutable or immutable?**
+Buffers are **mutable**, meaning you can change the contents after creation. This is different from strings in JavaScript, which are immutable.
+
+---
+
+**4. How do you convert a Buffer to a string or vice versa?**
+You can use:
+
+```js
+buf.toString(); // Convert buffer to string
+Buffer.from('Hello'); // Convert string to buffer
+```
+
+You can also specify encoding like `'utf8'`, `'base64'`, or `'hex'`.
+
+---
+
+**5. How does Node.js allocate memory for Buffers?**
+Node.js uses an internal memory pool (outside of the V8 heap) for Buffers. This allows Node to handle large binary data efficiently without putting pressure on the garbage collector.
+
+---
+
+
+
+
 
