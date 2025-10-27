@@ -807,4 +807,164 @@ So the concept of shallow or deep copy only applies to **reference types** like 
 
 ---
 
+## Q12. `Event Loop & Microtasks → Behind-the-scenes async magic`
+> The **Event Loop** in JavaScript is the mechanism that allows asynchronous, non-blocking behavior — even though JavaScript itself is **single-threaded**.
+>
+> Here's how it works behind the scenes:
+>
+> When JavaScript runs, it executes code inside the **call stack** (synchronous tasks). If it encounters async operations like `setTimeout`, `fetch`, or Promises, those are **delegated (hands over) to the Web APIs** (in browsers) or **libuv** (in Node.js). Once these async operations finish, their callbacks are moved to **task queues** — either the **macro-task queue** or the **micro-task queue**.
+>
+> The **Event Loop** constantly checks:
+>
+> 1. Is the **call stack empty**?
+> 2. If yes, it first processes **all microtasks** (like `.then()` callbacks or `process.nextTick()` in Node).
+> 3. Then, it picks **one macro-task** (like `setTimeout`, `setInterval`, or I/O callbacks) from the macro-task queue.
+>
+> This cycle repeats indefinitely — that’s the “loop.”
+>
+> In short:
+>
+> * **Microtasks** → high priority (Promises, `queueMicrotask`, `process.nextTick`)
+> * **Macrotasks** → lower priority (Timers, DOM events, I/O)
+>
+> This is what enables JavaScript to handle asynchronous operations efficiently without blocking execution.
+
+---
+
+### 💬 **Possible Cross-Questions & Ideal Answers**
+
+**Q1: What’s the difference between a macro-task and a micro-task?**
+
+> **A:** Macro-tasks are scheduled by APIs like `setTimeout`, `setInterval`, or `setImmediate`. They execute one at a time between rendering frames.
+> Micro-tasks, like Promise callbacks, `queueMicrotask()`, or `process.nextTick()` (Node), run *immediately after the current execution context ends* — and **before** any new macro-task starts.
+>
+> So micro-tasks always run **before** the next macro-task.
+
+---
+
+**Q2: What happens if a micro-task schedules another micro-task?**
+
+> **A:** It goes to the same micro-task queue and runs **before** moving on to the next macro-task.
+> This means if micro-tasks keep adding more micro-tasks (like in a while loop), they can block the Event Loop and delay rendering or other async tasks.
+
+---
+
+**Q3: Can you give a simple example showing the Event Loop in action?**
+
+> **A:** Sure:
+>
+> ```js
+> console.log("Start");
+> setTimeout(() => console.log("Timeout"), 0);
+> Promise.resolve().then(() => console.log("Promise"));
+> console.log("End");
+> ```
+>
+> **Output:**
+>
+> ```
+> Start
+> End
+> Promise
+> Timeout
+> ```
+>
+> The Promise’s `.then()` runs first because it’s a **micro-task**, while `setTimeout` is a **macro-task**.
+
+---
+
+**Q4: How is the Event Loop different in Node.js vs Browser?**
+
+> **A:** The concept is the same, but Node.js uses **libuv**, which has multiple **phases** (timers, I/O, check, close callbacks, etc.), and includes `process.nextTick()` and `setImmediate()`.
+> Browsers rely on **Web APIs** and **task queues**.
+>
+> In Node, `process.nextTick()` runs **before** microtasks like Promises, making it even higher priority.
+
+---
+
+**Q5: What would happen if we block the Event Loop with heavy computation?**
+
+> **A:** It freezes everything — no UI updates, no async callbacks, nothing. That’s why we use **Web Workers** or **background threads** for heavy tasks to keep the Event Loop free.
+
+---
+
+
+
+**Q6: What is `process.nextTick()`?**
+
+`process.nextTick()` is a **special function in Node.js** that lets you schedule a callback to run **immediately after the current operation** on the event loop — even **before any microtasks** like Promises.
+
+Example:
+
+```js
+console.log("Start");
+
+process.nextTick(() => {
+  console.log("Next tick");
+});
+
+Promise.resolve().then(() => console.log("Promise"));
+console.log("End");
+```
+
+**Output:**
+
+```
+Start
+End
+Next tick
+Promise
+```
+
+🧠 **Explanation:**
+
+* `process.nextTick()` runs **before** any microtasks (like Promises).
+* So it’s like a **super high-priority microtask** that runs right after the current stack is empty, but before the event loop continues to the next phase.
+
+---
+
+**Q7: What is `libuv`?**
+
+`libuv` is a **C-based library** used internally by Node.js to handle all **asynchronous I/O operations**, such as file reading, network calls, DNS lookups, etc.
+
+It provides:
+
+* The **Event Loop** mechanism
+* **Thread pool** for heavy I/O tasks
+* **Timers**, **networking**, and **filesystem** abstractions
+
+Basically, it’s the **engine** that powers Node’s async behavior.
+
+---
+
+### 🧩 **How `process.nextTick()` fits with `libuv`**
+
+* The **Event Loop** in Node.js (powered by `libuv`) has several **phases**:
+
+  1. **Timers** (setTimeout, setInterval)
+  2. **I/O callbacks**
+  3. **Idle/Prepare**
+  4. **Poll** (waiting for new I/O events)
+  5. **Check** (setImmediate)
+  6. **Close callbacks**
+
+* Between each phase, Node checks if there are any **microtasks** or **next tick callbacks** to run.
+
+👉 **Important difference:**
+
+* `process.nextTick()` callbacks run **immediately after the current operation**, before the event loop moves to the next phase.
+* Promises and `queueMicrotask()` run as **microtasks** after that.
+* Tasks like `setImmediate()` or `setTimeout()` are handled by **libuv’s timers and check phases** and run later.
+
+---
+
+### 🔥 **In simple terms:**
+
+* `libuv` = The **engine** that runs Node’s event loop and async tasks.
+* `process.nextTick()` = A **shortcut hook** that tells Node:
+
+  > “Before you continue to the next phase of the event loop, please run this callback first.”
+
+---
+
 
