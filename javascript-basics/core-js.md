@@ -718,5 +718,93 @@ So the concept of shallow or deep copy only applies to **reference types** like 
 
 ---
 
+## Q11. `Map, Set, WeakMap, WeakSet → Memory-safe data structures`.
+
+**"In JavaScript, `Map`, `Set`, `WeakMap`, and `WeakSet` are memory-safe data structures that help manage data and memory efficiently."**
+
+---
+
+**1. Map**
+
+* Stores **key–value pairs** where keys can be of **any type** (even objects).
+* Maintains **insertion order**.
+* Example:
+
+  ```js
+  const user = { id: 1 };
+  const userData = new Map();
+  userData.set(user, { name: "Vaibhav", role: "Dev" });
+  console.log(userData.get(user)); // { name: "Vaibhav", role: "Dev" }
+  ```
+* Use when you need dynamic key-value pairs or non-string keys.
+
+---
+
+**2. Set**
+
+* Stores **unique values only**, no duplicates.
+* Example:
+
+  ```js
+  const numbers = [1, 2, 2, 3];
+  const uniqueNumbers = new Set(numbers);
+  console.log(uniqueNumbers); // Set(3) {1, 2, 3}
+  ```
+* Great for removing duplicates or checking membership efficiently.
+
+---
+
+**3. WeakMap**
+
+* Similar to Map, but **keys must be objects** and are **weakly referenced**, allowing **garbage collection**.
+* Example:
+
+  ```js
+  const user = { id: 1 };
+  const privateData = new WeakMap();
+  privateData.set(user, { token: "abc123" });
+  // If 'user' is deleted elsewhere, it’s automatically garbage-collected
+  ```
+* Used for storing private or temporary data linked to objects safely.
+
+---
+
+**4. WeakSet**
+
+* Stores **only objects**, also **weakly referenced**.
+* Example:
+
+  ```js
+  let obj = { name: "Test" };
+  const visited = new WeakSet();
+  visited.add(obj);
+  // If 'obj' is no longer referenced, it's automatically removed
+  ```
+* Ideal for tracking object states without risking memory leaks.
+
+---
+
+### 🧠 **Memory-Safety Summary**
+
+* `Map` & `Set`: Strong references → you must manually clean them up.
+* `WeakMap` & `WeakSet`: Weak references → cleaned up automatically when objects are no longer used.
+
+---
+
+### 🔁 **Common Cross-Questions**
+
+**Q1:** Why can’t we iterate over WeakMap or WeakSet?
+
+👉 Because keys are weakly held — they can disappear anytime due to garbage collection. Iteration would be unreliable.
+
+**Q2:** When should I prefer Map over Object?
+
+👉 Use Map when you need keys of any type, or when you frequently add/remove keys.
+
+**Q3:** Real-world use of WeakMap?
+
+👉 Storing metadata for DOM elements without preventing them from being garbage collected.
+
+---
 
 
