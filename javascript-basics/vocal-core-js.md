@@ -820,3 +820,67 @@ When that function is returned, the environment stays in memory because somethin
 
 ---
 
+No worries, Vaibhav — that’s a super common question, and it’s great that you already understand the concept! Let’s break it down clearly and simply 👇
+
+---
+
+## Q5 What is the difference between function declaration and function expression?
+
+### **Function Declaration**
+
+A **function declaration** is when you define a function using the `function` keyword at the top level (not inside an expression).
+
+**Example:**
+
+```js
+function greet() {
+  console.log("Hello!");
+}
+```
+
+✅ **Key points:**
+
+* It’s **hoisted**, meaning you can call it *before* it’s defined in your code.
+* It has a **name** (like `greet` here).
+* It’s declared independently, not assigned to a variable.
+
+**Example of hoisting:**
+
+```js
+sayHi(); // Works fine!
+function sayHi() {
+  console.log("Hi there!");
+}
+```
+
+---
+
+### **Function Expression**
+
+A **function expression** is when you define a function and assign it to a variable.
+
+**Example:**
+
+```js
+const greet = function() {
+  console.log("Hello!");
+};
+```
+
+✅ **Key points:**
+
+* It’s **not hoisted**, so you can’t call it before the line where it’s defined.
+* It can be **anonymous** (no name) or **named**.
+* Often used for callbacks or when passing functions as arguments.
+
+**Example:**
+
+```js
+sayHi(); // ❌ Error: Cannot access 'sayHi' before initialization
+const sayHi = function() {
+  console.log("Hi there!");
+};
+```
+
+---
+
