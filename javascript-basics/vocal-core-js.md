@@ -1139,4 +1139,130 @@ So, deep copies are powerful but should be used carefully to balance accuracy an
 
 ---
 
+Perfect — let's answer this using the **PREP format**, and then I’ll include **possible follow-up (cross) questions** that interviewers might ask, along with **PREP-style answers** for each.
+
+---
+
+## Q8 What is the difference between `call`, `apply`, and `bind` in JavaScript?
+
+**Point:**
+`call`, `apply`, and `bind` are methods in JavaScript used to control the value of `this` when calling a function.
+
+**Reason:**
+They’re helpful when we want to explicitly set which object a function should use as its context, especially when borrowing methods from one object to another.
+
+**Example:**
+For example:
+
+```javascript
+function greet(greeting) {
+  console.log(greeting + ', ' + this.name);
+}
+const user = { name: 'Vaibhav' };
+```
+
+* `greet.call(user, 'Hello')` → passes arguments **individually**
+* `greet.apply(user, ['Hello'])` → passes arguments **as an array**
+* `const greetUser = greet.bind(user, 'Hello')` → **returns a new function** with `this` permanently bound to `user`
+
+**Point (again):**
+In short, `call` and `apply` invoke the function immediately with different argument styles, while `bind` returns a new function for later use.
+
+---
+
+## 💬 **Possible Cross Questions**
+
+---
+
+### **1️⃣ Cross Question:**
+
+**When would you prefer `apply` over `call`?**
+
+**PREP Answer:**
+
+**Point:**
+You use `apply` when you already have arguments in an array or array-like structure.
+
+**Reason:**
+It saves you from spreading or converting arrays manually when passing multiple arguments.
+
+**Example:**
+
+```javascript
+Math.max.apply(null, [1, 2, 3]);
+```
+
+This directly finds the maximum number from an array, while `call` would require spreading like `Math.max.call(null, 1, 2, 3)`.
+
+**Point (again):**
+So, `apply` is convenient when arguments are naturally in an array format.
+
+---
+
+### **2️⃣ Cross Question:**
+
+**What’s a real-world use case for `bind`?**
+
+**PREP Answer:**
+
+**Point:**
+`bind` is useful when you need to fix `this` for a function that will be called later, like in event handlers or callbacks.
+
+**Reason:**
+Without `bind`, `this` might change depending on how the function is executed.
+
+**Example:**
+
+```javascript
+const button = {
+  label: 'Submit',
+  click() { console.log(this.label); }
+};
+setTimeout(button.click.bind(button), 1000);
+```
+
+Without `bind`, `this.label` would be `undefined`.
+
+**Point (again):**
+So, `bind` ensures the correct context is maintained even in asynchronous or event-driven code.
+
+---
+
+### **3️⃣ Cross Question:**
+
+**Can you implement your own version of `bind`?**
+
+**PREP Answer:**
+
+**Point:**
+Yes, we can create a simple polyfill for `bind` using closures.
+
+**Reason:**
+This helps us understand how binding works internally — it stores a reference to the original function and the fixed context.
+
+**Example:**
+
+```javascript
+Function.prototype.myBind = function(context, ...args) {
+  const fn = this;
+  return function(...newArgs) {
+    return fn.apply(context, [...args, ...newArgs]);
+  };
+};
+```
+
+Then use it like:
+
+```javascript
+function greet() { console.log('Hello ' + this.name); }
+const user = { name: 'Vaibhav' };
+const greetUser = greet.myBind(user);
+greetUser(); // Hello Vaibhav
+```
+
+**Point (again):**
+So, by using closures and `apply`, we can replicate the behavior of native `bind`.
+
+---
+
 
