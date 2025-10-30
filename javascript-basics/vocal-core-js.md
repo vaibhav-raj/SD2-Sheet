@@ -826,61 +826,317 @@ No worries, Vaibhav — that’s a super common question, and it’s great that 
 
 ## Q5 What is the difference between function declaration and function expression?
 
-### **Function Declaration**
+Perfect — let’s answer this using the **PREP** format and then explore **possible follow-up (cross) questions** with their **PREP-style answers** too.
 
-A **function declaration** is when you define a function using the `function` keyword at the top level (not inside an expression).
+---
+
+## Q5 What is the difference between a function declaration and a function expression?
+
+**Point:**
+The main difference is that a function declaration is hoisted, while a function expression is not.
+
+**Reason:**
+In JavaScript, function declarations are loaded into memory before the code runs, so you can call them even before they’re defined in the code. On the other hand, function expressions are created only when the execution reaches that line, meaning you can’t call them beforehand.
 
 **Example:**
 
-```js
+```javascript
+// Function Declaration
+sayHello(); // Works, because it's hoisted
+function sayHello() {
+  console.log("Hello!");
+}
+
+// Function Expression
+sayHi(); // Error, not hoisted
+const sayHi = function() {
+  console.log("Hi!");
+};
+```
+
+**Point (Restate):**
+So, in short, function declarations are hoisted and can be called earlier, while function expressions are not hoisted and can only be called after they’re defined.
+
+---
+
+## 🔁 **Possible Cross Questions and PREP Answers**
+
+### 1️⃣ **Cross Question:**
+
+**What do you mean by “hoisting”?**
+
+**Point:**
+Hoisting means that variable and function declarations are moved to the top of their scope during the compilation phase.
+
+**Reason:**
+This allows you to use functions or variables before they are actually written in the code.
+
+**Example:**
+
+```javascript
+greet(); // Works due to hoisting
 function greet() {
   console.log("Hello!");
 }
 ```
 
-✅ **Key points:**
+**Point (Restate):**
+So hoisting lets JavaScript access functions and some variables before they appear in the code.
 
-* It’s **hoisted**, meaning you can call it *before* it’s defined in your code.
-* It has a **name** (like `greet` here).
-* It’s declared independently, not assigned to a variable.
+---
 
-**Example of hoisting:**
+### 2️⃣ **Cross Question:**
+
+**Can arrow functions be hoisted like regular functions?**
+
+**Point:**
+No, arrow functions are not hoisted like regular function declarations.
+
+**Reason:**
+Arrow functions are a type of function expression, which means they are assigned to variables and only available after the variable has been defined.
+
+**Example:**
+
+```javascript
+sayHi(); // Error, not hoisted
+const sayHi = () => console.log("Hi!");
+```
+
+**Point (Restate):**
+So arrow functions behave like function expressions, not declarations, and therefore are not hoisted.
+
+---
+
+### 3️⃣ **Cross Question:**
+
+**When should we use a function declaration vs a function expression?**
+
+**Point:**
+Use a function declaration when you want the function available throughout the code, and a function expression when you want more control over when it’s defined or used.
+
+**Reason:**
+Declarations are great for reusable utility functions, while expressions are useful for callbacks or when defining functions conditionally.
+
+**Example:**
+
+```javascript
+// Declaration
+function calculate(a, b) { return a + b; }
+
+// Expression (used in a callback)
+setTimeout(function() {
+  console.log("Done!");
+}, 1000);
+```
+
+**Point (Restate):**
+So, function declarations are ideal for general-purpose functions, and expressions are better for inline or scoped use.
+
+---
+
+Perfect — let’s use the **PREP format** to answer your question clearly and naturally, then I’ll add a few **possible follow-up (cross) questions** and their answers using the same structure.
+
+---
+
+## Q6 Explain the concept of “this” in JavaScript.
+
+
+**Point:**
+In JavaScript, the keyword **“this”** refers to the **object that is currently executing the function**.
+
+**Reason:**
+It helps determine the **context** in which a function is called, allowing access to properties or methods of that specific object.
+
+**Example:**
+For example, in a method inside an object, “this” refers to that object:
 
 ```js
-sayHi(); // Works fine!
-function sayHi() {
-  console.log("Hi there!");
+const user = {
+  name: "Vaibhav",
+  greet() {
+    console.log(`Hello, ${this.name}`);
+  },
+};
+user.greet(); // Output: Hello, Vaibhav
+```
+
+Here, “this” refers to the **user** object. However, in a regular function (not inside an object), “this” refers to the **global object** (like `window` in browsers or `global` in Node.js).
+
+**Point (again):**
+So, “this” represents the **context of execution**, and its value depends on **how** and **where** a function is called.
+
+---
+
+## 🤔 **Possible Cross Questions & PREP Answers**
+
+---
+
+### **1. What is the difference between “this” in regular functions and arrow functions?**
+
+**Point:**
+In **arrow functions**, “this” doesn’t have its own value; it takes the value of “this” from its **surrounding scope** (lexical binding).
+
+**Reason:**
+This happens because arrow functions don’t define their own “this” — they use whatever “this” was in the environment where they were created.
+
+**Example:**
+
+```js
+const user = {
+  name: "Vaibhav",
+  showName: function () {
+    const arrowFunc = () => console.log(this.name);
+    arrowFunc();
+  },
+};
+user.showName(); // Output: Vaibhav
+```
+
+Here, “this” inside the arrow function refers to the **user** object, not the global scope.
+
+**Point (again):**
+So, arrow functions inherit “this” from their **parent scope**, unlike regular functions, which have their **own “this”** depending on the call.
+
+---
+
+### **2. How does “this” behave in event listeners?**
+
+**Point:**
+In event listeners, “this” usually refers to the **HTML element** that received the event.
+
+**Reason:**
+When an event occurs, JavaScript automatically binds “this” to the element that triggered the event.
+
+**Example:**
+
+```html
+<button id="clickMe">Click Me</button>
+<script>
+  document.getElementById("clickMe").addEventListener("click", function () {
+    console.log(this.id); // Output: clickMe
+  });
+</script>
+```
+
+Here, “this” refers to the **button element**.
+
+**Point (again):**
+So, in event handlers, “this” represents the **DOM element** the event is bound to.
+
+---
+
+### **3. How can you explicitly set the value of “this”?**
+
+**Point:**
+You can set “this” explicitly using methods like **call()**, **apply()**, or **bind()**.
+
+**Reason:**
+These methods allow you to manually control the context of “this” when calling a function.
+
+**Example:**
+
+```js
+function greet() {
+  console.log(`Hello, ${this.name}`);
 }
+const user = { name: "Vaibhav" };
+
+greet.call(user); // Output: Hello, Vaibhav
 ```
+
+Here, we used `call()` to make “this” refer to the **user** object.
+
+**Point (again):**
+So, using `call()`, `apply()`, or `bind()`, you can **manually bind “this”** to a specific object when needed.
 
 ---
 
-### **Function Expression**
-
-A **function expression** is when you define a function and assign it to a variable.
-
-**Example:**
-
-```js
-const greet = function() {
-  console.log("Hello!");
-};
-```
-
-✅ **Key points:**
-
-* It’s **not hoisted**, so you can’t call it before the line where it’s defined.
-* It can be **anonymous** (no name) or **named**.
-* Often used for callbacks or when passing functions as arguments.
-
-**Example:**
-
-```js
-sayHi(); // ❌ Error: Cannot access 'sayHi' before initialization
-const sayHi = function() {
-  console.log("Hi there!");
-};
-```
 
 ---
+
+## Q7 What is the difference between shallow copy and deep copy in JavaScript?
+
+**Point:**
+The main difference between shallow copy and deep copy in JavaScript is how they handle nested objects.
+
+**Reason:**
+A **shallow copy** only copies the top-level properties — if those properties reference other objects, both copies still point to the same memory reference. A **deep copy**, on the other hand, duplicates everything, including nested objects, creating completely independent copies.
+
+**Example:**
+For example, if we use the spread operator `{ ...obj }` to copy an object, it creates a **shallow copy** — changes in nested objects of the copied version will affect the original.
+If we use `structuredClone(obj)` or `JSON.parse(JSON.stringify(obj))`, it creates a **deep copy** — modifying nested data in the copy won’t impact the original.
+
+**Point (again):**
+So, in short — a **shallow copy** shares references of nested data, while a **deep copy** creates a fully separate, independent object.
+
+---
+
+### 💬 **Possible Cross Questions and Answers (PREP Format)**
+
+---
+
+#### **1️⃣ How can you create a shallow copy in JavaScript?**
+
+**Point:**
+There are several ways to create a shallow copy in JavaScript.
+
+**Reason:**
+These methods only duplicate top-level properties.
+
+**Example:**
+You can use the **spread operator** `{ ...obj }`, **Object.assign({}, obj)**, or **Array.slice()** for arrays.
+
+**Point (again):**
+So, using these methods gives you a shallow copy — efficient, but not ideal if the object has nested structures.
+
+---
+
+#### **2️⃣ How can you create a deep copy in JavaScript?**
+
+**Point:**
+To create a deep copy, you can use built-in or manual methods.
+
+**Reason:**
+Deep copying ensures even nested objects or arrays are duplicated independently.
+
+**Example:**
+You can use `structuredClone(obj)` (modern and recommended), or `JSON.parse(JSON.stringify(obj))` for simpler objects. For complex structures, libraries like **Lodash’s cloneDeep()** are also effective.
+
+**Point (again):**
+So, deep copies are safer for complex data, but slightly more resource-heavy.
+
+---
+
+#### **3️⃣ When would you use shallow copy over deep copy?**
+
+**Point:**
+Use shallow copy when nested data isn’t a concern or when performance matters.
+
+**Reason:**
+Shallow copies are faster and memory-efficient since they don’t duplicate large structures.
+
+**Example:**
+If you’re only updating top-level keys in an object for UI rendering in React, a shallow copy via the spread operator is sufficient.
+
+**Point (again):**
+So, shallow copies are better for performance in simple cases, while deep copies are better for data integrity in complex cases.
+
+---
+
+#### **4️⃣ Why is deep copying sometimes avoided?**
+
+**Point:**
+Deep copying is avoided when performance is critical.
+
+**Reason:**
+It can be slower and consume more memory because it duplicates all nested objects.
+
+**Example:**
+If an object contains deeply nested or circular references, a deep copy can be expensive and may even throw an error with `JSON.stringify()`.
+
+**Point (again):**
+So, deep copies are powerful but should be used carefully to balance accuracy and efficiency.
+
+---
+
 
