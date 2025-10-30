@@ -1543,3 +1543,104 @@ For example, if your website gets millions of requests per day, a reverse proxy 
 So, use a reverse proxy when scalability, performance, or security are key priorities.
 
 ---
+
+Perfect — let’s apply the **PREP** framework to your question **“What is a MongoDB transaction?”** and then I’ll add **possible cross-questions** (follow-up questions) with **PREP-style answers** for each.
+
+---
+
+## 🎯 **Main Question: What is a MongoDB Transaction?**
+
+### ✅ **Answer (using PREP format)**
+
+**Point:**
+A MongoDB transaction allows multiple operations to be executed as a single, atomic unit — meaning all operations either succeed or fail together.
+
+**Reason:**
+This ensures data consistency across multiple documents or collections, which is especially important when dealing with complex business logic that involves multiple updates.
+
+**Example:**
+For example, if we are transferring money between two accounts, we can use a transaction to ensure that the amount is deducted from one account and added to the other — if either operation fails, both are rolled back to maintain data integrity.
+
+**Point (again):**
+So, MongoDB transactions provide reliability and consistency similar to what we see in traditional relational databases.
+
+---
+
+## 🔁 **Possible Cross Questions (and PREP answers)**
+
+---
+
+### **1️⃣ What are the limitations of MongoDB transactions?**
+
+**Point:**
+MongoDB transactions come with some performance and operational limitations.
+
+**Reason:**
+Because transactions lock multiple documents, they can affect performance and throughput, especially in high-write or large-scale systems.
+
+**Example:**
+For instance, if we use long-running transactions on a large collection, it may increase memory usage and block other operations.
+
+**Point (again):**
+So, while transactions improve consistency, they should be used carefully to avoid performance bottlenecks.
+
+---
+
+### **2️⃣ How do you start and commit a transaction in MongoDB?**
+
+**Point:**
+To use transactions, we start a session and then initiate the transaction within that session.
+
+**Reason:**
+Sessions help MongoDB group multiple operations into one logical transaction context.
+
+**Example:**
+In Node.js, we can do this:
+
+```js
+const session = await client.startSession();
+session.startTransaction();
+await collection1.updateOne(..., { session });
+await collection2.updateOne(..., { session });
+await session.commitTransaction();
+session.endSession();
+```
+
+**Point (again):**
+So, by using sessions and the `startTransaction()` and `commitTransaction()` methods, we can safely execute multi-document operations atomically.
+
+---
+
+### **3️⃣ When should we avoid using transactions in MongoDB?**
+
+**Point:**
+We should avoid transactions when operations are independent and do not require atomicity.
+
+**Reason:**
+Transactions add overhead and can slow down performance if used unnecessarily.
+
+**Example:**
+For instance, logging operations or analytics inserts can be handled without transactions since they don’t affect other data consistency.
+
+**Point (again):**
+So, transactions are best reserved for use cases where maintaining data integrity across multiple documents is critical.
+
+---
+
+### **4️⃣ How are MongoDB transactions different from SQL transactions?**
+
+**Point:**
+MongoDB transactions work similarly to SQL transactions but with some differences in implementation and performance.
+
+**Reason:**
+MongoDB was originally designed as a NoSQL document database, so multi-document transactions were added later — making them less performant than SQL transactions in some cases.
+
+**Example:**
+For example, in SQL, transactions are built-in and optimized for structured relational data, while MongoDB transactions use an internal session mechanism to coordinate operations across documents.
+
+**Point (again):**
+So, while both ensure atomicity and consistency, SQL handles them natively, and MongoDB provides them as an additional feature with some trade-offs.
+
+---
+
+
