@@ -1136,3 +1136,410 @@ We solved this by implementing rate limiting and using message TTL (time-to-live
 So, while RabbitMQ is reliable, tuning consumer performance and message TTL is crucial for stable operation.
 
 ---
+
+Perfect — let’s use the **PREP format** to answer your interview question clearly and naturally, and then we’ll add **possible cross-questions** with their PREP-style answers too.
+
+---
+
+## 🎯 **Main Question: What is an Aggregator in MongoDB?**
+
+### ✅ **Answer (Using PREP Format)**
+
+**Point:**
+An *aggregator* in MongoDB refers to the **aggregation framework**, which is used to process and analyze data within collections.
+
+**Reason:**
+It allows you to perform complex data transformations — like filtering, grouping, sorting, and calculating — directly inside MongoDB, without needing to move data to another system.
+
+**Example:**
+For instance, if you want to find the total sales per month, you can use the `$group` stage to group documents by month and the `$sum` operator to calculate total sales.
+
+```js
+db.sales.aggregate([
+  { $group: { _id: "$month", totalSales: { $sum: "$amount" } } }
+])
+```
+
+**Point (Restate):**
+So overall, the MongoDB aggregation framework is a powerful tool for data analysis and summarization directly inside the database.
+
+---
+
+## 🔁 **Possible Cross-Questions**
+
+### 1️⃣ **What are the main stages in an aggregation pipeline?**
+
+**Point:**
+The aggregation pipeline in MongoDB consists of multiple stages that transform data step-by-step.
+
+**Reason:**
+Each stage performs a specific operation, and the output of one stage becomes the input for the next — similar to how pipes work in Unix.
+
+**Example:**
+Common stages include `$match` for filtering, `$group` for grouping, `$project` for reshaping documents, and `$sort` for ordering results.
+
+**Point (Restate):**
+In short, these stages let you process data efficiently in a structured and readable way.
+
+---
+
+### 2️⃣ **What is the difference between `find()` and `aggregate()` in MongoDB?**
+
+**Point:**
+The main difference is that `find()` retrieves raw documents, while `aggregate()` processes and transforms data.
+
+**Reason:**
+`find()` is mainly for simple queries, whereas `aggregate()` is used for calculations, grouping, and data summarization.
+
+**Example:**
+For example, `find()` can get all orders above $100, but `aggregate()` can calculate the *total revenue* or *average order value* from those orders.
+
+**Point (Restate):**
+So `find()` is used for fetching, and `aggregate()` is used for analyzing.
+
+---
+
+### 3️⃣ **Can you explain `$match` and `$group` in MongoDB aggregation?**
+
+**Point:**
+`$match` is used to filter documents, and `$group` is used to group them based on specific fields.
+
+**Reason:**
+They are often used together to first select relevant data and then summarize it.
+
+**Example:**
+For example, you can first `$match` sales from a specific year, and then `$group` by product to find total sales per product.
+
+**Point (Restate):**
+So `$match` narrows down the dataset, and `$group` summarizes it.
+
+---
+
+Good question! Let’s answer this using the **PREP format** and then include some **follow-up (cross) questions** you might face in an interview.
+
+---
+
+## 🎯 **Main Question: In EC2, can a single instance deploy multiple applications?**
+
+### ✅ **Answer (Using PREP Format)**
+
+**Point:**
+Yes, a single EC2 instance **can host and deploy multiple applications**.
+
+**Reason:**
+An EC2 instance is essentially a virtual server. You can run multiple applications on it as long as the **system resources (CPU, memory, storage, ports)** are sufficient and properly configured.
+
+**Example:**
+For example, you could deploy a **Node.js API** on port 3000 and a **React frontend** on port 80 on the same EC2 instance. You might also use **Nginx** as a reverse proxy to route requests to the correct application.
+
+**Point (Restate):**
+So yes, multiple apps can run on one EC2 instance, but resource management, port configuration, and isolation are key considerations.
+
+---
+
+## 🔁 **Possible Cross-Questions**
+
+### 1️⃣ **What are the challenges of hosting multiple apps on a single EC2 instance?**
+
+**Point:**
+The main challenges are **resource contention, dependency conflicts, and maintenance complexity**.
+
+**Reason:**
+When multiple apps share the same server, one app consuming too many resources can slow down others, and updating dependencies can cause version conflicts.
+
+**Example:**
+For instance, if one app uses Node 18 and another needs Node 20, running both directly on the same instance can lead to conflicts unless isolated properly.
+
+**Point (Restate):**
+So, it’s possible but requires careful configuration and resource monitoring.
+
+---
+
+### 2️⃣ **How can you isolate multiple apps on one EC2 instance?**
+
+**Point:**
+You can isolate apps using **Docker containers or virtual environments**.
+
+**Reason:**
+Containers provide lightweight isolation, ensuring each app has its own dependencies and environment without affecting others.
+
+**Example:**
+For example, you could run one app in a Node.js Docker container and another in a Python container, both hosted on the same EC2 instance.
+
+**Point (Restate):**
+So using Docker is the best way to safely host multiple apps on a single EC2 instance.
+
+---
+
+### 3️⃣ **When should you use multiple EC2 instances instead of one?**
+
+**Point:**
+Use multiple EC2 instances when you need **scalability, reliability, and better fault isolation**.
+
+**Reason:**
+Running all apps on one instance creates a single point of failure — if that instance goes down, all apps stop working.
+
+**Example:**
+For example, in production, it’s better to have separate EC2 instances (or use auto-scaling groups) for backend, frontend, and database services.
+
+**Point (Restate):**
+So for testing or small projects, one EC2 is fine, but for production, multiple instances are recommended for reliability.
+
+---
+
+Perfect — let’s apply the **PREP** format to your question:
+
+---
+
+### 🎯 **Main Question:** *What is Nginx and why is it used? What happens without Nginx?*
+
+**🅿️ Point:**
+Nginx is a high-performance web server that’s also used as a reverse proxy, load balancer, and caching server.
+
+**🆁 Reason:**
+It’s used to efficiently handle large numbers of client requests, improve website performance, and manage traffic between users and backend servers.
+
+**🅴 Example:**
+For example, if you host a web application with multiple backend services (like APIs, static files, and a database), Nginx can act as a gateway. It distributes the requests, serves static files quickly, and forwards API calls to the right backend service. This improves speed, scalability, and reliability.
+
+**🅿️ Point (again):**
+In short, Nginx ensures your web application performs better and can handle high traffic smoothly. Without Nginx, the backend server (like Node.js, Flask, or Django) would need to manage all requests directly, which can lead to slower performance, downtime under heavy load, and security vulnerabilities.
+
+---
+
+### 🔄 **Possible Cross-Questions and Answers (in PREP Format)**
+
+---
+
+**❓Q1: What’s the difference between Nginx and Apache?**
+**🅿️ Point:** Nginx is event-driven, while Apache is process/thread-based.
+**🆁 Reason:** This makes Nginx more efficient for handling multiple connections at once.
+**🅴 Example:** For example, when serving thousands of concurrent requests, Nginx uses fewer resources compared to Apache.
+**🅿️ Point:** So, Nginx is better for high-traffic or modern applications, while Apache can be simpler for small-scale or dynamic setups.
+
+---
+
+**❓Q2: How does Nginx act as a reverse proxy?**
+**🅿️ Point:** As a reverse proxy, Nginx forwards client requests to backend servers and sends back the response.
+**🆁 Reason:** This hides the internal structure of your app and helps distribute load across servers.
+**🅴 Example:** For instance, if you have multiple backend instances of a Node.js app, Nginx can balance incoming requests among them.
+**🅿️ Point:** So, Nginx improves scalability, security, and performance by acting as a smart middle layer.
+
+---
+
+**❓Q3: What happens if we don’t use Nginx in production?**
+**🅿️ Point:** Without Nginx, your backend server directly handles all client requests.
+**🆁 Reason:** This increases load, slows down response times, and can even cause crashes during traffic spikes.
+**🅴 Example:** For example, a Node.js server might struggle to serve static files and API requests simultaneously under heavy load.
+**🅿️ Point:** So, without Nginx, your application becomes less efficient, less secure, and harder to scale.
+
+---
+
+Perfect — let’s answer this interview question using the **PREP format** and then list **possible cross-questions** with sample answers in the same style.
+
+---
+
+## 🎯 **Main Question**
+
+**Q: What are the major steps to deploy a Node.js app on an EC2 instance if I have an SSH key?**
+
+### ✅ **Answer (Using PREP format):**
+
+**Point:**
+To deploy a Node.js application on an EC2 instance using an SSH key, you mainly need to connect to the instance, set up the environment, transfer your app, and run it securely.
+
+**Reason:**
+These steps ensure that your app runs in a stable environment, dependencies are installed correctly, and the server remains accessible and secure.
+
+**Example:**
+
+1. **Connect to EC2:** Use the SSH key to connect — for example:
+
+   ```bash
+   ssh -i "key.pem" ubuntu@<EC2-Public-IP>
+   ```
+2. **Install dependencies:** Update packages and install Node.js and npm:
+
+   ```bash
+   sudo apt update
+   sudo apt install nodejs npm -y
+   ```
+3. **Transfer your app:** Clone your repository using Git or upload files via SCP.
+4. **Install app dependencies:**
+
+   ```bash
+   npm install
+   ```
+5. **Run the app:** Start the app using `node app.js` or use **PM2** for process management:
+
+   ```bash
+   npm install -g pm2
+   pm2 start app.js
+   ```
+6. **Configure security & access:** Adjust security groups for port 80 or 3000, and optionally set up **Nginx** as a reverse proxy.
+
+**Point (again):**
+So in short — you SSH into EC2, set up Node and your app environment, run the app (preferably using PM2), and configure access through Nginx for production readiness.
+
+---
+
+## 🔁 **Possible Cross-Questions with PREP Answers**
+
+---
+
+### **1. Q: Why do we use PM2 to run Node.js apps on EC2?**
+
+**Point:**
+We use PM2 to keep the Node.js app running continuously and manage restarts automatically.
+
+**Reason:**
+If your app crashes or the server restarts, PM2 ensures it comes back online without manual intervention.
+
+**Example:**
+For example, after installing PM2, you can run:
+
+```bash
+pm2 start app.js
+pm2 startup
+pm2 save
+```
+
+This setup ensures the app restarts automatically after reboot.
+
+**Point (again):**
+In short, PM2 helps with process management and keeps your app stable in production.
+
+---
+
+### **2. Q: How can you make your Node.js app accessible via a domain name instead of an IP address?**
+
+**Point:**
+You can connect your domain to the EC2 instance using DNS settings and configure Nginx as a reverse proxy.
+
+**Reason:**
+This approach makes your app accessible through a clean domain (like `myapp.com`) and allows SSL configuration.
+
+**Example:**
+You’d point your domain’s A record to the EC2 public IP, then set up Nginx with:
+
+```bash
+server {
+  server_name myapp.com;
+  location / {
+    proxy_pass http://localhost:3000;
+  }
+}
+```
+
+**Point (again):**
+So using Nginx with DNS mapping helps route traffic cleanly and securely to your Node.js app.
+
+---
+
+### **3. Q: How can you ensure the app runs automatically when the EC2 instance restarts?**
+
+**Point:**
+You can configure PM2 to start your app automatically after system reboot.
+
+**Reason:**
+Without this setup, your app would go down every time the instance restarts.
+
+**Example:**
+Run these commands after starting your app:
+
+```bash
+pm2 startup systemd
+pm2 save
+```
+
+This saves the PM2 process list and reloads it at boot.
+
+**Point (again):**
+So PM2 startup configuration ensures uptime and reliability even after restarts.
+
+---
+Sure! Let’s answer the question **“What is a reverse proxy?”** using the **PREP format**, and then I’ll include **possible cross-questions** that an interviewer might ask — with short, clear **PREP-style answers** for each.
+
+---
+
+## 🎯 **Main Question: What is a reverse proxy?**
+
+**Point:**
+A reverse proxy is a server that sits between client devices and backend servers, forwarding client requests to the appropriate backend server.
+
+**Reason:**
+It helps improve performance, security, and scalability by managing traffic before it reaches the backend servers.
+
+**Example:**
+For instance, in a web application, Nginx can act as a reverse proxy — receiving all incoming HTTP requests, distributing them to multiple application servers, and caching responses to speed up delivery.
+
+**Point (again):**
+So, a reverse proxy acts as an intermediary that optimizes and protects backend servers while handling client requests efficiently.
+
+---
+
+## 🧩 **Possible Cross-Questions**
+
+### 1. ❓**How is a reverse proxy different from a forward proxy?**
+
+**Point:**
+A forward proxy sits in front of clients, while a reverse proxy sits in front of servers.
+
+**Reason:**
+The forward proxy hides client details from the internet, whereas the reverse proxy hides server details from clients.
+
+**Example:**
+For example, a company might use a forward proxy to control employee internet access, while a reverse proxy like Nginx protects and balances requests to internal web servers.
+
+**Point (again):**
+In short, the key difference is who they represent — forward proxies represent clients, reverse proxies represent servers.
+
+---
+
+### 2. ❓**What are the advantages of using a reverse proxy?**
+
+**Point:**
+Reverse proxies offer multiple benefits like load balancing, caching, SSL termination, and security.
+
+**Reason:**
+These features help distribute traffic evenly, reduce server load, and protect backend servers from direct exposure.
+
+**Example:**
+For example, a reverse proxy can terminate HTTPS connections, freeing backend servers from SSL processing overhead.
+
+**Point (again):**
+Overall, reverse proxies make systems faster, safer, and more scalable.
+
+---
+
+### 3. ❓**Can you name some tools commonly used as reverse proxies?**
+
+**Point:**
+Some popular reverse proxy tools are Nginx, HAProxy, Apache HTTP Server (mod_proxy), and Traefik.
+
+**Reason:**
+These tools are known for handling high traffic efficiently and supporting advanced features like load balancing and caching.
+
+**Example:**
+For example, Netflix uses Nginx as a reverse proxy for traffic distribution across its microservices.
+
+**Point (again):**
+So, Nginx and HAProxy are among the most commonly used reverse proxy solutions in real-world systems.
+
+---
+
+### 4. ❓**When should you use a reverse proxy?**
+
+**Point:**
+A reverse proxy is ideal when you need to manage, secure, and scale web traffic effectively.
+
+**Reason:**
+It becomes valuable when your application grows and you need features like load balancing, caching, or SSL offloading.
+
+**Example:**
+For example, if your website gets millions of requests per day, a reverse proxy can distribute requests to multiple backend servers and prevent overload.
+
+**Point (again):**
+So, use a reverse proxy when scalability, performance, or security are key priorities.
+
+---
