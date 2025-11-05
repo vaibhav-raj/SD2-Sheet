@@ -14,11 +14,15 @@ Perfect — let’s make this tight and practical so you can *sound confident, c
 
 **1. Tell me about yourself.**
 
-> “I’m a Node.js developer with around X years of experience building scalable REST APIs and backend services. I’ve mainly worked with Express, MongoDB, and JWT-based authentication. I enjoy writing clean, maintainable code and collaborating with cross-functional teams to deliver business-focused solutions.”
+> “Hi, I’m Vaibhav Raj, a backend developer with around four years of experience working mainly with Node.js, NestJS, GraphQL, and MongoDB.
 
-**2. Walk me through a recent Node.js project.**
+I started my career at KnowledgeHut, which later merged with upGrad, where I worked on microservices, performance improvements, and features like rule engines, Redis caching, and learner progress tracking.
 
-> “I built a REST API for a client platform using Node.js + Express. It handled user auth, product data, and image uploads. I focused on modular architecture, async operations, and proper error handling to keep it efficient and easy to extend.”
+Currently, I’m with ConvertEdge Tech, helping build an EdTech platform where I focus on API design, database optimization, and integrations such as Zoom and payment systems.
+
+I enjoy solving real problems, optimizing performance, and building scalable systems that deliver a great user experience.
+
+That’s a quick overview about me. I’m excited to learn more about your team and the work at Mono Solutions”
 
 **3. What’s the difference between synchronous and asynchronous code?**
 
