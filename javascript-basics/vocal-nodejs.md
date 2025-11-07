@@ -1055,6 +1055,10 @@ Perfect — let’s answer this in the **PREP** format and then list possible **
 
 ### 💬 **Main Question: Why did you choose RabbitMQ over Kafka?**
 
+I chose RabbitMQ over Kafka because the system I was designing needed reliable message delivery and task-based processing, not large-scale event streaming.
+RabbitMQ is better for point-to-point communication, acknowledgements, and retry logic, which matched our use case — ensuring every job was processed exactly once.
+Kafka, on the other hand, is great for high-throughput event streams, but it’s more complex to manage and optimize for smaller workloads.
+
 **🟢 Point:**
 I chose RabbitMQ over Kafka because it’s better suited for use cases that require reliable message delivery, complex routing, and easier message acknowledgment handling.
 
