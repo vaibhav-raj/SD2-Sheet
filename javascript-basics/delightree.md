@@ -131,6 +131,127 @@ Explain how you would index it.
 
 ---
 
-If you want, we can walk through these step by step — or you can try answering and I’ll grade you like the interviewer.
+1️⃣ SCENARIO: Find High Value Customers
 
-Want to attempt one?
+Dataset: users, orders
+
+Your product team wants to know:
+
+customers who placed at least 2 delivered orders
+
+AND total order value (sum of qty * price) > ₹50,000
+
+Return only: _id, name, totalSpent, totalOrders
+
+❓ Write an optimized aggregation with early $match and reduced $unwind.
+
+
+``
+db.orders.aggregate([
+  {
+    $match: { status: "delivered" }
+  },
+  {
+    $addFields: {
+      orderTotal: {
+        $sum: {
+          $map: {
+            input: "$items",
+            as: "i",
+            in: { $multiply: ["$$i.qty", "$$i.price"] }
+          }
+        }
+      }
+    }
+  },
+  {
+    $group: {
+      _id: "$userId",
+      totalSpent: { $sum: "$orderTotal" },
+      totalOrders: { $sum: 1 }
+    }
+  },
+  {
+    $match: {
+      totalOrders: { $gte: 2 },
+      totalSpent: { $gt: 50000 }
+    }
+  },
+  {
+    $lookup: {
+      from: "users",
+      let: { uid: "$_id" },
+      pipeline: [
+        {
+          $match: {
+            $expr: {
+              $and: [
+                { $eq: ["$_id", "$$uid"] },
+                { $eq: ["$role", "manager"] }
+              ]
+            }
+          }
+        }
+      ],
+      as: "user"
+    }
+  },
+  { $unwind: "$user" }
+]);
+
+``
+
+2️⃣ SCENARIO: Best Selling Product By Revenue
+
+Dataset: orders, products
+
+Management asks:
+
+Which product generated the highest revenue in the last 30 days?
+
+Also return category from products.
+
+Revenue = sum of (qty * price) across all orders.
+
+❓ Write pipeline + explain which indexes are required.
+``
+db.orders.aggregate([
+  {
+    // Uses index on createdAt
+    $match: {
+      createdAt: {
+        $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+      }
+    }
+  },
+  {
+      $addFields: {
+          itemRevenues :{
+              $map: {
+                input: "$items",
+                as: "i",
+                in: { 
+                   product: "$$i.product",
+                   revenue: { $multiply: ["$$i.qty", "$$i.price"] }
+                }
+              }
+          }
+      }
+  },
+  { 
+    $unwind: "$itemRevenues" 
+  },
+  {
+    $group: {
+      _id: "$itemRevenues.product",
+      totalRevenue: { $sum: "$itemRevenues.revenue" }
+    }
+  },
+  {
+    $sort: { totalRevenue: -1 }
+  },
+  { 
+    $limit: 1 
+  }
+])
+``
