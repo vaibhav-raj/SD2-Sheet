@@ -146,7 +146,7 @@ Return only: _id, name, totalSpent, totalOrders
 ❓ Write an optimized aggregation with early $match and reduced $unwind.
 
 
-``
+```json
 db.orders.aggregate([
   {
     $match: { status: "delivered" }
@@ -199,7 +199,7 @@ db.orders.aggregate([
   { $unwind: "$user" }
 ]);
 
-``
+```
 
 2️⃣ SCENARIO: Best Selling Product By Revenue
 
@@ -214,7 +214,7 @@ Also return category from products.
 Revenue = sum of (qty * price) across all orders.
 
 ❓ Write pipeline + explain which indexes are required.
-``
+```json
 db.orders.aggregate([
   {
     // Uses index on createdAt
@@ -254,4 +254,4 @@ db.orders.aggregate([
     $limit: 1 
   }
 ])
-``
+```
