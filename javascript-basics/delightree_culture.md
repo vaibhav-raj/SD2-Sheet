@@ -7,7 +7,6 @@ I started my career at KnowledgeHut, which later merged with UpGrad, and then mo
 I’m interested in Delightree because it’s solving a very real problem for multi-location businesses, and I connect with that mission. I’m looking for a place where I can contribute directly, take responsibility, and grow with the product. And I’m comfortable working independently during US hours and keeping things stable when the rest of the team is offline.”
 
 
-
 ## Q2. “How do you handle urgent production issues?”
 
 For any production issue, I start by understanding the scope — whether it affects a single tenant or multiple tenants. That tells me how urgent and how wide the impact is.
@@ -166,6 +165,25 @@ I also see myself taking more ownership — not just fixing issues, but preventi
 
 Most importantly, I want to grow with the product here. As Delightree scales, I want to be part of the core team that supports that growth and keeps the system stable
 
+## Q20. What does work-life balance look like for you?
+For me, work-life balance means being fully focused during work hours and giving my best, but also having time to rest and recharge after. When I’m off work, I try to disconnect so I can come back fresh the next day. I’ve learned that keeping that balance actually helps me stay more productive, calm, and clear-headed during tough issues.
+
+## Q21. what do you know about the compnay what should i tell her? and add detials about product
+
+From what I’ve learned, Delightree is a product company focused on helping multi-unit and franchise businesses run their daily operations smoothly. It was founded by Tushar Mishra and Madhulika Mukherjee around 2019–2020, and the company has raised seed funding from investors like Accel and Axilor. Delightree operates mainly in the US market and supports brands across restaurants, retail, services, and other franchise-heavy industries.
+
+What I like most is how complete the product is. You’ve built five strong modules that cover the entire lifecycle of a franchise location:
+
+– Launching New Locations (LoLa) → centralizing documents, approvals, and workflows for opening new stores.
+– Knowledge Hub → the core knowledge base where all SOPs and processes live.
+– Training & Onboarding → structured onboarding flows for both owners and employees.
+– Daily Operations → task lists, forms, checklists, audits—everything needed for day-to-day consistency.
+– Communication & Engagement → announcements and updates across all locations.
+
+It feels like Delightree is solving a very real problem: bringing consistency, visibility, and efficiency to businesses that have many locations. That’s what attracted me, because this kind of operational workflow matches the way I think about backend systems and stability.
+
+## Are you comfortable working US hours?
+Since it’s a remote role, working US hours isn’t an issue for me. I’ve already worked late nights handling production issues in my cuurent roles, so I’m used to that timing. That experience helps me stay focused and productive during night hours as well.
 
 ✅ Top Questions to Ask the CTO (Choose 2–3)
 1. “What does success look like in the first 90 days for this role?”
