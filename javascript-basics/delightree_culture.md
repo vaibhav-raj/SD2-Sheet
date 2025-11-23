@@ -185,6 +185,12 @@ It feels like Delightree is solving a very real problem: bringing consistency, v
 ## Are you comfortable working US hours?
 Since it’s a remote role, working US hours isn’t an issue for me. I’ve already worked late nights handling production issues in my cuurent roles, so I’m used to that timing. That experience helps me stay focused and productive during night hours as well.
 
+## Salary:
+My current CTC is 11.2 LPA fixed.
+For this role, considering the responsibilities and US-hour timing, I’m expecting something in the 22–24 LPA range.
+It’s well within your budget, and it’s the range I feel is fair for the role and the work.
+
+
 ✅ Top Questions to Ask the CTO (Choose 2–3)
 1. “What does success look like in the first 90 days for this role?”
 
