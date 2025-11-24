@@ -6,6 +6,19 @@ I started my career at KnowledgeHut, which later merged with UpGrad, and then mo
 
 I’m interested in Delightree because it’s solving a very real problem for multi-location businesses, and I connect with that mission. I’m looking for a place where I can contribute directly, take responsibility, and grow with the product. And I’m comfortable working independently during US hours and keeping things stable when the rest of the team is offline.”
 
+## GOAL
+### 0–12 Months (Short Term)
+
+“In the first year, I want to really understand the product and the backend architecture, and become someone the team can rely on during critical issues. I want to take full ownership of my tasks, handle problems end-to-end, and help improve the stability and performance of the system.”
+
+### After 5 Years (Mid Term)
+
+“In five years, I see myself taking on more responsibility—maybe leading a small team or owning major parts of the backend. I want to be involved in architectural decisions and help shape how the product grows.”
+
+### After 10 Years (Long Term)
+
+“In ten years, I want to be building meaningful products and helping other engineers grow. I see myself in a role that combines building things, solving problems, and mentoring others.”
+
 
 ## Q2. “How do you handle urgent production issues?”
 
