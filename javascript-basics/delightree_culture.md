@@ -9,15 +9,15 @@ I’m interested in Delightree because it’s solving a very real problem for mu
 ## GOAL
 ### 0–12 Months (Short Term)
 
-“In the first year, I want to really understand the product and the backend architecture, and become someone the team can rely on during critical issues. I want to take full ownership of my tasks, handle problems end-to-end, and help improve the stability and performance of the system.”
+If I become part of the company, my first priority in the short term will be to understand the product deeply and learn the backend architecture well. I want to become someone the team can rely on during critical issues. My goal is to take full ownership of my tasks, handle problems end-to-end, and actively contribute to improving the stability and performance of the system.
 
 ### After 5 Years (Mid Term)
 
-“In five years, I see myself taking on more responsibility—maybe leading a small team or owning major parts of the backend. I want to be involved in architectural decisions and help shape how the product grows.”
+In five years, I see myself taking more responsibility—maybe leading a backend team or owning key parts of the system. I want to be involved in architectural decisions, improve processes, and help the product scale. My goal is to become a stronger engineer who can guide others and contribute to the backend direction of the company.
 
 ### After 10 Years (Long Term)
 
-“In ten years, I want to be building meaningful products and helping other engineers grow. I see myself in a role that combines building things, solving problems, and mentoring others.”
+“In ten years, I want to be building meaningful products and helping other to grow. I see myself in a role that combines building things, solving problems, and mentoring others.”
 
 
 ## Q2. “How do you handle urgent production issues?”
